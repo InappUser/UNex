@@ -1,0 +1,40 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerStuff/PlayerScripts/Equipment/UseEquipment.cs">
+    <Files>
+      <File FileName="Assets/PlayerStuff/PlayerScripts/Weapon/Shoot.cs" Line="104" Column="4" />
+      <File FileName="Assets/Scripts/NetworkManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/PlayerStuff/PlayerScripts/Weapon/WeaponManager.cs" Line="77" Column="5" />
+      <File FileName="Assets/Scripts/Spawning.cs" Line="23" Column="1" />
+      <File FileName="Assets/PlayerStuff/PlayerScripts/PauseUI.cs" Line="50" Column="49" />
+      <File FileName="Assets/PlayerStuff/PlayerScripts/Equipment/UseEquipment.cs" Line="31" Column="28" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Photon Unity Networking" expanded="True">
+              <Node name="Plugins" expanded="True">
+                <Node name="PhotonNetwork" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="PlayerStuff" expanded="True">
+              <Node name="PlayerScripts" expanded="True">
+                <Node name="Equipment" expanded="True">
+                  <Node name="UseEquipment.cs" selected="True" />
+                </Node>
+                <Node name="Projectile" expanded="True" />
+                <Node name="Weapon" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Scripts" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
