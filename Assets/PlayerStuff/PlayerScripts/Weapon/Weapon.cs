@@ -4,7 +4,7 @@ using System.Collections;
 public class Weapon{//:monobehaviour is only for scripts that are to be attached to objects
 	public short clipcount;
 	public float fireRateCoolDown;
-	public enum WeaponType{Stream,Projectile};
+	public enum WeaponType{Stream,SingleShot,Projectile};
 
 	private GameObject model;
 	private GameObject shootEffect;//naming convention to differentiate between variables and methods

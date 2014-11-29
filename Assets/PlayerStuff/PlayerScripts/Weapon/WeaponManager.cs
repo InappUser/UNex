@@ -5,8 +5,8 @@ public class WeaponManager : MonoBehaviour {
 	public GameObject machineGunModel;
 	public GameObject machineGunEffect;
 
-	public GameObject sniperRifleModel;
-	public GameObject sniperRifleEffect;
+	public GameObject shotGunModel;
+	public GameObject shotGunEffect;
 
 	public GameObject rocketLauncherModel;
 	public GameObject rocketProjectile;
@@ -18,7 +18,7 @@ public class WeaponManager : MonoBehaviour {
 
 	private Weapon[] weapons;
 	private Weapon machineGun;
-	private Weapon sniperRifle;
+	private Weapon shotGun;
 	private Weapon rocketLauncher;
 	private short currentWeaponnum = 1;
 	private float wheelnum = 1;
@@ -42,20 +42,20 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetWeaponType (Weapon.WeaponType.Stream);//reserving 0 for unarmed in the future; also coresponds with key pressed to activate
 		return machineGun;
 	}
-	Weapon InstantiateSniperRifle()
+	Weapon InstantiateShotGun()
 	{
-		sniperRifle = new Weapon();//instantiating the object
-		sniperRifle.SetModel(sniperRifleModel);
-		sniperRifle.SetShootEffect(sniperRifleEffect);//assigning machine gun specific variables 
-		sniperRifle.SetShootExitBarrel (exitBarrelEffect);
-		sniperRifle.SetSDamage(100f);
-		sniperRifle.SetFireRate (0.5f);
-		sniperRifle.SetReloadTime(3f);
-		sniperRifle.SetClipSize (8);
-		sniperRifle.clipcount = sniperRifle.GetClipSize ();
-		sniperRifle.SetWeaponName("Sniper Rifle");
-		sniperRifle.SetWeaponType (Weapon.WeaponType.Stream);
-		return sniperRifle;
+		shotGun = new Weapon();//instantiating the object
+		shotGun.SetModel(shotGunModel);
+		shotGun.SetShootEffect(shotGunEffect);//assigning machine gun specific variables 
+		shotGun.SetShootExitBarrel (exitBarrelEffect);
+		shotGun.SetSDamage(100f);
+		shotGun.SetFireRate (0.5f);
+		shotGun.SetReloadTime(5f);
+		shotGun.SetClipSize (2);
+		shotGun.clipcount = shotGun.GetClipSize ();
+		shotGun.SetWeaponName("Sniper Rifle");
+		shotGun.SetWeaponType (Weapon.WeaponType.SingleShot);
+		return shotGun;
 	}
 	Weapon InstantiateRocketLauncher()
 	{
@@ -77,7 +77,7 @@ public class WeaponManager : MonoBehaviour {
 		//weaponHold = new GameObject ();
 		weapons = new Weapon[3];//hard coded as there will only be 3 weapons
 		weapons[0] = InstantiateMachineGun ();
-		weapons[1] = InstantiateSniperRifle ();
+		weapons[1] = InstantiateShotGun ();
 		weapons[2] = InstantiateRocketLauncher ();
 		currentWeapon = machineGun; //machine gun by default
 

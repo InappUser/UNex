@@ -1,0 +1,752 @@
+fileFormatVersion: 2
+guid: 3dc6c98b31a9537449c2aa77cbcdbe7d
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: ball
+    100002: clavicle_L
+    100004: clavicle_R
+    100006: Control
+    100008: deltoid_L
+    100010: deltoid_R
+    100012: f_index_01_L
+    100014: f_index_01_R
+    100016: f_index_02_L
+    100018: f_index_02_R
+    100020: f_index_03_L
+    100022: f_index_03_R
+    100024: f_middle_01_L
+    100026: f_middle_01_R
+    100028: f_middle_02_L
+    100030: f_middle_02_R
+    100032: f_middle_03_L
+    100034: f_middle_03_R
+    100036: f_pinky_01_L
+    100038: f_pinky_01_R
+    100040: f_pinky_02_L
+    100042: f_pinky_02_R
+    100044: f_pinky_03_L
+    100046: f_pinky_03_R
+    100048: f_ring_01_L
+    100050: f_ring_01_R
+    100052: f_ring_02_L
+    100054: f_ring_02_R
+    100056: f_ring_03_L
+    100058: f_ring_03_R
+    100060: forearm_L
+    100062: forearm_L_001
+    100064: forearm_R
+    100066: forearm_R_001
+    100068: hand_L
+    100070: hand_R
+    100072: //RootNode
+    100074: HumanModel
+    100076: HumanModel_Body
+    100078: Magazine
+    100080: palm_index_L
+    100082: palm_index_R
+    100084: palm_middle_L
+    100086: palm_middle_R
+    100088: palm_pinky_L
+    100090: palm_pinky_R
+    100092: palm_ring_L
+    100094: palm_ring_R
+    100096: Plane
+    100098: thumb_01_L
+    100100: thumb_01_R
+    100102: thumb_02_L
+    100104: thumb_02_R
+    100106: thumb_03_L
+    100108: thumb_03_R
+    100110: Trigger
+    100112: upper_arm_L
+    100114: upper_arm_R
+    400000: ball
+    400002: clavicle_L
+    400004: clavicle_R
+    400006: Control
+    400008: deltoid_L
+    400010: deltoid_R
+    400012: f_index_01_L
+    400014: f_index_01_R
+    400016: f_index_02_L
+    400018: f_index_02_R
+    400020: f_index_03_L
+    400022: f_index_03_R
+    400024: f_middle_01_L
+    400026: f_middle_01_R
+    400028: f_middle_02_L
+    400030: f_middle_02_R
+    400032: f_middle_03_L
+    400034: f_middle_03_R
+    400036: f_pinky_01_L
+    400038: f_pinky_01_R
+    400040: f_pinky_02_L
+    400042: f_pinky_02_R
+    400044: f_pinky_03_L
+    400046: f_pinky_03_R
+    400048: f_ring_01_L
+    400050: f_ring_01_R
+    400052: f_ring_02_L
+    400054: f_ring_02_R
+    400056: f_ring_03_L
+    400058: f_ring_03_R
+    400060: forearm_L
+    400062: forearm_L_001
+    400064: forearm_R
+    400066: forearm_R_001
+    400068: hand_L
+    400070: hand_R
+    400072: //RootNode
+    400074: HumanModel
+    400076: HumanModel_Body
+    400078: Magazine
+    400080: palm_index_L
+    400082: palm_index_R
+    400084: palm_middle_L
+    400086: palm_middle_R
+    400088: palm_pinky_L
+    400090: palm_pinky_R
+    400092: palm_ring_L
+    400094: palm_ring_R
+    400096: Plane
+    400098: thumb_01_L
+    400100: thumb_01_R
+    400102: thumb_02_L
+    400104: thumb_02_R
+    400106: thumb_03_L
+    400108: thumb_03_R
+    400110: Trigger
+    400112: upper_arm_L
+    400114: upper_arm_R
+    4300000: HumanModel_Body
+    4300002: Plane
+    7400000: Default Take
+    7400002: IDLE
+    7400004: Reload
+    7400006: Shoot
+    9500000: //RootNode
+    13700000: HumanModel_Body
+    13700002: Plane
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: HumanModel
+        weight: 1
+      - path: HumanModel/ball
+        weight: 1
+      - path: HumanModel/clavicle_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: HumanModel/clavicle_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: HumanModel/Control
+        weight: 1
+      - path: HumanModel/forearm_L_001
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L/f_index_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L/f_middle_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L/f_pinky_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L/f_ring_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: HumanModel/forearm_R_001
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R/f_index_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R/f_middle_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R/f_pinky_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R/f_ring_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: HumanModel/Magazine
+        weight: 1
+      - path: HumanModel/Trigger
+        weight: 1
+      - path: HumanModel_Body
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: IDLE
+      takeName: IDLE
+      firstFrame: -1
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: HumanModel
+        weight: 1
+      - path: HumanModel/ball
+        weight: 1
+      - path: HumanModel/clavicle_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: HumanModel/clavicle_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: HumanModel/Control
+        weight: 1
+      - path: HumanModel/forearm_L_001
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L/f_index_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L/f_middle_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L/f_pinky_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L/f_ring_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: HumanModel/forearm_R_001
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R/f_index_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R/f_middle_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R/f_pinky_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R/f_ring_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: HumanModel/Magazine
+        weight: 1
+      - path: HumanModel/Trigger
+        weight: 1
+      - path: HumanModel_Body
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Reload
+      takeName: Reload
+      firstFrame: -1
+      lastFrame: 83
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: HumanModel
+        weight: 1
+      - path: HumanModel/ball
+        weight: 1
+      - path: HumanModel/clavicle_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: HumanModel/clavicle_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: HumanModel/Control
+        weight: 1
+      - path: HumanModel/forearm_L_001
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L/f_index_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L/f_middle_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L/f_pinky_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L/f_ring_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: HumanModel/forearm_R_001
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R/f_index_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R/f_middle_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R/f_pinky_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R/f_ring_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: HumanModel/Magazine
+        weight: 1
+      - path: HumanModel/Trigger
+        weight: 1
+      - path: HumanModel_Body
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Shoot
+      takeName: Shoot
+      firstFrame: -1
+      lastFrame: 289
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: HumanModel
+        weight: 1
+      - path: HumanModel/ball
+        weight: 1
+      - path: HumanModel/clavicle_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L
+        weight: 1
+      - path: HumanModel/clavicle_L/deltoid_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: HumanModel/clavicle_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R
+        weight: 1
+      - path: HumanModel/clavicle_R/deltoid_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: HumanModel/Control
+        weight: 1
+      - path: HumanModel/forearm_L_001
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_index_L/f_index_01_L/f_index_02_L/f_index_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_middle_L/f_middle_01_L/f_middle_02_L/f_middle_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_pinky_L/f_pinky_01_L/f_pinky_02_L/f_pinky_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/palm_ring_L/f_ring_01_L/f_ring_02_L/f_ring_03_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L
+        weight: 1
+      - path: HumanModel/forearm_L_001/hand_L/thumb_01_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: HumanModel/forearm_R_001
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_index_R/f_index_01_R/f_index_02_R/f_index_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_middle_R/f_middle_01_R/f_middle_02_R/f_middle_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_pinky_R/f_pinky_01_R/f_pinky_02_R/f_pinky_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/palm_ring_R/f_ring_01_R/f_ring_02_R/f_ring_03_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R
+        weight: 1
+      - path: HumanModel/forearm_R_001/hand_R/thumb_01_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: HumanModel/Magazine
+        weight: 1
+      - path: HumanModel/Trigger
+        weight: 1
+      - path: HumanModel_Body
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

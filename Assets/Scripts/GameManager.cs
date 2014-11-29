@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour {
 	private EquipmentManager playerEquipment;
 	private Shoot weaponAmmo;
 	private bool paused = false;
-	private PauseUI pauseGame;
+	private UIManager pauseGame;
 	static short level=1;
 
-	public PauseUI ReturnPauseUI()
+	public UIManager ReturnPauseUI()
 	{
 		return pauseGame;
 	}
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 	
 	void Start()
 	{
-		pauseGame = pauseUI.GetComponent<PauseUI> ();
+		pauseGame = gameObject.GetComponent<UIManager> ();
 		enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
 		Debug.Log (enemyCount);
 	}
@@ -62,8 +62,9 @@ public class GameManager : MonoBehaviour {
 			WeaponSelection ();
 			EquipmentSelection();
 			AmmoCount();
-			if((Input.GetKeyDown(KeyCode.Escape) || pauseGame.resume) && player){
-				pauseGame.resume = false;
+			if((Input.GetKeyDown(KeyCode.Escape) || UIManager.resume) && player){
+				//Debug.Log("pausegame: "+pauseGame.resume);
+				UIManager.resume = false;//these were made static - there will only ever be one instance per player
 				pauseGame.PausedResume (player);//abstracting the pause to the pause script
 			}
 		}

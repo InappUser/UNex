@@ -20,3 +20,10 @@ w/e because the other gun is being done first and is only doing one
 
 if the network view component on the FPS_Player object's camera object is set to reliable, there is a noticable lag 
 when rotating the gun. changed to unreliable to fix this. ... or not, changed it back and is working find.
+
+
+
+
+
+if try to do a build while a build is open then will say that there is a sharing violation
+if it says cannot access a database file, try making entire directory writable

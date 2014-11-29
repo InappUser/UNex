@@ -14,9 +14,13 @@ public class NetworkManager : MonoBehaviour {
 	private PlayerSpawnPoint[] playerSpawnPoints;//an array object "spawnPoints" created with the class "SpawnPoint"
 	private GameObject[] enemySpawnPoints;//enemy spawns
 	private bool connectFailed = false;
+	private bool singleplayer = false;
+	private bool mulitiplayer = false;
+	private bool setPlayerName = false;
 	private List<string> chatMessages;
 	private int maxChatMessages =5;
 	private GameObject[] enemyCheck;
+	private UIManager ui;
 
 	public void OnFailedToConnectToPhoton(object parameters)
 	{
@@ -30,6 +34,11 @@ public class NetworkManager : MonoBehaviour {
 		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();//getting all player spawnpoints
 		//Connection (); //removing auto connect to allow for button selection
 		PhotonNetwork.player.name = PlayerPrefs.GetString("User","New Player");//setting a default value to be saved
+	}
+	void Start()
+	{
+		ui = gameObject.GetComponent<UIManager> ();
+		ui.UIEnableOnly ("StartUI");
 	}
 
 
@@ -70,33 +79,39 @@ public class NetworkManager : MonoBehaviour {
 			PhotonNetwork.automaticallySyncScene = true;
 			//http://forum.exitgames.com/viewtopic.php?f=17&t=2575
 			//this stuff is really antiquated, chnge to enabling and disabling buttons within the ui
-			GUILayout.BeginArea(new Rect(0,0, Screen.width, Screen.height));
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			GUILayout.BeginVertical();
-			GUILayout.FlexibleSpace();
-			
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("Player Name");
-			PhotonNetwork.player.name = GUILayout.TextField(PhotonNetwork.player.name, 25);//max lenght of player name
+//			GUILayout.BeginArea(new Rect(0,0, Screen.width, Screen.height));
+//			GUILayout.BeginHorizontal();
+//			GUILayout.FlexibleSpace();
+//			GUILayout.BeginVertical();
+//			GUILayout.FlexibleSpace();
+//			
+//			GUILayout.BeginHorizontal();
+//			GUILayout.Label("Player Name");
+			Debug.Log(singleplayer);
+			if(PhotonNetwork.player.name == "" && !setPlayerName)
+			{
+				ui.SetPlayerName(PhotonNetwork.player.name);
+				setPlayerName = true;
+			}
+			PhotonNetwork.player.name = ui.GetPlayerName();
 			//PhotonNetwork.player.name = Regex.Replace(^);
-			GUILayout.EndHorizontal();
+			//GUILayout.EndHorizontal();
 			
-			if(GUILayout.Button("Single Player") && !connecting){
+			if(singleplayer && !connecting){
 				connecting=true;//getting rid of the buttons re-appearing after connection is set
 				PhotonNetwork.offlineMode = true;
 				OnJoinedLobby(); //pretending we are conncted and everything is fine
 				//am just skipping the connect phase
 			}
-			if(GUILayout.Button("Multiplayer") && !connecting){
+			if(mulitiplayer && !connecting){
 				connecting=true;
 				Connection ();
 			}
-			GUILayout.FlexibleSpace();
-			GUILayout.EndVertical();
-			GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
-			GUILayout.EndArea();
+//			GUILayout.FlexibleSpace();
+//			GUILayout.EndVertical();
+//			GUILayout.FlexibleSpace();
+//			GUILayout.EndHorizontal();
+//			GUILayout.EndArea();
 	}
 
 
@@ -129,6 +144,8 @@ public class NetworkManager : MonoBehaviour {
 	void OnJoinedRoom()
 	{
 		spawn.SpawnPlayer ();
+		ui.UIEnableOnly ("InGameUI");
+		gameObject.GetComponent<GameManager> ().enabled = true;
 		if (PhotonNetwork.isMasterClient) {
 			SpawnEnemies ();
 				}
@@ -159,5 +176,19 @@ public class NetworkManager : MonoBehaviour {
 		}
 		spawnedEnemies = true;
 	}
-
+	public void StartSingleplayer()
+	{
+		singleplayer = true;
+		mulitiplayer = false;
+		Debug.Log (singleplayer);
+		PhotonNetwork.offlineMode = true;
+		OnJoinedLobby(); //pretending we are conncted and everything is fine
+		//am just skipping the connect phase		
+	}
+	public void StartMultiplayer()
+	{
+		mulitiplayer = true;
+		singleplayer = false;
+		Connection ();
+	}
 }

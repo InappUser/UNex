@@ -10,12 +10,10 @@ public class EnemyAITwo : MonoBehaviour {
 	public Transform[] ptrolWayPoints;
 	public Animator anim;
 	public NavMeshAgent nav;
+	public UIManager pauseGame;
 	public static bool alerted = false;
 	//made true when an enemy dies; in the health script upon the death being and enemy
-
-
-
-	private GameObject pauseUI;
+	
 	private GameObject player;
 	private bool chasing = false;
 	private float distance;
@@ -24,13 +22,13 @@ public class EnemyAITwo : MonoBehaviour {
 	private float attackDamage = 2;
 	private Transform spawnPoint;
 	private GameManager gameManager;
-	private PauseUI pauseGame;
+	private bool foundUI = false;
 
 	//private EnemySight enemy
 	void Start()
 	{
 		gameManager = GameObject.FindObjectOfType<GameManager> ();
-		pauseGame = gameManager.ReturnPauseUI();
+
 		GameObject[] spawns = GameObject.FindGameObjectsWithTag("EnemySpawn");//doesn't like getting the transform of the objects
 		float[] enemyToSpawn = new float[spawns.Length];
 		float shortestDistance = 100f;//initialising to 100 bc will definitely be larger than the distance from any of the spawns
@@ -54,19 +52,21 @@ public class EnemyAITwo : MonoBehaviour {
 	void Update()
 	{
 
-		if(FindPlayer() && !pauseGame.paused && alerted){
-			if(distance < foundDistance)
-			{chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/}
-			else if(distance >= returnDistance){
-				chasing = false;}
-			if(distance < attackDistance){
-				Attack ();}
-			if (chasing && player && player.GetComponent<Health>().currentHitPoints >0) {
-				Chase ();/*gameObject.GetComponent<PhotonView>().RPC ("Chase",PhotonTargets.AllBuffered);*/}
-			else if(!chasing){
-				returnToSpawn();}
-		}
-
+		if (FindPlayer () && !pauseGame.paused && alerted) {
+				if (distance < foundDistance) {
+						chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/
+				} else if (distance >= returnDistance) {
+						chasing = false;
+				}
+				if (distance < attackDistance) {
+						Attack ();
+				}
+				if (chasing && player && player.GetComponent<Health> ().currentHitPoints > 0) {
+						Chase ();/*gameObject.GetComponent<PhotonView>().RPC ("Chase",PhotonTargets.AllBuffered);*/
+				} else if (!chasing) {
+						returnToSpawn ();
+				}
+			}
 	}
 
 	bool FindPlayer()

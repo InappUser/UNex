@@ -13,6 +13,7 @@ public class Shoot : MonoBehaviour {
 	private WeaponManager weapon; 
 	private float fRateCool;
 	private GameObject muzzleFlash;
+	private bool firing = false;
 
 
 	//private float fRate;
@@ -30,16 +31,16 @@ public class Shoot : MonoBehaviour {
 
 		KeepGunCurrent ();
 
-		if(Input.GetButton("Fire1") && (fRateCool<0) && weapon.currentWeapon.clipcount >0 && !reloading){
-			Fire ();}
+		if(Input.GetButton("Fire1") && (fRateCool<0) && weapon.currentWeapon.clipcount >0 && !reloading && !firing){
+			StartCoroutine( Fire());}//is an ienumerator so that a delay can occur with the shotgun
 //		if (weapon.currentWeapon.fireRateCoolDown >= weapon.currentWeapon.GetFireRate()) {
 //			shootLine.enabled = false;}		
 		if(!reloading && (Input.GetKey (KeyCode.R) || weapon.currentWeapon.clipcount <=0) && weapon.currentWeapon.clipcount < weapon.currentWeapon.GetClipSize()){
-			StartCoroutine("Reload");}
+			StartCoroutine(ActivateAnim("Reloading", true, weapon.currentWeapon.GetReloadTime()));}
 
 		if (reloading && weapon.GetWeaponChanged () == true) {
 			Debug.Log("weapon changed while reloading");
-			StopCoroutine("Reload");
+			StopCoroutine("ActivateAnim");
 			reloading = false;
 			if(anim)
 				anim.SetBool ("Reloading", false);
@@ -65,33 +66,47 @@ public class Shoot : MonoBehaviour {
 		//(ensures that the ammo will change as soon as the weapon has)
 	}
 
-	void Fire()
+	IEnumerator Fire()
 	{
+
+
+		StartCoroutine (ActivateAnim ("Shooting", false, weapon.currentWeapon.GetFireRate ()));
+		if (weapon.currentWeapon.GetWeaponType () == Weapon.WeaponType.SingleShot) {
+			Debug.Log("is singleshot");
+			firing = true;
+			yield return new WaitForSeconds (weapon.currentWeapon.GetFireRate()*.2f);
+			firing = false;
+		}
 		weapon.currentWeapon.clipcount --;
-		//shootLine.enabled = true;
-		//shootLine.SetPosition (0, shootExitPos);//giving the line renderer a starting position
 		weapon.currentWeapon.fireRateCoolDown = weapon.currentWeapon.GetFireRate();// reseting the fire rate cooldown
 
 		if(weapon.currentWeapon.GetShootEffect()){
-			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
-			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.position,shootExit.transform.rotation);
-
 			//shooting the rocket further forward if the weapon is a rocket
 			if(weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Projectile){
 				Instantiate (weapon.currentWeapon.GetShootEffect(), shootExitPos + (shootExit.forward*0.1f), Camera.main.transform.rotation);
-				return;//if is the rocket launcher then the rocket will deal damage etc.
+				return false;//if is the rocket launcher then the rocket will deal damage etc.
 			}
+			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
+			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.position,shootExit.transform.rotation);
 		}
 
+		DrawRay ();
+
+
+
+
+	}
+	void DrawRay()
+	{
 		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 		RaycastHit hitInfo;
-
+		
 		if (Physics.Raycast (ray, out hitInfo, 100f)) {
 			if(weapon.currentWeapon.GetShootEffect()){
 				Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.identity);}
-
+			
 			GameObject gO = hitInfo.collider.gameObject;//getting the hit gameobject
-
+			
 			hitGOHealth =gO.GetComponent<Health>();
 			if(hitGOHealth){
 				if(!hitGOHealth.GetComponent<PhotonView>())
@@ -101,33 +116,28 @@ public class Shoot : MonoBehaviour {
 				}//of the hit object, i.e. sending the message to every object with a photonview component
 			}
 			//shootLine.SetPosition(1,hitInfo.point);
-		}else{//if nothing was hit
-			//shootLine.SetPosition(1,ray.origin+ray.direction);//sending it off into the direction from where was fired until range
-		}	
+		}
 		Debug.DrawRay(transform.position,transform.forward,Color.blue);
-
 	}
 
-	IEnumerator Reload()
+	IEnumerator ActivateAnim(string boolName, bool isReloading, float waitTime)
 	{
-		if(!reloading){
-			reloading = true;
-			if(anim !=null){
-				anim.SetBool ("Reloading", true);}
+		if(anim !=null){ //making sure that the animator is assigned
+			if(isReloading){
+				reloading = true;//saying that am currently reloading
+			}//set the appropriate animator bool to true
+			anim.SetBool (boolName, true);
 			}
-		yield return new WaitForSeconds (weapon.currentWeapon.GetReloadTime());
-		reloading = false;
-		anim.SetBool ("Reloading", false);
-		//StartCoroutine(WaitForAnimation());
-		weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
+		yield return new WaitForSeconds (waitTime);
+
+		anim.SetBool (boolName, false);
+
+		if(isReloading){
+			reloading = false;//state that reloading has finished, if this was used for reloading, and reset ammo
+			weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
+		}
 
 	}
-//	IEnumerator WaitForAnimation()
-//	{
-//		yield return new WaitForSeconds (weapon.currentWeapon.GetReloadTime());
-//		reloading = false;
-//		anim.SetBool ("Reloading", false);
-//	}
 
 	public short GetCurrentAmmo()
 	{

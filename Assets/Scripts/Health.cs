@@ -9,6 +9,7 @@ public class Health : MonoBehaviour {
 	private GameObject spectator;
 	private GameObject player;
 	private Spawning spawn;
+	private bool alreadyDead = false;
 
 	void Update()
 	{
@@ -31,12 +32,14 @@ public class Health : MonoBehaviour {
 	[RPC]// allows for method to be called remotely - is a remote procedure call
 	public void TakeDamage (float inflicted) {
 		currentHitPoints -= inflicted;
-		if(currentHitPoints <=0)
+		if(currentHitPoints <=0 && !alreadyDead)
 		{
+			alreadyDead = true;
 			//Debug.Log("executed death");	
 			currentHitPoints = 0;
 			if(transform.root.gameObject.tag == "Player"){
 				spawn.Death(transform.root.gameObject);
+				alreadyDead = false;
 			}
 			else{
 				Die();
