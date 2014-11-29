@@ -36,41 +36,38 @@ public class UIManager : MonoBehaviour {
 		}
 		//UIEnableOnly ("InGameUI");
 	}
-	void Update()
-	{
-		Debug.Log(resume);
-	}
 
 	public void PausedResume(GameObject player)
 	{
-		if(!paused){//is paused
-			paused = true;
-		}
-		else{//is not paused
-			paused = false;
-		}
-		Screen.lockCursor = !paused;
-		//Debug.Log (player.GetComponentInChildren<Shoot>() == null);
-		player.GetComponentInChildren<Shoot>().enabled = !paused;
-		player.GetComponentInChildren<WeaponManager>().enabled = !paused;
-		player.GetComponentInChildren<UseEquipment>().enabled = !paused;
-		player.GetComponentInChildren<EquipmentManager>().enabled = !paused;
-		player.GetComponent<MouseLook>().enabled = !paused;
-		player.GetComponent<PlayerMovement>().enabled = !paused;
-		player.GetComponentInChildren<Camera> ().GetComponent<MouseLook>().enabled = !paused;
-		//Debug.Log (player.GetComponent<MouseLook> ().enabled);
-		if(!paused){
-			UIEnableOnly ("InGameUI");
-		}
-		else{
-			UIEnableOnly ("PauseUI","PauseUIMain");
-			UIDisable("PauseUIOptions");
-		}
-
+		try{
+			if(!paused){//is paused
+				paused = true;
+			}
+			else{//is not paused
+				paused = false;
+			}
+			Screen.lockCursor = !paused;
+			//Debug.Log (player.GetComponentInChildren<Shoot>() == null);
+			player.GetComponentInChildren<Shoot>().enabled = !paused;
+			player.GetComponentInChildren<WeaponManager>().enabled = !paused;
+			player.GetComponentInChildren<UseEquipment>().enabled = !paused;
+			player.GetComponentInChildren<EquipmentManager>().enabled = !paused;
+			player.GetComponent<MouseLook>().enabled = !paused;
+			player.GetComponent<PlayerMovement>().enabled = !paused;
+			player.GetComponentInChildren<Camera> ().GetComponent<MouseLook>().enabled = !paused;
+			//Debug.Log (player.GetComponent<MouseLook> ().enabled);
+			if(!paused){
+				UIEnableOnly ("InGameUI");
+			}
+			else{
+				UIEnableOnly ("PauseUI","PauseUIMain");
+				UIDisable("PauseUIOptions");
+			}
+		}catch(System.Exception ex){
+			Debug.LogError("don't know about player!\n"+ex);}
 	}
 	public void UIEnableOnly(string enable)
 	{
-		Debug.Log (enable);
 		for(int i=0;i<uis.Length;i++){//setting all UI to inacive at start
 			if(uis[i].tag != enable){//will break if disable more that the other ui
 				uis[i].SetActive(false);
@@ -100,7 +97,7 @@ public class UIManager : MonoBehaviour {
 		}	
 	}
 	public void UIDisable(string disable)
-	{ Debug.Log ("disabling:"+disable);
+	{
 		//despite there being only ine object with tag, need to utilise an array
 		GameObject[] disabledGOs = GameObject.FindGameObjectsWithTag (disable);
 		for (int i =0; i<disabledGOs.Length; i++){
@@ -121,13 +118,6 @@ public class UIManager : MonoBehaviour {
 			textColour.a = colourTrue;
 			uiGO.GetComponent<Image>().color =  textColour;
 		}
-		else{
-			//Debug.LogError("EXCETPTION"+uiGO.name);
-			//if(uiGO.transform.parent)
-			//{Debug.LogError(" CHILD OF: "+uiGO.transform.parent.name);}
-		}
-
-
 	}
 
 	public void ResumeGame ()

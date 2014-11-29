@@ -4,12 +4,16 @@ using System.Collections;
 public class Spawning : MonoBehaviour {
 	public NetworkManager NM;
 	public GameObject spectator;
+	public static bool spawnedEnemies = false;
 
+	private GameObject[] enemyTotalSpawnPoints;
 	private PlayerSpawnPoint[] playerSpawnPoints;
+	private float respawnTime = 2.5f;
 
 	// Use this for initialization
 	void Start () {
 		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();
+		enemyTotalSpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
 	}
 	void EnablePlayer(GameObject player, bool enable)
 	{
@@ -50,38 +54,23 @@ public class Spawning : MonoBehaviour {
 	{
 		NM.AddChatMessage ("Spawning "+PhotonNetwork.player.name);
 		
-		if(playerSpawnPoints == null)
-		{
+		if(playerSpawnPoints == null){
 			Debug.LogError("There are no player spawn points available");
-			return;
-		}
+			return;}
 		
 		PlayerSpawnPoint playerSpawn = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Length)];
 		//could use normal instantiate but other people will not be able to see me
 		GameObject myPlayerGO = (GameObject)PhotonNetwork.Instantiate("FPS_Player",playerSpawn.transform.position,playerSpawn.transform.rotation,0 );
-		//instantiate returns a value which is this player (not other players in game)
-		//the (Gameobject) part is called "casting"
-		
-		//myPlayerGO.transform.FindChild ("Main Camera").gameObject.SetActive(true);
-		//myPlayerGO.transform.FindChild ("Main Camera").transform.FindChild ("Equipment").gameObject.SetActive(true);
-		//need to go into the transform apparently to find children, then grab the game object and set it to active
 		EnablePlayer (myPlayerGO, true);
 	}
 	public void Death(GameObject player)
 	{
-
-		//instantiate returns a value which is this player (not other players in game)
-		//the (Gameobject) part is called "casting"
-
-		//spectator.SetActive (true);
-		//myPlayerGO.transform.FindChild ("Main Camera").transform.FindChild ("Equipment").gameObject.SetActive(true);
-		//need to go into the transform apparently to find children, then grab the game object and set it to active
 		EnablePlayer (player, false);
 		StartCoroutine(RespawnPlayer (player));
 	}
 	IEnumerator RespawnPlayer(GameObject player)
 	{//if the player continues to lose health after death, they will be sent to a bunch of different spawns 
-		yield return new  WaitForSeconds (1);
+		yield return new  WaitForSeconds (respawnTime);
 		//spectator.SetActive (false);
 		NM.AddChatMessage ("Respawning "+PhotonNetwork.player.name);
 		
@@ -100,6 +89,65 @@ public class Spawning : MonoBehaviour {
 		Health h = player.GetComponent<Health> ();
 		h.currentHitPoints = h.hitPoints;
 		//yield return new WaitForSeconds (0);
+	}
+
+	public void SpawnEnemies()
+	{
+		GameObject[] randomEnemySpawnPoints;
+		int amountToSpawn = Random.Range ((int)(enemyTotalSpawnPoints.Length/1.5f),enemyTotalSpawnPoints.Length);
+		int[] toSpawnList = new int[amountToSpawn];
+		int getRandNum = 0;
+		bool validNumber=true;
+		Debug.Log ("amount to spawn"+amountToSpawn);
+		if(enemyTotalSpawnPoints == null)
+		{
+			Debug.LogError("There are no enemy spawn points available");
+			return;
+		}
+
+		for (int i=0; i<amountToSpawn; i++) {
+			Debug.Log("spawnlist index:"+toSpawnList[i]);
+			do// need this: if the first randomly generated number is already used then need to generate another 
+			{//before moving on to next index
+				validNumber = true;
+				getRandNum = Random.Range(1,enemyTotalSpawnPoints.Length+1);//need to be more than zero as that is what each array value is by
+				//default. correcting this by -1 afterwards
+				for(int j=0;j<amountToSpawn;j++){//checking to see if spawn is already assigned
+					if(getRandNum == toSpawnList[j])
+						validNumber = false;
+
+					Debug.Log("random num:"+getRandNum+" spawnlist "+j+" num"+toSpawnList[j]);
+				}
+			Debug.Log("valid is:"+validNumber);
+				if(validNumber){//if random num is good, then assign it and reset validNumber. if this is not called then the current index of 
+					toSpawnList[i] = getRandNum;//toSpawnList will remain 0 and while will repeat
+				Debug.Log("number assigned");
+					validNumber = true;
+				}
+				Debug.Log("while ran");
+			}while(!validNumber);
+			Debug.Log("spawn "+i+" is: "+toSpawnList[i]);
+		}
+
+		//generate random number between total spawns and total spawns minus 3 or whatever
+		//have for loop for(int i=0;i<amountToSpawn;i++)
+		//in for loop create array to keep track of what number has already been picked (id of spawnpoint, essentialy) - add to it until
+		//its length is == to amountToSpawn
+		//ignore above for --- while(toSpawnList.length<amountToSpawn)
+		//temporery variable made random upon each iteration (nested loop to ensure that the number chosen has not allready been selected -
+		//checking against each index in toSpawnList)
+		Debug.Log("total amount of spawns: "+enemyTotalSpawnPoints.Length);
+		for (int i=0; i<amountToSpawn; i++) {
+			Debug.Log("spawn val at "+i+" is "+(toSpawnList[i]-1));
+			PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
+		
+		}
+
+		//for (int i=0; i < enemyTotalSpawnPoints.Length; i++) {
+		//	/*GameObject enemyGO = (GameObject)*/PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[i].transform.position, enemyTotalSpawnPoints[i].transform.rotation,0);		
+		//}
+		spawnedEnemies = true;
+
 	}
 
 }

@@ -54,6 +54,7 @@ ModelImporter:
     4300000: Skin
     7400000: Default Take
     7400002: ArmatureAction_001
+    7400004: Default Take0
     9500000: //RootNode
     13700000: Skin
   materials:
@@ -71,7 +72,155 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 500
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone_013
+        weight: 1
+      - path: Armature/Bone_013/UpperLeg_L
+        weight: 1
+      - path: Armature/Bone_013/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Armature/Bone_013/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: Armature/Bone_014
+        weight: 1
+      - path: Armature/Bone_014/UpperLeg_R
+        weight: 1
+      - path: Armature/Bone_014/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Armature/Bone_014/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: Armature/Pelvis
+        weight: 1
+      - path: Armature/Pelvis/Bone_002
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Bone_003
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Bone_003/Head
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L/UpperArm_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R/UpperArm_R
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R/UpperArm_R/Upperarm_R
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R/UpperArm_R/Upperarm_R/Hand_R
+        weight: 1
+      - path: Skin
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Default Take0
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 500
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone_013
+        weight: 1
+      - path: Armature/Bone_013/UpperLeg_L
+        weight: 1
+      - path: Armature/Bone_013/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Armature/Bone_013/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: Armature/Bone_014
+        weight: 1
+      - path: Armature/Bone_014/UpperLeg_R
+        weight: 1
+      - path: Armature/Bone_014/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Armature/Bone_014/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: Armature/Pelvis
+        weight: 1
+      - path: Armature/Pelvis/Bone_002
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Bone_003
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Bone_003/Head
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L/UpperArm_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R/UpperArm_R
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R/UpperArm_R/Upperarm_R
+        weight: 1
+      - path: Armature/Pelvis/Bone_002/Bone_001/Shoulder_R/UpperArm_R/Upperarm_R/Hand_R
+        weight: 1
+      - path: Skin
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

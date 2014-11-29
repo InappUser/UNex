@@ -42,7 +42,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetWeaponType (Weapon.WeaponType.Stream);//reserving 0 for unarmed in the future; also coresponds with key pressed to activate
 		return machineGun;
 	}
-	Weapon InstantiateShotGun()
+	Weapon InstantiateShotgun()
 	{
 		shotGun = new Weapon();//instantiating the object
 		shotGun.SetModel(shotGunModel);
@@ -53,7 +53,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.SetReloadTime(5f);
 		shotGun.SetClipSize (2);
 		shotGun.clipcount = shotGun.GetClipSize ();
-		shotGun.SetWeaponName("Sniper Rifle");
+		shotGun.SetWeaponName("Shotgun");
 		shotGun.SetWeaponType (Weapon.WeaponType.SingleShot);
 		return shotGun;
 	}
@@ -77,7 +77,7 @@ public class WeaponManager : MonoBehaviour {
 		//weaponHold = new GameObject ();
 		weapons = new Weapon[3];//hard coded as there will only be 3 weapons
 		weapons[0] = InstantiateMachineGun ();
-		weapons[1] = InstantiateShotGun ();
+		weapons[1] = InstantiateShotgun ();
 		weapons[2] = InstantiateRocketLauncher ();
 		currentWeapon = machineGun; //machine gun by default
 

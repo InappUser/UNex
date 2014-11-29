@@ -39,7 +39,6 @@ public class Shoot : MonoBehaviour {
 			StartCoroutine(ActivateAnim("Reloading", true, weapon.currentWeapon.GetReloadTime()));}
 
 		if (reloading && weapon.GetWeaponChanged () == true) {
-			Debug.Log("weapon changed while reloading");
 			StopCoroutine("ActivateAnim");
 			reloading = false;
 			if(anim)
@@ -84,7 +83,7 @@ public class Shoot : MonoBehaviour {
 			//shooting the rocket further forward if the weapon is a rocket
 			if(weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Projectile){
 				Instantiate (weapon.currentWeapon.GetShootEffect(), shootExitPos + (shootExit.forward*0.1f), Camera.main.transform.rotation);
-				return false;//if is the rocket launcher then the rocket will deal damage etc.
+				yield break;//if is the rocket launcher then the rocket will deal damage etc.
 			}
 			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
 			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.position,shootExit.transform.rotation);

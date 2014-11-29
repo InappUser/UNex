@@ -42,15 +42,14 @@ public class GameManager : MonoBehaviour {
 	{
 		pauseGame = gameObject.GetComponent<UIManager> ();
 		enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
-		Debug.Log (enemyCount);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (NetworkManager.spawnedEnemies) {
+		if (Spawning.spawnedEnemies) {
 			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
 			Debug.Log (enemyCount);
-			NetworkManager.spawnedEnemies = false;}
+			Spawning.spawnedEnemies = false;}
 
 		playerScore.text = enemyCount.ToString();
 
@@ -136,14 +135,9 @@ public class GameManager : MonoBehaviour {
 		restartTime += Time.deltaTime;
 		cleanPhotonObjects();
 		if(restartTime >= restartDelay){
-
 			PhotonNetwork.LeaveRoom();
-			networkManager.haveConnected = true;
-			//Destroy(networkManager);
 			if(level <1){
-				/*Application.*/PhotonNetwork.LoadLevel(level);
-				level += 1;
-				Debug.Log("level: "+level+"++");
+				/*Application.*/PhotonNetwork.LoadLevel(level++);
 			}
 			else{
 				PhotonNetwork.LoadLevel(level--);

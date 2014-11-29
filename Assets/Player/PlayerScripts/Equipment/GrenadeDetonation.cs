@@ -25,11 +25,9 @@ public class GrenadeDetonation : MonoBehaviour {
 		grenadeOrigin = transform.position;
 		colliders = Physics.OverlapSphere (grenadeOrigin, explosionRadius);
 		foreach (Collider hit in colliders) {
-			Debug.Log(hit.gameObject.name);
 			if(hit.gameObject != gameObject){
 				GameObject go = hit.gameObject;
 				Health hitGOHealth = go.GetComponent<Health>();
-				Debug.Log("Just hit: "+go.name);
 				if(hitGOHealth){
 					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,5f);
 					Debug.Log("hurt");
