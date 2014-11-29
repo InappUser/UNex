@@ -1,6 +1,6 @@
 .DS_Store
-./Builds
-./Library/
-/Temp
 Builds/
-/Library/metadata
+Library/
+Temp/
+Builds/
+**/Library/metadata/
