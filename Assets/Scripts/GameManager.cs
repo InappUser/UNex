@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour {
 			WeaponSelection ();
 			EquipmentSelection();
 			AmmoCount();
-			if((Input.GetKeyDown(KeyCode.Escape) || UIManager.resume) && player){
+			if((Input.GetKeyDown(KeyCode.Escape) || UIManager.resume) && player && player.GetComponent<Health>().GetHealth() >0){
 				//Debug.Log("pausegame: "+pauseGame.resume);
 				UIManager.resume = false;//these were made static - there will only ever be one instance per player
 				pauseGame.PausedResume (player);//abstracting the pause to the pause script

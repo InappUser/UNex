@@ -10,6 +10,7 @@ public class Spawning : MonoBehaviour {
 	private GameObject[] enemyTotalSpawnPoints;
 	private PlayerSpawnPoint[] playerSpawnPoints;
 	private float respawnTime = 2.5f;
+	private bool firstSpawn = false;
 
 	// Use this for initialization
 	void Start () {
@@ -24,8 +25,11 @@ public class Spawning : MonoBehaviour {
 					
 			
 			((MonoBehaviour)player.GetComponent ("MouseLook")).enabled = enable;//how to reference disabled components, etc.
-			player.GetComponent<MouseLook>().sensitivityX = PlayerPrefs.GetFloat("SensitivityX"); //setting the saved sensitivity
-			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
+			if(firstSpawn){
+				player.GetComponent<MouseLook>().sensitivityX = PlayerPrefs.GetFloat("SensitivityX"); //setting the saved sensitivity
+				player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
+				firstSpawn = false;
+			}
 			((MonoBehaviour)player.GetComponent ("PlayerMovement")).enabled = enable;
 			((MonoBehaviour)player.GetComponentInChildren<EquipmentManager>()).enabled = enable;
 			((MonoBehaviour)player.GetComponentInChildren<UseEquipment>()).enabled = enable;
@@ -55,6 +59,7 @@ public class Spawning : MonoBehaviour {
 	
 	public void SpawnPlayer()
 	{
+		firstSpawn = true;
 		NM.AddChatMessage ("Spawning "+PhotonNetwork.player.name);
 		
 		if(playerSpawnPoints == null){

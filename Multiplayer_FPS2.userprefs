@@ -1,10 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Spawning.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\NetworkManager.cs" Line="33" Column="41" />
-      <File FileName="Assets\Player\PlayerScripts\PlayerSensitivity.cs" Line="27" Column="122" />
-      <File FileName="Assets\Scripts\Spawning.cs" Line="26" Column="97" />
+      <File FileName="Assets\Scripts\Spawning.cs" Line="31" Column="24" />
+      <File FileName="Assets\Scripts\UIManager.cs" Line="67" Column="1" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="64" Column="96" />
+      <File FileName="Assets\Scripts\Health.cs" Line="27" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
