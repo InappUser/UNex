@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject pauseUI;
 	public NetworkManager networkManager;
 	public GameObject spectator;
-	public static int enemyCount;
+	public static int enemyCount =1;//initialising so that game doesn't end immediately 
 
 	private float restartDelay = 3f;
 	private float restartTime;
@@ -41,14 +41,14 @@ public class GameManager : MonoBehaviour {
 	void Start()
 	{
 		pauseGame = gameObject.GetComponent<UIManager> ();
-		enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
+		//enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Spawning.spawnedEnemies) {
 			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
-			Debug.Log (enemyCount);
+			//Debug.Log (enemyCount);
 			Spawning.spawnedEnemies = false;}
 
 		playerScore.text = enemyCount.ToString();
@@ -133,6 +133,8 @@ public class GameManager : MonoBehaviour {
 		winImage.color = Color.Lerp(winImage.color, imagecolour ,1f * Time.deltaTime);
 		winText.color = Color.Lerp(winText.color, textcolour ,4f * Time.deltaTime);
 		restartTime += Time.deltaTime;
+		Spawning.spawnedEnemies = false;//resetting spawnedEnemies for next level
+		EnemyAI.alerted = false;// resetting whether the alive enemies are alterted upon level change
 		cleanPhotonObjects();
 		if(restartTime >= restartDelay){
 			PhotonNetwork.LeaveRoom();

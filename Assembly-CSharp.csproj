@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Enemy\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Photon Unity Networking\Demos\DemoBoxes\OnAwakePhysicsSettings.cs" />
      <Compile Include="Assets\Photon Unity Networking\Demos\DemoBoxes\TestGuiInstantiate.cs" />
      <Compile Include="Assets\Photon Unity Networking\Demos\DemoFriendsAndCustomAuth\GUICustomAuth.cs" />
@@ -140,6 +141,7 @@
      <Compile Include="Assets\Player\PlayerScripts\MyNetworkCharacter.cs" />
      <Compile Include="Assets\Player\PlayerScripts\NetworkViewOffOn.cs" />
      <Compile Include="Assets\Player\PlayerScripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Player\PlayerScripts\PlayerSensitivity.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Projectile\Detonation.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Projectile\RocketEngine.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Projectile\SelfDestruct.cs" />

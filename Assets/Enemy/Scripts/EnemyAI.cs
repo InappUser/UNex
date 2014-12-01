@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyAITwo : MonoBehaviour {
+public class EnemyAI : MonoBehaviour {
 	//public float chaseSpeed = 5f;
 	public float foundDistance = 5f;
 	public float returnDistance = 10f;

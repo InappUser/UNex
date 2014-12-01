@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Spawning : MonoBehaviour {
 	public NetworkManager NM;
+	public UIManager ui;
 	public GameObject spectator;
 	public static bool spawnedEnemies = false;
 
@@ -22,7 +23,9 @@ public class Spawning : MonoBehaviour {
 			player.transform.FindChild ("Main Camera").gameObject.SetActive (enable);
 					
 			
-			((MonoBehaviour)player.GetComponent ("MouseLook")).enabled = enable;
+			((MonoBehaviour)player.GetComponent ("MouseLook")).enabled = enable;//how to reference disabled components, etc.
+			player.GetComponent<MouseLook>().sensitivityX = PlayerPrefs.GetFloat("SensitivityX"); //setting the saved sensitivity
+			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
 			((MonoBehaviour)player.GetComponent ("PlayerMovement")).enabled = enable;
 			((MonoBehaviour)player.GetComponentInChildren<EquipmentManager>()).enabled = enable;
 			((MonoBehaviour)player.GetComponentInChildren<UseEquipment>()).enabled = enable;
@@ -65,6 +68,7 @@ public class Spawning : MonoBehaviour {
 	}
 	public void Death(GameObject player)
 	{
+		ui.UIDisable ("InGameUI");
 		EnablePlayer (player, false);
 		StartCoroutine(RespawnPlayer (player));
 	}
@@ -73,6 +77,7 @@ public class Spawning : MonoBehaviour {
 		yield return new  WaitForSeconds (respawnTime);
 		//spectator.SetActive (false);
 		NM.AddChatMessage ("Respawning "+PhotonNetwork.player.name);
+		ui.UIEnable ("InGameUI");
 		
 		if(playerSpawnPoints == null)
 		{
@@ -94,11 +99,12 @@ public class Spawning : MonoBehaviour {
 	public void SpawnEnemies()
 	{
 		GameObject[] randomEnemySpawnPoints;
-		int amountToSpawn = Random.Range ((int)(enemyTotalSpawnPoints.Length/1.5f),enemyTotalSpawnPoints.Length);
+		int amountToSpawn = Random.Range ((int)(enemyTotalSpawnPoints.Length/1.7f),(int)(enemyTotalSpawnPoints.Length/1.1f));
 		int[] toSpawnList = new int[amountToSpawn];
 		int getRandNum = 0;
 		bool validNumber=true;
-		Debug.Log ("amount to spawn"+amountToSpawn);
+		int enemyTypeToSpawn;
+		//Debug.Log ("amount to spawn"+amountToSpawn);
 		if(enemyTotalSpawnPoints == null)
 		{
 			Debug.LogError("There are no enemy spawn points available");
@@ -106,7 +112,7 @@ public class Spawning : MonoBehaviour {
 		}
 
 		for (int i=0; i<amountToSpawn; i++) {
-			Debug.Log("spawnlist index:"+toSpawnList[i]);
+			//Debug.Log("spawnlist index:"+toSpawnList[i]);
 			do// need this: if the first randomly generated number is already used then need to generate another 
 			{//before moving on to next index
 				validNumber = true;
@@ -116,17 +122,16 @@ public class Spawning : MonoBehaviour {
 					if(getRandNum == toSpawnList[j])
 						validNumber = false;
 
-					Debug.Log("random num:"+getRandNum+" spawnlist "+j+" num"+toSpawnList[j]);
+					//Debug.Log("random num:"+getRandNum+" spawnlist "+j+" num"+toSpawnList[j]);
 				}
-			Debug.Log("valid is:"+validNumber);
+			//Debug.Log("valid is:"+validNumber);
 				if(validNumber){//if random num is good, then assign it and reset validNumber. if this is not called then the current index of 
 					toSpawnList[i] = getRandNum;//toSpawnList will remain 0 and while will repeat
-				Debug.Log("number assigned");
-					validNumber = true;
+				//Debug.Log("number assigned");
 				}
-				Debug.Log("while ran");
+				//Debug.Log("while ran");
 			}while(!validNumber);
-			Debug.Log("spawn "+i+" is: "+toSpawnList[i]);
+			//Debug.Log("spawn "+i+" is: "+toSpawnList[i]);
 		}
 
 		//generate random number between total spawns and total spawns minus 3 or whatever
@@ -136,11 +141,17 @@ public class Spawning : MonoBehaviour {
 		//ignore above for --- while(toSpawnList.length<amountToSpawn)
 		//temporery variable made random upon each iteration (nested loop to ensure that the number chosen has not allready been selected -
 		//checking against each index in toSpawnList)
-		Debug.Log("total amount of spawns: "+enemyTotalSpawnPoints.Length);
+		//Debug.Log("total amount of spawns: "+enemyTotalSpawnPoints.Length);
 		for (int i=0; i<amountToSpawn; i++) {
-			Debug.Log("spawn val at "+i+" is "+(toSpawnList[i]-1));
-			PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
-		
+			enemyTypeToSpawn = Random.Range(0,3);
+			//Debug.Log("spawn val at "+i+" is "+(toSpawnList[i]-1));
+			if(enemyTypeToSpawn>0){
+				//Debug.Log("spawned alive");
+				PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
+			}else{
+				//Debug.Log("spawned static");
+				PhotonNetwork.Instantiate("EnemyStatic",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
+			}
 		}
 
 		//for (int i=0; i < enemyTotalSpawnPoints.Length; i++) {
@@ -149,5 +160,6 @@ public class Spawning : MonoBehaviour {
 		spawnedEnemies = true;
 
 	}
+
 
 }

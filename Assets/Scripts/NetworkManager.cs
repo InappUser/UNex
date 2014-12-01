@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;//for limiting the characters input by user
 
@@ -20,7 +21,7 @@ public class NetworkManager : MonoBehaviour {
 
 	public void OnFailedToConnectToPhoton(object parameters)
 	{
-		Debug.LogError("Could not connect to the stuff");
+		UnityEngine.Debug.LogError("Could not connect to the stuff");
 	}
 
 	void Awake()
@@ -71,7 +72,7 @@ public class NetworkManager : MonoBehaviour {
 /*		}else*/ if(!PhotonNetwork.connected){//if user isn't currently connected 
 			PhotonNetwork.automaticallySyncScene = true;
 			//http://forum.exitgames.com/viewtopic.php?f=17&t=2575
-			if(PhotonNetwork.player.name == "" && !setPlayerName)
+			if(PhotonNetwork.player.name != "" && !setPlayerName)
 			{
 				ui.SetPlayerName(PhotonNetwork.player.name);
 				setPlayerName = true;
@@ -116,7 +117,7 @@ public class NetworkManager : MonoBehaviour {
 	{
 		singleplayer = true;
 		mulitiplayer = false;
-		Debug.Log (singleplayer);
+		//UnityEngine.Debug.Log (singleplayer);
 		PhotonNetwork.offlineMode = true;
 		OnJoinedLobby(); //pretending we are conncted and everything is fine
 		//am just skipping the connect phase		
@@ -126,5 +127,12 @@ public class NetworkManager : MonoBehaviour {
 		mulitiplayer = true;
 		singleplayer = false;
 		Connection ();
+	}
+	public void UpdateGame()
+	{
+		Process uProc = new Process();
+		uProc.StartInfo.FileName = "update.exe";
+		uProc.Start();
+		Application.Quit ();
 	}
 }

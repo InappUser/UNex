@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /// MouseLook rotates the transform based on the mouse delta.
 /// Minimum and Maximum values can be used to constrain the possible rotation
@@ -16,17 +18,16 @@ using System.Collections;
 ///   -> Set the mouse look to use LookY. (You want the camera to tilt up and down like a head. The character already turns.)
 //[AddComponentMenu("Camera-Control/Mouse Look")]
 public class MouseLook : MonoBehaviour {
-
 	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
 	public RotationAxes axes = RotationAxes.MouseXAndY;
 	public float sensitivityX = 15F;
-	public float sensitivityY = 15F;
+	public float sensitivityY = 10F;
 
 	public float minimumX = -360F;
 	public float maximumX = 360F;
 
-	public float minimumY = -60F;
-	public float maximumY = 60F;
+	public float minimumY = -80F;
+	public float maximumY = 80F;
 
 	private float rotationY = 0F;
 	
@@ -39,12 +40,16 @@ public class MouseLook : MonoBehaviour {
 	public float newLocalPosX;
 	public float newLocalPosY;
 	private bool gotParent = false;
-
+	private GameObject sensScroll;//only need one because the x and the y of the characters view are controlled by different instances of the script
+	private Scrollbar scroll;
+	private bool foundSens = false;
+	
 	void Awake()
 	{
 
 		Screen.lockCursor = true;
 		//lock cursor 
+
 
 	}
 	void Start ()
@@ -58,7 +63,47 @@ public class MouseLook : MonoBehaviour {
 	void Update ()
 	{
 		headbobbing ();
+		AlterRotation ();
+		if (!foundSens) {
+			try {
+				foundSens = true;
+				if (gameObject.name == "FPS_Player") {
+					Debug.Log ("found");
+					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
+				} 
+				else {
 
+					sensScroll = GameObject.Find ("ScrlSensY");
+					Debug.Log("else");
+					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
+						Debug.Log("got the scroll!");
+							scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
+
+					};
+				}
+			} 
+			catch {
+				Debug.Log ("Nope");
+				foundSens = false;
+			}
+				}
+
+		if (foundSens) {
+			ChangeSensitivity(scroll.value);		
+		}
+//		if(sensScroll.enabled){
+//			ChangeSensitivity (sensScroll.value);
+//			Debug.Log(sensScroll.value);
+//		}
+
+//			if(sensScroll.enabled){
+//				Debug.Log ("scroll val changed"+sensScroll.onValueChanged);
+//			}
+//			Debug.Log ("new x is "+sensitivityX);
+	}
+
+	void AlterRotation()
+	{
 		if (axes == RotationAxes.MouseXAndY)
 		{
 			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
@@ -96,6 +141,15 @@ public class MouseLook : MonoBehaviour {
 //			Debug.Log("localscale after: "+transform.localScale.x+" + "+transform.localScale.y);
 //			Debug.Log("meant to be: "+transform.localScale.x+" + "+transform.localScale.y);
 			parentLastPos = transform.parent.position;
+		}
+	}
+	
+	void ChangeSensitivity(float newSensitivity)
+	{
+		if(gameObject.name == "FPS_Player"){
+			sensitivityX = (newSensitivity *15f);
+		}else{
+			sensitivityY = (newSensitivity *15f);
 		}
 	}
 

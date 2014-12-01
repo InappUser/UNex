@@ -55,7 +55,7 @@ public class Health : MonoBehaviour {
 			GameManager.enemyCount --;
 
 			if(gameObject.tag == "EnemyAlive"){
-				EnemyAITwo.alerted = true;
+				EnemyAI.alerted = true;
 				}
 		}
 
@@ -64,7 +64,7 @@ public class Health : MonoBehaviour {
 			Destroy(gameObject);//if the gameobject doesn't have a photonview id delete normaly
 			PlayerScore.EnemiesLeft --;
 		}
-		else{
+		else if(GetComponent<PhotonView>()){
 			if(gameObject !=null && pv.isMine){//if gameobject is instantiated by photon destroy this way
 				//gameObject.GetComponent<WeaponManager>().enabled = false;
 				//gameObject.GetComponent	<Shoot>().enabled = false;//futureproofing
@@ -80,6 +80,9 @@ public class Health : MonoBehaviour {
 			spectator.SetActive (true);
 		}
 	}
+		else{
+			Debug.Log("weird killing error.");
+		}
 }
 
 }

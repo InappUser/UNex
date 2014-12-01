@@ -38,7 +38,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetReloadTime(3.5f);
 		machineGun.SetClipSize (30);//ensuring that the player does not need to reload when changing to weapon for first time
 		machineGun.clipcount = machineGun.GetClipSize ();
-		machineGun.SetWeaponName("Machine Gun");
+		machineGun.SetWeaponName("BAAL Pattern Boltgun");
 		machineGun.SetWeaponType (Weapon.WeaponType.Stream);//reserving 0 for unarmed in the future; also coresponds with key pressed to activate
 		return machineGun;
 	}
@@ -51,7 +51,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.SetSDamage(100f);
 		shotGun.SetFireRate (0.5f);
 		shotGun.SetReloadTime(5f);
-		shotGun.SetClipSize (2);
+		shotGun.SetClipSize (4);
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");
 		shotGun.SetWeaponType (Weapon.WeaponType.SingleShot);

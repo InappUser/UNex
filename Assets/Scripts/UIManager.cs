@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void UIEnable(string enable)
-	{ Debug.Log ("enabling:"+enable);
+	{ 
 		for (int i =0; i<uis.Length; i++){
 			if(uis[i].tag == enable){
 				uis [i].SetActive (true);
@@ -148,5 +148,15 @@ public class UIManager : MonoBehaviour {
 	{
 		playerName.text = text;
 	}
+
+//	public void ToggleFullScreen()
+//	{
+//		if(!Screen.fullScreen)
+//			Screen.fullScreen = true;
+//		else{
+//			Screen.fullScreen = true;
+//		}
+//	}
+
 	
 }
