@@ -146,9 +146,9 @@
      <Compile Include="Assets\Player\PlayerScripts\Projectile\RocketEngine.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Projectile\SelfDestruct.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Projectile\WeapRocketLauncher.cs" />
+     <Compile Include="Assets\Player\PlayerScripts\Weapon\Old backups\WeapMachineGun.cs" />
+     <Compile Include="Assets\Player\PlayerScripts\Weapon\Old backups\WeapSniper.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\Shoot.cs" />
-     <Compile Include="Assets\Player\PlayerScripts\Weapon\WeapMachineGun.cs" />
-     <Compile Include="Assets\Player\PlayerScripts\Weapon\WeapSniper.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\Weapon.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />

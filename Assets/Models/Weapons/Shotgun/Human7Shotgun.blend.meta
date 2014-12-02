@@ -124,7 +124,9 @@ ModelImporter:
     7400004: SHotGunIdle
     7400006: ShotGunReload
     7400008: ShotGunShoot
+    7400010: ShotGunShoot0
     9500000: //RootNode
+    11100000: //RootNode
     13700000: HumanModel_Body
     13700002: Shotgun
   materials:
@@ -136,7 +138,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -284,10 +286,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Reload
-      takeName: Reload
+      name: ShotGunShoot0
+      takeName: ShotGunShoot
       firstFrame: -1
-      lastFrame: 83
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

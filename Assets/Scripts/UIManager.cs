@@ -149,14 +149,17 @@ public class UIManager : MonoBehaviour {
 		playerName.text = text;
 	}
 
-//	public void ToggleFullScreen()
-//	{
-//		if(!Screen.fullScreen)
-//			Screen.fullScreen = true;
-//		else{
-//			Screen.fullScreen = true;
-//		}
-//	}
+	public void ToggleFullScreen()
+	{
+		Debug.Log ("Hit");
+		if(!Screen.fullScreen){
+			Debug.Log ("full");
+			Screen.fullScreen = true;}
+		else{
+			Debug.Log ("not full");
+			Screen.fullScreen = false;
+		}
+	}
 
 	
 }

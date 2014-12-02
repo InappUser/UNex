@@ -50,7 +50,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.SetShootExitBarrel (exitBarrelEffect);
 		shotGun.SetSDamage(100f);
 		shotGun.SetFireRate (0.5f);
-		shotGun.SetReloadTime(5f);
+		shotGun.SetReloadTime(5.5f);
 		shotGun.SetClipSize (4);
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");

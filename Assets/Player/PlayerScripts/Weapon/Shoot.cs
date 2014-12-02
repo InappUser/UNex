@@ -47,8 +47,7 @@ public class Shoot : MonoBehaviour {
 			weapon.WeaponChangeComplete();
 		}
 
-		if(muzzleFlash){
-			muzzleFlash.transform.parent = transform;}
+
 	}
 
 	void KeepGunCurrent()
@@ -63,6 +62,8 @@ public class Shoot : MonoBehaviour {
 		weapon.currentWeapon.fireRateCoolDown -= Time.deltaTime;//decrementing 
 		fRateCool = weapon.currentWeapon.fireRateCoolDown;//these exist purley for legibility 
 		//(ensures that the ammo will change as soon as the weapon has)
+		if(muzzleFlash){
+			muzzleFlash.transform.parent = transform;}
 	}
 
 	IEnumerator Fire()
@@ -73,7 +74,7 @@ public class Shoot : MonoBehaviour {
 		if (weapon.currentWeapon.GetWeaponType () == Weapon.WeaponType.SingleShot) {
 			Debug.Log("is singleshot");
 			firing = true;
-			yield return new WaitForSeconds (weapon.currentWeapon.GetFireRate()*.2f);
+			yield return new WaitForSeconds (weapon.currentWeapon.GetFireRate()*.12f);
 			firing = false;
 		}
 		weapon.currentWeapon.clipcount --;

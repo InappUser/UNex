@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -130,9 +131,14 @@ public class NetworkManager : MonoBehaviour {
 	}
 	public void UpdateGame()
 	{
-		Process uProc = new Process();
-		uProc.StartInfo.FileName = "update.exe";
-		uProc.Start();
-		Application.Quit ();
+		try{
+			Process uProc = new Process();
+			uProc.StartInfo.FileName = "update.exe";
+			uProc.Start();
+			Application.Quit ();
+		}catch{
+			EditorUtility.DisplayDialog("Updating","Unable to update game. Do you have update.exe in the same direcotry as "+
+			                            "the game?\ngo to: https://github.com/InappUser/UNexUpdateScript/archive/master.zip\n to download.","ok");
+		}
 	}
 }
