@@ -74,11 +74,8 @@ public class MouseLook : MonoBehaviour {
 				else {
 
 					sensScroll = GameObject.Find ("ScrlSensY");
-					Debug.Log("else");
 					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
-						Debug.Log("got the scroll!");
-							scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
-
+						scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
 					};
 				}
 			} 

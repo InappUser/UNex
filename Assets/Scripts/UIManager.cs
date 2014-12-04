@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 public class UIManager : MonoBehaviour {
@@ -47,7 +48,7 @@ public class UIManager : MonoBehaviour {
 				paused = false;
 			}
 			Screen.lockCursor = !paused;
-			//Debug.Log (player.GetComponentInChildren<Shoot>() == null);
+			//UnityEngine.Debug.Log (player.GetComponentInChildren<Shoot>() == null);
 			player.GetComponentInChildren<Shoot>().enabled = !paused;
 			player.GetComponentInChildren<WeaponManager>().enabled = !paused;
 			player.GetComponentInChildren<UseEquipment>().enabled = !paused;
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour {
 			player.GetComponent<MouseLook>().enabled = !paused;
 			player.GetComponent<PlayerMovement>().enabled = !paused;
 			player.GetComponentInChildren<Camera> ().GetComponent<MouseLook>().enabled = !paused;
-			//Debug.Log (player.GetComponent<MouseLook> ().enabled);
+			//UnityEngine.Debug.Log (player.GetComponent<MouseLook> ().enabled);
 			if(!paused){
 				UIEnableOnly ("InGameUI");
 			}
@@ -64,7 +65,7 @@ public class UIManager : MonoBehaviour {
 				UIDisable("PauseUIOptions");
 			}
 		}catch(System.Exception ex){
-			Debug.LogError("don't know about player!\n"+ex);}
+			UnityEngine.Debug.LogError("don't know about player!\n"+ex);}
 	}
 	public void UIEnableOnly(string enable)
 	{
@@ -151,14 +152,34 @@ public class UIManager : MonoBehaviour {
 
 	public void ToggleFullScreen()
 	{
-		Debug.Log ("Hit");
+		UnityEngine.Debug.Log ("Hit");
 		if(!Screen.fullScreen){
-			Debug.Log ("full");
+			UnityEngine.Debug.Log ("full");
 			Screen.fullScreen = true;}
 		else{
-			Debug.Log ("not full");
+			UnityEngine.Debug.Log ("not full");
 			Screen.fullScreen = false;
 		}
+	}
+	public void UpdateGame()
+	{
+		try{
+			Process uProc = new Process();
+			uProc.StartInfo.FileName = "update.exe";
+			uProc.Start();
+			Application.Quit ();
+		}catch{
+			//			print("Unable to update game. Do you have an update.exe file in the same direcotry as he game?
+			//Go to: https://github.com/InappUser/UNexUpdateScript/archive/master.zip to download, if not.");
+			//ui.ShowUpdateFailed();
+			UIEnable("StartUIUpdateFailed");
+		}
+		//UIEnable("StartUIUpdateFailed");
+
+	}
+	public void HideUpdateFailed()
+	{
+		UIDisable ("StartUIUpdateFailed");
 	}
 
 	

@@ -72,7 +72,6 @@ public class Shoot : MonoBehaviour {
 
 		StartCoroutine (ActivateAnim ("Shooting", false, weapon.currentWeapon.GetFireRate ()));
 		if (weapon.currentWeapon.GetWeaponType () == Weapon.WeaponType.SingleShot) {
-			Debug.Log("is singleshot");
 			firing = true;
 			yield return new WaitForSeconds (weapon.currentWeapon.GetFireRate()*.12f);
 			firing = false;
@@ -112,12 +111,18 @@ public class Shoot : MonoBehaviour {
 				if(!hitGOHealth.GetComponent<PhotonView>())
 				{Debug.Log("No photonview copmonent found of this game object");}
 				else{
-					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,weapon.currentWeapon.GetDamage());//RPC is global method, am invoking it on the photonview component
-				}//of the hit object, i.e. sending the message to every object with a photonview component
+					try{
+					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,weapon.currentWeapon.GetDamage());//RPC is global method, am invoking it on the photonview component
+					}
+					catch(System.Exception ex)
+					{
+						Debug.Log(ex);
+					}
+					}//of the hit object, i.e. sending the message to every object with a photonview component
 			}
 			//shootLine.SetPosition(1,hitInfo.point);
 		}
-		Debug.DrawRay(transform.position,transform.forward,Color.blue);
+		Debug.DrawRay(transform.position,transform.forward,Color.blue,10000f,false);
 	}
 
 	IEnumerator ActivateAnim(string boolName, bool isReloading, float waitTime)
@@ -130,7 +135,8 @@ public class Shoot : MonoBehaviour {
 			}
 		yield return new WaitForSeconds (waitTime);
 
-		anim.SetBool (boolName, false);
+		if(anim)
+			anim.SetBool (boolName, false);
 
 		if(isReloading){
 			reloading = false;//state that reloading has finished, if this was used for reloading, and reset ammo

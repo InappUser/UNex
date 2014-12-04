@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Spawning.spawnedEnemies) {
-			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
+			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
 			//Debug.Log (enemyCount);
 			Spawning.spawnedEnemies = false;}
 

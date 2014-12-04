@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -27,6 +26,7 @@ public class NetworkManager : MonoBehaviour {
 
 	void Awake()
 	{
+		gameObject.AddComponent<PhotonView> ();
 		chatMessages = new List<string>() ;
 		enemySpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
 		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();//getting all player spawnpoints
@@ -38,6 +38,7 @@ public class NetworkManager : MonoBehaviour {
 	{
 		ui = gameObject.GetComponent<UIManager> ();
 		ui.UIEnableOnly ("StartUI");
+		Screen.lockCursor = false;
 	}
 	
 	void OnDestroy()//this is called when the game ends
@@ -47,6 +48,7 @@ public class NetworkManager : MonoBehaviour {
 
 	public void AddChatMessage(string message)//abstracting further, so no need for very lengthy rpc calls in main code
 	{
+		//GetComponent<PhotonView> ().viewID ++;
 		GetComponent<PhotonView> ().RPC ("AddChatMessage_RPC",PhotonTargets.AllBuffered,message);
 	}
 	[RPC]
@@ -83,7 +85,7 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-	if(PhotonNetwork.connected)
+	if(PhotonNetwork.connected && (singleplayer || mulitiplayer))
 	{
 		GUILayout.BeginArea(new Rect(0,0, Screen.width, Screen.height));
 		GUILayout.BeginVertical();//pushing the label down to the bottom
@@ -121,7 +123,7 @@ public class NetworkManager : MonoBehaviour {
 		//UnityEngine.Debug.Log (singleplayer);
 		PhotonNetwork.offlineMode = true;
 		OnJoinedLobby(); //pretending we are conncted and everything is fine
-		//am just skipping the connect phase		
+		//am just skipping the connect phase	
 	}
 	public void StartMultiplayer()
 	{
@@ -137,8 +139,10 @@ public class NetworkManager : MonoBehaviour {
 			uProc.Start();
 			Application.Quit ();
 		}catch{
-			EditorUtility.DisplayDialog("Updating","Unable to update game. Do you have update.exe in the same direcotry as "+
-			                            "the game?\ngo to: https://github.com/InappUser/UNexUpdateScript/archive/master.zip\n to download.","ok");
+//			print("Unable to update game. Do you have update.exe in the same direcotry as "+
+//			                            "the game?\ngo to: https://github.com/InappUser/UNexUpdateScript/archive/master.zip\n to download.");
+			//ui.ShowUpdateFailed();
+			ui.UIEnable("StartUIUpdateFailed");
 		}
 	}
 }

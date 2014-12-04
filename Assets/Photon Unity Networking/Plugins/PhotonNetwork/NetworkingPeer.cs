@@ -2674,7 +2674,13 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
             // if some other view is in the list already, we got a problem. it might be undestructible. print out error
             if (netView != photonViewList[netView.viewID])
             {
+				PhotonView[] gos= GameObject.FindObjectsOfType<PhotonView>();
                 Debug.LogError(string.Format("PhotonView ID duplicate found: {0}. New: {1} old: {2}. Maybe one wasn't destroyed on scene load?! Check for 'DontDestroyOnLoad'. Destroying old entry, adding new.", netView.viewID, netView, photonViewList[netView.viewID]));
+				for(int i=0;i<gos.Length;i++)
+				{
+					if(gos[i].viewID == netView.viewID)
+						Debug.Log ("was go: "+ gos[i].gameObject.name);
+				}
             }
 
             //this.photonViewList.Remove(netView.viewID); // TODO check if we chould Destroy the GO of this view?!

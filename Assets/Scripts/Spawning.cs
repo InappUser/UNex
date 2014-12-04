@@ -108,7 +108,7 @@ public class Spawning : MonoBehaviour {
 		int[] toSpawnList = new int[amountToSpawn];
 		int getRandNum = 0;
 		bool validNumber=true;
-		int enemyTypeToSpawn;
+		int enemyTypeToSpawn =0;
 		//Debug.Log ("amount to spawn"+amountToSpawn);
 		if(enemyTotalSpawnPoints == null)
 		{
@@ -148,7 +148,7 @@ public class Spawning : MonoBehaviour {
 		//checking against each index in toSpawnList)
 		//Debug.Log("total amount of spawns: "+enemyTotalSpawnPoints.Length);
 		for (int i=0; i<amountToSpawn; i++) {
-			enemyTypeToSpawn = Random.Range(0,3);
+
 			//Debug.Log("spawn val at "+i+" is "+(toSpawnList[i]-1));
 			if(enemyTypeToSpawn>0){
 				//Debug.Log("spawned alive");
@@ -157,6 +157,7 @@ public class Spawning : MonoBehaviour {
 				//Debug.Log("spawned static");
 				PhotonNetwork.Instantiate("EnemyStatic",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
 			}
+			enemyTypeToSpawn = Random.Range(0,3);//putting at the bottom so that there will allways be at least one static
 		}
 
 		//for (int i=0; i < enemyTotalSpawnPoints.Length; i++) {

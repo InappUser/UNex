@@ -51,12 +51,11 @@ public class Health : MonoBehaviour {
 	{
 		Debug.Log("enemyType: "+gameObject.tag);
 		PhotonView pv = PhotonView.Get (this);
-		if (gameObject.tag == "EnemyStatic" || gameObject.tag == "EnemyAlive") {
+		if (gameObject.tag == "EnemyStatic") {
 			GameManager.enemyCount --;
-
-			if(gameObject.tag == "EnemyAlive"){
-				EnemyAI.alerted = true;
-				}
+		}
+		if(gameObject.tag == "EnemyAlive"){
+			EnemyAI.alerted = true;
 		}
 
 		if(GetComponent<PhotonView>().instantiationId==0)
