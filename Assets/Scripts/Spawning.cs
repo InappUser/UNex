@@ -11,9 +11,11 @@ public class Spawning : MonoBehaviour {
 	private PlayerSpawnPoint[] playerSpawnPoints;
 	private float respawnTime = 2.5f;
 	private bool firstSpawn = false;
+	private Quaternion zero;
 
 	// Use this for initialization
 	void Start () {
+		zero = new Quaternion(0,0,0,0);
 		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();
 		enemyTotalSpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
 	}
@@ -93,7 +95,10 @@ public class Spawning : MonoBehaviour {
 		PlayerSpawnPoint playerSpawn = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Length)];
 		//could use normal instantiate but other people will not be able to see me
 		player.transform.position = playerSpawn.transform.position;
-		player.transform.rotation = playerSpawn.transform.rotation;
+		MouseLook mslk = (MouseLook)player.transform.GetChild(0).transform.GetComponent("MouseLook");
+		mslk.ResetRotation (zero);
+//		Debug.Log (playerSpawn.transform.rotation);
+		//Debug.Log (player.transform.GetChild(0).transform.rotation);
 
 		EnablePlayer (player, true);
 		Health h = player.GetComponent<Health> ();

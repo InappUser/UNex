@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour {
 
 			if (chasing && distance < attackDistance) {
 				StartCoroutine ( Attack ());
-			}else if(distance < attackDistance){
+			}else if(distance < attackDistance*2){
 				tooLongTimer += Time.deltaTime;
 				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
 
@@ -118,7 +118,11 @@ public class EnemyAI : MonoBehaviour {
 		attackTimeCounter += Time.deltaTime;//using this method rather than wait for as this function is executed a over and over
 		if (h && h.currentHitPoints>0 && attackTimeCounter >= timeBetweenAttacks) {
 			//anim.SetBool("Attacking",true);
-			player.GetComponent<PhotonView> ().RPC ("TakeDamage", PhotonTargets.AllBuffered, attackDamage);//RPC is global method, am invoking it on the photonview componenth.TakeDamage (Time.deltaTime * attackDamage);
+			if(PhotonNetwork.offlineMode){
+				h.TakeDamage(attackDamage);}//ensuring that, when a new level is loaded within singleplayer, damage can be taken
+			else{
+				player.GetComponent<PhotonView> ().RPC ("TakeDamage", PhotonTargets.AllBuffered, attackDamage);//RPC is global method, am invoking it on the photonview componenth.TakeDamage (Time.deltaTime * attackDamage);
+			}
 			attackTimeCounter = 0f;
 			yield return new WaitForSeconds(2);
 			anim.SetBool("Attacking",false);
@@ -127,7 +131,7 @@ public class EnemyAI : MonoBehaviour {
 
 	void returnToSpawn()
 	{
-		Vector3 returnDeltaPos = spawnPoint.position - transform.position;
+		//Vector3 returnDeltaPos = spawnPoint.position - transform.position;
 
 			nav.destination = spawnPoint.position;
 			if(Vector3.Distance(transform.position, spawnPoint.position) < 2f)

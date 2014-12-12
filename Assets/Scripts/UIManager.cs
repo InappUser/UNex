@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour {
 				UIDisable("PauseUIOptions");
 			}
 		}catch(System.Exception ex){
-			UnityEngine.Debug.LogError("don't know about player!\n"+ex);}
+			UnityEngine.Debug.LogError("Don't know about player!\nYou probably left an instance in the hierarchy\n"+ex);}
 	}
 	public void UIEnableOnly(string enable)
 	{

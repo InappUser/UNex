@@ -13,6 +13,7 @@ public class Shoot : MonoBehaviour {
 	private WeaponManager weapon; 
 	private float fRateCool;
 	private GameObject muzzleFlash;
+	private GameObject[] shotgunExits;
 	private bool firing = false;
 
 
@@ -20,6 +21,8 @@ public class Shoot : MonoBehaviour {
 
 	void Start()
 	{
+		shotgunExits = GameObject.FindGameObjectsWithTag ("ShotgunExit");
+
 		weapon = gameObject.GetComponent<WeaponManager> ();
 		//weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
 
@@ -87,23 +90,35 @@ public class Shoot : MonoBehaviour {
 			}
 			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
 			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.position,shootExit.transform.rotation);
+			muzzleFlash.transform.parent = transform.parent;
 		}
+		if (weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.SingleShot) {
+			Vector3 campos = Camera.main.transform.position;
+			Vector3 rayForward = new Vector3(Camera.main.transform.forward.x+.002f,Camera.main.transform.forward.y,Camera.main.transform.forward.z);
+			//Vector3 rayPos = new Vector3(campos.x + (-.4f),campos.y+(2f),campos.z);
+			for(int i=0;i<shotgunExits.Length;i++)
+			{
+				Debug.Log("exitsname: "+shotgunExits[i].name);
+				DrawRay(Camera.main.transform.position,shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));
+			}
+		
 
-		DrawRay ();
+		}else{
+			DrawRay (Camera.main.transform.position,Camera.main.transform.forward, weapon.currentWeapon.GetDamage());
+		}
 
 
 
 
 	}
-	void DrawRay()
+	void DrawRay(Vector3 rayPos, Vector3 rayForward, float damage)
 	{
-		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+		Ray ray = new Ray(Camera.main.transform.position, rayForward);
 		RaycastHit hitInfo;
 		
 		if (Physics.Raycast (ray, out hitInfo, 100f)) {
 			if(weapon.currentWeapon.GetShootEffect()){
 				Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.identity);}
-			
 			GameObject gO = hitInfo.collider.gameObject;//getting the hit gameobject
 			
 			hitGOHealth =gO.GetComponent<Health>();
@@ -112,7 +127,11 @@ public class Shoot : MonoBehaviour {
 				{Debug.Log("No photonview copmonent found of this game object");}
 				else{
 					try{
-					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,weapon.currentWeapon.GetDamage());//RPC is global method, am invoking it on the photonview component
+						if(PhotonNetwork.offlineMode){
+							hitGOHealth.TakeDamage(damage);}
+						else{
+							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,damage);//RPC is global method, am invoking it on the photonview component
+						}
 					}
 					catch(System.Exception ex)
 					{

@@ -43,10 +43,13 @@ public class MouseLook : MonoBehaviour {
 	private GameObject sensScroll;//only need one because the x and the y of the characters view are controlled by different instances of the script
 	private Scrollbar scroll;
 	private bool foundSens = false;
+	private bool resetRot = false;
+	
+	private Quaternion zero;
 	
 	void Awake()
 	{
-
+		zero = new Quaternion(0,0,0,0);
 		Screen.lockCursor = true;
 		//lock cursor 
 
@@ -62,8 +65,11 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
+
 		headbobbing ();
 		AlterRotation ();
+		if(Input.GetKeyDown(KeyCode.B))
+			resetRot = true;
 		if (!foundSens) {
 			try {
 				foundSens = true;
@@ -101,8 +107,11 @@ public class MouseLook : MonoBehaviour {
 
 	void AlterRotation()
 	{
+
+
 		if (axes == RotationAxes.MouseXAndY)
 		{
+			resetRot = false;
 			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 			
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
@@ -112,14 +121,22 @@ public class MouseLook : MonoBehaviour {
 		}
 		else if (axes == RotationAxes.MouseX)
 		{
+			resetRot = false;
 			transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
 		}
 		else
 		{
+			resetRot = false;
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+		}
+		if (resetRot) {
+			transform.rotation = zero;
+			Debug.Log(zero);
+			//resetRot = false;
+			return;
 		}
 	}
 	void headbobbing()
@@ -148,6 +165,12 @@ public class MouseLook : MonoBehaviour {
 		}else{
 			sensitivityY = (newSensitivity *15f);
 		}
+	}
+
+	public void ResetRotation(Quaternion rotation)
+	{
+
+		resetRot = true;
 	}
 
 }

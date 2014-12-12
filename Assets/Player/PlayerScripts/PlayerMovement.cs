@@ -40,7 +40,11 @@ public class PlayerMovement : MonoBehaviour {
 		if (transform.position.y < -1) {
 			//Debug.Log("falling");
 			Health h = gameObject.GetComponent<Health>();
-			h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,Time.deltaTime * 40f);
+			if(PhotonNetwork.offlineMode){
+				h.TakeDamage(Time.deltaTime * 60f);}
+			else{
+				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,Time.deltaTime * 60f);
+			}
 			//Debug.Log("damage: "+ Time.deltaTime  * 40f);
 		}
 		if(!cc.isGrounded && jumped){

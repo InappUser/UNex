@@ -46,11 +46,11 @@ public class WeaponManager : MonoBehaviour {
 	{
 		shotGun = new Weapon();//instantiating the object
 		shotGun.SetModel(shotGunModel);
-		shotGun.SetShootEffect(shotGunEffect);//assigning machine gun specific variables 
+		shotGun.SetShootEffect(shotGunEffect);//assigning machine gun specific values. shhot effect refering to the bullet hole left at the hit 
 		shotGun.SetShootExitBarrel (exitBarrelEffect);
-		shotGun.SetSDamage(100f);
+		shotGun.SetSDamage(120f);
 		shotGun.SetFireRate (0.5f);
-		shotGun.SetReloadTime(6f);
+		shotGun.SetReloadTime(4f);
 		shotGun.SetClipSize (4);
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");
@@ -122,7 +122,7 @@ public class WeaponManager : MonoBehaviour {
 
 	void ChangeWeaponModel()
 	{
-
+		Debug.Log ("trying to destroy: "+gameObject.transform.parent.GetChild (1).gameObject.name);
 		Destroy (gameObject.transform.parent.GetChild(1).gameObject);//getting rid of previous object
 		weaponHold=(GameObject)Instantiate(currentWeapon.GetModel(),transform.parent.position,player.transform.rotation *currentWeapon.GetModel().transform.rotation);
 		//^putting the player-selected object in place
