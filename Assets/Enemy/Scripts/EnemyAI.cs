@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour {
 	private float attackDistance = 1f;
 	private float attackTimeCounter =0f;
 	private float timeBetweenAttacks =1f;
-	private float attackDamage = 20;
+	private float attackDamage = 2;
 
 	private Transform spawnPoint;
 	private GameManager gameManager;
@@ -43,7 +43,8 @@ public class EnemyAI : MonoBehaviour {
 	{
 
 		if (FindPlayer () && !pauseGame.paused) {
-			if ((distance < chaseDist && alerted)||tooCloseTooLong) {
+
+			if ((distance < chaseDist && alerted)||tooCloseTooLong) {//chasing the player if they get too close and are alerted, or got too close for too long
 				chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/
 				tooLongTimer = 0f;//resetting timer, so that player once again needs to be too close for too long
 			} else if (distance >= returnDistance) {
@@ -53,13 +54,14 @@ public class EnemyAI : MonoBehaviour {
 				chasing = false;
 			}
 
-			if (chasing && distance < attackDistance) {
+			if (chasing && distance < attackDistance) { //if the player is eligible for attacking, then attack them
+				Debug.Log("Attacking from update");
 				StartCoroutine ( Attack ());
-			}else if(distance < attackDistance*2){
+			}else if(distance < attackDistance*2){//if the above is not met and they player is too far away, then reset tooCloseTooLong
 				tooLongTimer += Time.deltaTime;
 				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
 
-			if (chasing && player && player.GetComponent<Health> ().currentHitPoints > 0) {
+			if (chasing && player && player.GetComponent<Health> ().currentHitPoints > 0) {//if found the player, they aren't dead and are supposed to chase, chase
 				Chase ();/*gameObject.GetComponent<PhotonView>().RPC ("Chase",PhotonTargets.AllBuffered);*/
 			} else if (!chasing) {
 				returnToSpawn ();
@@ -100,7 +102,9 @@ public class EnemyAI : MonoBehaviour {
 		}else{
 			StartCoroutine(Attack ());
 			
-			Debug.Log ("set anim walking to false");
+			Debug.Log("Attacking from chase");
+			
+			//Debug.Log ("set anim walking to false");
 		}
 
 		// Set the appropriate speed for the NavMeshAgent.
@@ -139,7 +143,7 @@ public class EnemyAI : MonoBehaviour {
 				transform.rotation = Quaternion.Slerp (transform.rotation, spawnPoint.rotation, Time.deltaTime * 1);
 				anim.SetBool ("isWalking", false);
 			
-				Debug.Log ("set anim walking to false");
+				//Debug.Log ("set anim walking to false");
 				//if(anim.GetBool("isWalking") == false)
 					//tooCloseTooLong = false;	
 			}

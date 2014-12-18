@@ -6,7 +6,6 @@ public class Shoot : MonoBehaviour {
 	public bool reloading = false;
 
 	private Animator anim;
-	
 	private Health hitGOHealth;//ammo size will never be big enough to justify full int
 	private	Transform shootExit;
 	private	Vector3 shootExitPos;

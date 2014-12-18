@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 			verticalVelocity = jumpSpeed;
 			jumped = true;
 		}
-		if (transform.position.y < -1) {
+		if (transform.position.y < -10) {
 			//Debug.Log("falling");
 			Health h = gameObject.GetComponent<Health>();
 			if(PhotonNetwork.offlineMode){

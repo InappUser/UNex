@@ -65,7 +65,7 @@ public class WeaponManager : MonoBehaviour {
 		rocketLauncher.SetShootExitBarrel (exitBarrelEffect);
 		rocketLauncher.SetSDamage(0f);
 		rocketLauncher.SetFireRate (0.7f);
-		rocketLauncher.SetReloadTime(4f);
+		rocketLauncher.SetReloadTime(5.7f);
 		rocketLauncher.SetClipSize (2);
 		rocketLauncher.clipcount = rocketLauncher.GetClipSize ();
 		rocketLauncher.SetWeaponName("Rocket Launcher");

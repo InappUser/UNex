@@ -20,7 +20,7 @@ public class RocketEngine : MonoBehaviour {
 	void FixedUpdate () {
 		//thrusterInstance = (GameObject)
 		transform.Translate (transform.forward * speed * Time.deltaTime, Space.World);//making the rocket relative to
-		//world as oposed to relative to self, with the space.world
+		//world as opposed to relative to self, with the space.world
 		time += Time.deltaTime;
 		if(time >= .2f && !increased)
 		{

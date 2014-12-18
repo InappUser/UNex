@@ -70,26 +70,26 @@ public class MouseLook : MonoBehaviour {
 		AlterRotation ();
 		if(Input.GetKeyDown(KeyCode.B))
 			resetRot = true;
-		if (!foundSens) {
-			try {
-				foundSens = true;
-				if (gameObject.name == "FPS_Player") {
-					Debug.Log ("found");
-					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
-				} 
-				else {
-
-					sensScroll = GameObject.Find ("ScrlSensY");
-					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
-						scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
-					};
-				}
-			} 
-			catch {
-				Debug.Log ("Nope");
-				foundSens = false;
-			}
-				}
+//		if (!foundSens) {
+//			try {
+//				foundSens = true;
+//				if (gameObject.name == "FPS_Player") {
+//					Debug.Log ("found");
+//					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
+//				} 
+//				else {
+//
+//					sensScroll = GameObject.Find ("ScrlSensY");
+//					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
+//						scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
+//					};
+//				}
+//			} 
+//			catch {
+//				Debug.Log ("Nope");
+//				foundSens = false;
+//			}
+//				}
 
 		if (foundSens) {
 			ChangeSensitivity(scroll.value);		
