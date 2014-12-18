@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour {
 	//made true when an enemy dies; in the health script upon the death being and enemy
 	
 	private GameObject player;
+	private bool renturnedToSpawn = false;
 	private bool wasChasing = false;//used to ensure that the enemy is not told to return to spawn over and over again
 	private bool chasing = false;
 	private bool tooCloseTooLong=false;
@@ -63,7 +64,7 @@ public class EnemyAI : MonoBehaviour {
 
 			if (chasing && player && player.GetComponent<Health> ().currentHitPoints > 0) {//if found the player, they aren't dead and are supposed to chase, chase
 				Chase ();/*gameObject.GetComponent<PhotonView>().RPC ("Chase",PhotonTargets.AllBuffered);*/
-			} else if (!chasing) {
+			} else if (!chasing && !renturnedToSpawn) {
 				returnToSpawn ();
 				wasChasing = false;//ensuring return to spawn is only run once 
 			}
@@ -96,9 +97,10 @@ public class EnemyAI : MonoBehaviour {
 		// Create a vector from the enemy to the last sighting of the player.
 
 		Vector3 sightingDeltaPos =  player.transform.position- transform.position;
-		if (sightingDeltaPos.sqrMagnitude >1.5 && player.transform.position.y < transform.position.y+.5f){//ensuring that the player is not chased if too high
+		if (sightingDeltaPos.sqrMagnitude >1.5f){
 			//if 
 			nav.destination = player.transform.position;
+			anim.SetBool("Attacking",false);
 		}else{
 			StartCoroutine(Attack ());
 			
@@ -115,6 +117,7 @@ public class EnemyAI : MonoBehaviour {
 
 	IEnumerator Attack()
 	{
+		nav.destination = transform.position;
 		anim.SetBool ("isWalking",false);
 		anim.SetBool ("Attacking",true);
 		//yield return new WaitForSeconds (timeBetweenAttacks);
@@ -136,6 +139,8 @@ public class EnemyAI : MonoBehaviour {
 	void returnToSpawn()
 	{
 		//Vector3 returnDeltaPos = spawnPoint.position - transform.position;
+			if(transform.position == spawnPoint.position){//stopping enemy from returning if they are already at the spawnpoint
+				renturnedToSpawn =true;}
 
 			nav.destination = spawnPoint.position;
 			if(Vector3.Distance(transform.position, spawnPoint.position) < 2f)
