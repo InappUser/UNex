@@ -37,11 +37,11 @@ public class PlayerMovement : MonoBehaviour {
 			verticalVelocity = jumpSpeed;
 			jumped = true;
 		}
-		if (transform.position.y < -10) {
+		if (transform.position.y < -60) {
 			//Debug.Log("falling");
 			Health h = gameObject.GetComponent<Health>();
 			if(PhotonNetwork.offlineMode){
-				h.TakeDamage(Time.deltaTime * 60f);}
+				h.TakeDamage(Time.deltaTime * 100f);}
 			else{
 				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,Time.deltaTime * 60f);
 			}

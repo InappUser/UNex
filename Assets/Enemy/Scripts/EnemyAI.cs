@@ -69,11 +69,6 @@ public class EnemyAI : MonoBehaviour {
 				wasChasing = false;//ensuring return to spawn is only run once 
 			}
 		}
-		
-		testVect = new Vector3 (transform.position.x,transform.position.y,transform.position.z+ chaseDist);
-		Ray ray = new Ray(testVect, transform.position);
-		Physics.Raycast(ray,chaseDist);
-		Debug.DrawRay (testVect, transform.position, Color.red, 10f);
 	}
 
 	bool FindPlayer()

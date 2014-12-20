@@ -36,6 +36,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetSDamage(15f);
 		machineGun.SetFireRate (0.09f);
 		machineGun.SetReloadTime(3.5f);
+		machineGun.SetWaitBeforeInitFireTime(0f);
 		machineGun.SetClipSize (30);//ensuring that the player does not need to reload when changing to weapon for first time
 		machineGun.clipcount = machineGun.GetClipSize ();
 		machineGun.SetWeaponName("BAAL Pattern Boltgun");
@@ -51,6 +52,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.SetSDamage(120f);
 		shotGun.SetFireRate (0.5f);
 		shotGun.SetReloadTime(4f);
+		shotGun.SetWaitBeforeInitFireTime(.06f);
 		shotGun.SetClipSize (4);
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");
@@ -65,7 +67,8 @@ public class WeaponManager : MonoBehaviour {
 		rocketLauncher.SetShootExitBarrel (exitBarrelEffect);
 		rocketLauncher.SetSDamage(0f);
 		rocketLauncher.SetFireRate (0.7f);
-		rocketLauncher.SetReloadTime(5.7f);
+		rocketLauncher.SetReloadTime(6f);
+		rocketLauncher.SetWaitBeforeInitFireTime(.11f);
 		rocketLauncher.SetClipSize (2);
 		rocketLauncher.clipcount = rocketLauncher.GetClipSize ();
 		rocketLauncher.SetWeaponName("Rocket Launcher");

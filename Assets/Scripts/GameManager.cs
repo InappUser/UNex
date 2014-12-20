@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	public Text playerAmmoCountText;
 	public Text playerEquipmentText;
 	public Text playerEquipmentLeftText;
+	public Text playerTimer;
 	public GameObject pauseUI;
 	public NetworkManager networkManager;
 	public GameObject spectator;
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour {
 	private bool paused = false;
 	private UIManager pauseGame;
 	static short level=1;
+	private float timerSec=0f;
+	private short timerMin=0;
 
 	public UIManager ReturnPauseUI()
 	{
@@ -61,6 +64,7 @@ public class GameManager : MonoBehaviour {
 			WeaponSelection ();
 			EquipmentSelection();
 			AmmoCount();
+			KeepTime();
 			if((Input.GetKeyDown(KeyCode.Escape) || UIManager.resume) && player && player.GetComponent<Health>().GetHealth() >0){
 				//Debug.Log("pausegame: "+pauseGame.resume);
 				UIManager.resume = false;//these were made static - there will only ever be one instance per player
@@ -123,6 +127,17 @@ public class GameManager : MonoBehaviour {
 		else{
 			playerAmmoCountText.text = weaponAmmo.GetCurrentAmmo().ToString();
 		}
+
+	}
+	void KeepTime()
+	{
+		Debug.Log (timerSec);
+		timerSec += Time.deltaTime;
+		if(timerSec>=60f){
+			timerSec = 0f;
+			timerMin++;
+		}
+		playerTimer.text = timerMin.ToString ("00") + ":" + timerSec.ToString ("00");
 
 	}
 

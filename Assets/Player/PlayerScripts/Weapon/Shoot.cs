@@ -72,16 +72,16 @@ public class Shoot : MonoBehaviour {
 	{
 
 
-		StartCoroutine (ActivateAnim ("Shooting", false, weapon.currentWeapon.GetFireRate ()));
-		if (weapon.currentWeapon.GetWeaponType () == Weapon.WeaponType.SingleShot) {
-			firing = true;
-			yield return new WaitForSeconds (weapon.currentWeapon.GetFireRate()*.12f);
-			firing = false;
-		}
-		weapon.currentWeapon.clipcount --;
+		StartCoroutine (ActivateAnim ("Shooting", false, weapon.currentWeapon.GetFireRate ()));//starting the animation
+
+		firing = true;
+		yield return new WaitForSeconds (weapon.currentWeapon.GetWaitBeforeInitFireTime());//delaying firing the weapon until specified time
+		firing = false;
+
+		weapon.currentWeapon.clipcount --;//decrementing amount of ammo gun has in clip
 		weapon.currentWeapon.fireRateCoolDown = weapon.currentWeapon.GetFireRate();// reseting the fire rate cooldown
 
-		if(weapon.currentWeapon.GetShootEffect()){
+		if(weapon.currentWeapon.GetShootEffect()){//setting the effect
 			//shooting the rocket further forward if the weapon is a rocket
 			if(weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Projectile){
 				Instantiate (weapon.currentWeapon.GetShootEffect(), shootExitPos + (shootExit.forward*0.1f), Camera.main.transform.rotation);
@@ -91,7 +91,8 @@ public class Shoot : MonoBehaviour {
 			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.position,shootExit.transform.rotation);
 			muzzleFlash.transform.parent = transform.parent;
 		}
-		if (weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.SingleShot) {
+
+		if (weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.SingleShot) {//shooting the ray
 			Vector3 campos = Camera.main.transform.position;
 			Vector3 rayForward = new Vector3(Camera.main.transform.forward.x+.002f,Camera.main.transform.forward.y,Camera.main.transform.forward.z);
 			//Vector3 rayPos = new Vector3(campos.x + (-.4f),campos.y+(2f),campos.z);
@@ -100,8 +101,6 @@ public class Shoot : MonoBehaviour {
 				Debug.Log("exitsname: "+shotgunExits[i].name);
 				DrawRay(Camera.main.transform.position,shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));
 			}
-		
-
 		}else{
 			DrawRay (Camera.main.transform.position,Camera.main.transform.forward, weapon.currentWeapon.GetDamage());
 		}

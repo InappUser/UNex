@@ -21,8 +21,8 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	// Fixed because funciton is dealing with movement
+	void FixedUpdate () {
 		//enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 
 		if (!photonView.isMine) //checking to see if object with a pjotonview component is my player or other
