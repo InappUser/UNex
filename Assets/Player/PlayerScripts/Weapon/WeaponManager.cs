@@ -125,7 +125,7 @@ public class WeaponManager : MonoBehaviour {
 
 	void ChangeWeaponModel()
 	{
-		Debug.Log ("trying to destroy: "+gameObject.transform.parent.GetChild (1).gameObject.name);
+		//Debug.Log ("trying to destroy: "+gameObject.transform.parent.GetChild (1).gameObject.name);
 		Destroy (gameObject.transform.parent.GetChild(1).gameObject);//getting rid of previous object
 		weaponHold=(GameObject)Instantiate(currentWeapon.GetModel(),transform.parent.position,player.transform.rotation *currentWeapon.GetModel().transform.rotation);
 		//^putting the player-selected object in place

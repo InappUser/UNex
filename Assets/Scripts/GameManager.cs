@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour {
 	}
 	void KeepTime()
 	{
-		Debug.Log (timerSec);
 		timerSec += Time.deltaTime;
 		if(timerSec>=60f){
 			timerSec = 0f;

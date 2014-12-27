@@ -121,9 +121,9 @@ public class EnemyAI : MonoBehaviour {
 		if (h && h.currentHitPoints>0 && attackTimeCounter >= timeBetweenAttacks) {
 			//anim.SetBool("Attacking",true);
 			if(PhotonNetwork.offlineMode){
-				h.TakeDamage(attackDamage);}//ensuring that, when a new level is loaded within singleplayer, damage can be taken
+				h.TakeDamage(player, attackDamage);}//ensuring that, when a new level is loaded within singleplayer, damage can be taken
 			else{
-				player.GetComponent<PhotonView> ().RPC ("TakeDamage", PhotonTargets.AllBuffered, attackDamage);//RPC is global method, am invoking it on the photonview componenth.TakeDamage (Time.deltaTime * attackDamage);
+				player.GetComponent<PhotonView> ().RPC ("TakeDamage", PhotonTargets.AllBuffered, player, attackDamage);//RPC is global method, am invoking it on the photonview componenth.TakeDamage (Time.deltaTime * attackDamage);
 			}
 			attackTimeCounter = 0f;
 			yield return new WaitForSeconds(2);

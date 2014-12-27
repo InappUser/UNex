@@ -98,7 +98,6 @@ public class Shoot : MonoBehaviour {
 			//Vector3 rayPos = new Vector3(campos.x + (-.4f),campos.y+(2f),campos.z);
 			for(int i=0;i<shotgunExits.Length;i++)
 			{
-				Debug.Log("exitsname: "+shotgunExits[i].name);
 				DrawRay(Camera.main.transform.position,shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));
 			}
 		}else{
@@ -119,16 +118,19 @@ public class Shoot : MonoBehaviour {
 				Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.identity);}
 			GameObject gO = hitInfo.collider.gameObject;//getting the hit gameobject
 			
-			hitGOHealth =gO.GetComponent<Health>();
+			hitGOHealth =gO.transform.root.GetComponent<Health>();
+			Debug.Log("root is: "+gO.transform.root.name);
 			if(hitGOHealth){
-				if(!hitGOHealth.GetComponent<PhotonView>())
-				{Debug.Log("No photonview copmonent found of this game object");}
+				if(!hitGOHealth.transform.root.GetComponent<PhotonView>())
+				{	Debug.Log("No photonview copmonent found of this game object");
+					Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);}
 				else{
+					Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);
 					try{
 						if(PhotonNetwork.offlineMode){
-							hitGOHealth.TakeDamage(damage);}
+							hitGOHealth.TakeDamage(gO, damage);}
 						else{
-							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,damage);//RPC is global method, am invoking it on the photonview component
+							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,gO, damage);//RPC is global method, am invoking it on the photonview component
 						}
 					}
 					catch(System.Exception ex)

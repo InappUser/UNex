@@ -11,6 +11,11 @@ public class Health : MonoBehaviour {
 	private Spawning spawn;
 	private bool alreadyDead = false;
 
+	private float eHeadHealthDamage = 1.5f;
+	private float eTorsoHealthDamage = 1f;
+	private float eArmsHealthDamage = .6f;
+	private float eLegsHealthDamage = .5f;
+
 	void Update()
 	{
 
@@ -30,8 +35,8 @@ public class Health : MonoBehaviour {
 	
 	// needs to be public bc calling from another script
 	[RPC]// allows for method to be called remotely - is a remote procedure call
-	public void TakeDamage (float inflicted) {
-		currentHitPoints -= inflicted;
+	public void TakeDamage (GameObject hitGO, float inflicted) {
+
 		if(currentHitPoints <=0 && !alreadyDead)
 		{
 			alreadyDead = true;
@@ -46,6 +51,7 @@ public class Health : MonoBehaviour {
 			}
 
 		}
+		currentHitPoints -= CaluclateEnemyHealth(hitGO, inflicted);
 	}
 	void Die()
 	{
@@ -69,19 +75,39 @@ public class Health : MonoBehaviour {
 				//gameObject.GetComponent	<Shoot>().enabled = false;//futureproofing
 
 				try{
+					
+					Debug.Log(gameObject.name+" is destroyed");
 					PhotonNetwork.Destroy(gameObject);
 				}//and make sure only one thing can destroy it (using master)
 				catch{
 				Debug.Log("can't destroy "+gameObject.name+" for some reason");
 				}
-		}
-		if (transform.name == "FPS_Player(Clone)") {
-			spectator.SetActive (true);
+			}
+			if (transform.name == "FPS_Player(Clone)") {
+				spectator.SetActive (true);
+			}else{
+				//Debug.Log("weird killing error.");
+			}
 		}
 	}
-		else{
-			Debug.Log("weird killing error.");
+
+	float CaluclateEnemyHealth(GameObject hitGO, float inflicted)
+	{
+		if(hitGO.name == "HitBoxLegL" || hitGO.name == "HitBoxLegR"){
+			return inflicted * eLegsHealthDamage;
 		}
-}
+		else if(hitGO.name == "HitBoxArmL" || hitGO.name == "HitBoxArmR"){
+			return inflicted * eArmsHealthDamage;
+		}
+		else if(hitGO.name == "HitBoxTorso"){
+			return inflicted * eTorsoHealthDamage;
+		}
+		else if(hitGO.name == "HitBoxHead"){
+			return inflicted * eHeadHealthDamage;
+		}
+		else{
+			return inflicted;
+		}
+	}
 
 }
