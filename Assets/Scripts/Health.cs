@@ -36,7 +36,8 @@ public class Health : MonoBehaviour {
 	// needs to be public bc calling from another script
 	[RPC]// allows for method to be called remotely - is a remote procedure call
 	public void TakeDamage (GameObject hitGO, float inflicted) {
-
+		
+		currentHitPoints -= CaluclateEnemyHealth(hitGO, inflicted);
 		if(currentHitPoints <=0 && !alreadyDead)
 		{
 			alreadyDead = true;
@@ -51,7 +52,6 @@ public class Health : MonoBehaviour {
 			}
 
 		}
-		currentHitPoints -= CaluclateEnemyHealth(hitGO, inflicted);
 	}
 	void Die()
 	{

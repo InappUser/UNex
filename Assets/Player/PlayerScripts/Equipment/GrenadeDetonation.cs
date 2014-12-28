@@ -6,7 +6,8 @@ public class GrenadeDetonation : MonoBehaviour {
 	public float explosionRadius = 5f;
 	//public float explosionLift = 1f;
 	public GameObject explosionEffect;
-	
+
+	private float damage = 5f;
 	private Vector3 grenadeOrigin;
 	private Collider[] colliders;
 	// Use this for initialization
@@ -29,8 +30,10 @@ public class GrenadeDetonation : MonoBehaviour {
 				GameObject go = hit.gameObject;
 				Health hitGOHealth = go.GetComponent<Health>();
 				if(hitGOHealth){
-					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,5f);
-					Debug.Log("hurt");
+					if(PhotonNetwork.offlineMode){
+						hitGOHealth.TakeDamage(hitGOHealth.gameObject,damage);}else{
+					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,hitGOHealth.gameObject,damage);
+					Debug.Log("hurt");}
 				}
 			}		
 		}

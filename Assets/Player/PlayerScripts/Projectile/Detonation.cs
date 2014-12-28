@@ -43,8 +43,8 @@ public class Detonation : MonoBehaviour {
 					damage= damage/2;
 				}
 			if(PhotonNetwork.offlineMode){
-				h.TakeDamage(h.gameObject, damage);}else{
-				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,h.gameObject, damage* damageRatio);}
+				h.TakeDamage(h.gameObject, damage*damageRatio);}else{
+				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,h.gameObject, damage*damageRatio);}
 			}
 
 		}
