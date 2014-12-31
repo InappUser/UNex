@@ -60,6 +60,7 @@ ModelImporter:
     100108: Trigger
     100110: upper_arm_L
     100112: upper_arm_R
+    100114: Cylinder
     400000: clavicle_L
     400002: clavicle_R
     400004: Control
@@ -117,8 +118,12 @@ ModelImporter:
     400108: Trigger
     400110: upper_arm_L
     400112: upper_arm_R
+    400114: Cylinder
+    2300000: Cylinder
+    3300000: Cylinder
     4300000: HumanModel_Body
     4300002: Shotgun
+    4300004: Cylinder
     7400000: Default Take
     7400002: Reload
     7400004: SHotGunIdle

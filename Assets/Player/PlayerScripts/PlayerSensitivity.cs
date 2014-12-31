@@ -53,7 +53,6 @@ public class PlayerSensitivity : MonoBehaviour {
 			PlayerPrefs.SetFloat("SensitivityX",(newX*15f));//saving the sensitivity whenever is changed
 			//Debug.Log ("assigned new x:"+(newX*15f));
 		}
-		Debug.Log ("hit x");
 
 	}
 
@@ -64,7 +63,7 @@ public class PlayerSensitivity : MonoBehaviour {
 			PlayerPrefs.SetFloat("SensitivityY",(newY*10f));//saving the sensitivity whenever is changed
 			//Debug.Log ("assigned new y:"+(newY*10f));
 		}
-		Debug.Log ("hit y");
+
 	}
 
 }

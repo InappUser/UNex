@@ -33,7 +33,12 @@ public class UIManager : MonoBehaviour {
 	void Awake () {
 		uis = FindGameObjectByLayer (5);//5 is index for the "UI" layer
 		for (int i =0; i< uis.Length; i++) {
-			ChangeUIColor(uis[i],1);		
+			if(uis[i].name == "InputPlayerName"){
+				ChangeUIColor(uis[i],0.5f);
+				//UnityEngine.Debug.Log("hit the shizzel");
+			}
+			else{
+				ChangeUIColor(uis[i],1);}		
 		}
 		//UIEnableOnly ("InGameUI");
 	}
@@ -105,7 +110,7 @@ public class UIManager : MonoBehaviour {
 			disabledGOs [i].SetActive (false);
 		}
 	}
-	void ChangeUIColor(GameObject uiGO, short colourTrue)
+	void ChangeUIColor(GameObject uiGO, float colourTrue)
 	{
 		if (uiGO.GetComponent<Text>() != null) {
 			Color textColour = new Color();

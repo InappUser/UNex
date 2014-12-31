@@ -76,7 +76,7 @@ public class Health : MonoBehaviour {
 
 				try{
 					
-					Debug.Log(gameObject.name+" is destroyed");
+
 					PhotonNetwork.Destroy(gameObject);
 				}//and make sure only one thing can destroy it (using master)
 				catch{

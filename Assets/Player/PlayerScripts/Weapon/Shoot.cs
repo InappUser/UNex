@@ -122,10 +122,11 @@ public class Shoot : MonoBehaviour {
 			Debug.Log("root is: "+gO.transform.root.name);
 			if(hitGOHealth){
 				if(!hitGOHealth.transform.root.GetComponent<PhotonView>())
-				{	Debug.Log("No photonview copmonent found of this game object");
-					Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);}
+				{	//Debug.Log("No photonview copmonent found of this game object");
+					//Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);
+				}
 				else{
-					Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);
+
 					try{
 						if(PhotonNetwork.offlineMode){
 							hitGOHealth.TakeDamage(gO, damage);}
