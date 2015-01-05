@@ -37,6 +37,9 @@ public class UIManager : MonoBehaviour {
 				ChangeUIColor(uis[i],0.5f);
 				//UnityEngine.Debug.Log("hit the shizzel");
 			}
+			else if(uis[i].name == "ImgBackground"){
+				ChangeUIColor(uis[i],0.3f);
+			}
 			else{
 				ChangeUIColor(uis[i],1);}		
 		}

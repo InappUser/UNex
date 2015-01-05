@@ -100,9 +100,11 @@ public class GameManager : MonoBehaviour {
 		if(!playerWeapon){
 			playerWeapon = player.GetComponentInChildren<WeaponManager>();
 		}
-		else{
+		else if(playerWeaponText){
 			playerWeaponText.text = playerWeapon.currentWeapon.GetWeaponName();
-
+		}
+		else{
+			Debug.LogError("playerWeaponText can't be found (it seems), for some reason");
 		}
 	 }
 	void EquipmentSelection()

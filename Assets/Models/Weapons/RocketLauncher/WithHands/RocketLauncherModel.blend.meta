@@ -127,6 +127,7 @@ ModelImporter:
     7400006: RLReload
     7400008: Shoot
     7400010: Shooting
+    7400012: RLReload_001
     9500000: //RootNode
     13700000: HumanModel_Body
     13700002: Plane

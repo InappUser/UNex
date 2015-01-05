@@ -54,7 +54,7 @@ public class Shoot : MonoBehaviour {
 
 	void KeepGunCurrent()
 	{
-		shootExitPos = transform.position;
+		shootExitPos = transform.GetChild(0).GetChild(0).position;
 		shootExitPos.y -= .2f;
 		shootExitPos.x +=  1.3f * transform.rotation.x;
 		shootExit = transform;
@@ -65,7 +65,7 @@ public class Shoot : MonoBehaviour {
 		fRateCool = weapon.currentWeapon.fireRateCoolDown;//these exist purley for legibility 
 		//(ensures that the ammo will change as soon as the weapon has)
 		if(muzzleFlash){
-			muzzleFlash.transform.parent = transform;}
+			muzzleFlash.transform.parent = transform.GetChild(0);}
 	}
 
 	IEnumerator Fire()
@@ -88,38 +88,40 @@ public class Shoot : MonoBehaviour {
 				yield break;//if is the rocket launcher then the rocket will deal damage etc.
 			}
 			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
-			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.position,shootExit.transform.rotation);
+			Debug.Log("found gun end "+transform.FindChild("GunEnd"));
+			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.GetChild(0).GetChild(0).position,shootExit.transform.rotation);
 			muzzleFlash.transform.parent = transform.parent;
 		}
 
 		if (weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.SingleShot) {//shooting the ray
-			Vector3 campos = Camera.main.transform.position;
+
 			Vector3 rayForward = new Vector3(Camera.main.transform.forward.x+.002f,Camera.main.transform.forward.y,Camera.main.transform.forward.z);
 			//Vector3 rayPos = new Vector3(campos.x + (-.4f),campos.y+(2f),campos.z);
 			for(int i=0;i<shotgunExits.Length;i++)
 			{
-				DrawRay(Camera.main.transform.position,shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));
+				DrawRay(shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));
 			}
 		}else{
-			DrawRay (Camera.main.transform.position,Camera.main.transform.forward, weapon.currentWeapon.GetDamage());
+			DrawRay (Camera.main.transform.forward, weapon.currentWeapon.GetDamage());
 		}
 
 
 
 
 	}
-	void DrawRay(Vector3 rayPos, Vector3 rayForward, float damage)
+	void DrawRay(Vector3 rayForward, float damage)
 	{
 		Ray ray = new Ray(Camera.main.transform.position, rayForward);
 		RaycastHit hitInfo;
 		
 		if (Physics.Raycast (ray, out hitInfo, 100f)) {
+			//Debug.Log("have shot");
 			if(weapon.currentWeapon.GetShootEffect()){
 				Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.identity);}
 			GameObject gO = hitInfo.collider.gameObject;//getting the hit gameobject
 			
 			hitGOHealth =gO.transform.root.GetComponent<Health>();
-			Debug.Log("root is: "+gO.transform.root.name);
+			//Debug.Log("root is: "+gO.transform.root.name);
 			if(hitGOHealth){
 				if(!hitGOHealth.transform.root.GetComponent<PhotonView>())
 				{	//Debug.Log("No photonview copmonent found of this game object");

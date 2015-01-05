@@ -31,11 +31,15 @@ public class EnemyAI : MonoBehaviour {
 	private bool foundUI = false;
 	private float chaseDist; //making chase distance random -- this is how far away the player can be from the enemy and still have the enemy attempt to chase them
 	private float returnDist = 10f;//this is the distance from the spawn point that the enemy will get before they will return to spawn and give up chasing the player
-	private Vector3 testVect;
+	private NavMeshPath navPath;
+	private EnemyJumping jump;
 
 	//private EnemySight enemy
 	void Start()
 	{
+		navPath = new NavMeshPath ();
+		jump = new EnemyJumping(gameObject);
+
 		gameManager = GameObject.FindObjectOfType<GameManager> ();
 		AssignEnemySpawns ();
 		RandomiseDist ();//initially random
@@ -43,25 +47,28 @@ public class EnemyAI : MonoBehaviour {
 
 	void Update()
 	{
-
+		jump.getjump ();
 		if (FoundPlayer () && !pauseGame.paused) {
 
+			//calculating if a chase is eligable
 			if ((distance < chaseDist && alerted)||tooCloseTooLong) {//chasing the player if they get too close and are alerted, or got too close for too long
 				chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/
 				tooLongTimer = 0f;//resetting timer, so that player once again needs to be too close for too long
 			} else if (distance > returnDist) {//when the enemy will return to their spawn
 				chasing = false;
 			}
+		
 
-
-			if (chasing && distance < attackDistance) { //if the player is eligible for attacking, then attack them
-				Debug.Log("Attacking from update");
+			//Attacking
+			if ((chasing || wasChasing) && distance < attackDistance) { //if the player is eligible for attacking, then attack them
+				//Debug.Log("Attacking from update");
 				StartCoroutine ( Attack ());
 			}else if(distance < attackDistance*2){//if the above is not met and they player is too far away, then reset tooCloseTooLong
 				tooLongTimer += Time.deltaTime;
 				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
 
 
+			//Chasing or Returning to spawn
 			if (chasing && player && player.GetComponent<Health> ().currentHitPoints > 0) {//if found the player, they aren't dead and are supposed to chase, chase
 				Chase ();/*gameObject.GetComponent<PhotonView>().RPC ("Chase",PhotonTargets.AllBuffered);*/
 			} else if (!chasing && !returnedToSpawn) {
@@ -87,27 +94,30 @@ public class EnemyAI : MonoBehaviour {
 	[RPC]//remote procedure call so that movement of enemies can be synced, similar to enemy destruction
 	void Chase ()
 	{
-
-		anim.SetBool ("isWalking",true);
-
 		// Create a vector from the enemy to the last sighting of the player.
-
 		Vector3 sightingDeltaPos =  player.transform.position- transform.position;
-		if (sightingDeltaPos.sqrMagnitude >1.5f){
-			//if 
-			nav.destination = player.transform.position;
-			anim.SetBool("Attacking",false);
-		}else{
-			StartCoroutine(Attack ());
-			
 
-			
-			//Debug.Log ("set anim walking to false");
+		anim.SetBool ("isWalking",true);//making enemy walk if they are chasing player
+		nav.CalculatePath (player.transform.position, navPath);//getting the path between the player and the enemy - only used for checking if the player is in an unreachable spot
+		 
+		if(navPath.status == NavMeshPathStatus.PathPartial){//if the player is out of reach, find jump spot and get to them
+			if(!jump.Jump(player)) //keep doing this until the "Jump" method in jump returns true, at which point the chase can resume
+				//Debug.Log("trying to jump");
+				return;
+		} else if(navPath.status == NavMeshPathStatus.PathInvalid){
+			Debug.Log("navPath is invalid");
 		}
 
-		// Set the appropriate speed for the NavMeshAgent.
-		nav.speed = speed;
 
+		if (sightingDeltaPos.sqrMagnitude >1.5f){
+			nav.destination = player.transform.position;
+			Debug.Log("chasing player");
+			anim.SetBool("Attacking",false);
+		}
+		else{
+			StartCoroutine(Attack ());}
+
+		nav.speed = speed;// Set the appropriate speed for the NavMeshAgent.
 		wasChasing = true;
 	}
 
@@ -128,7 +138,7 @@ public class EnemyAI : MonoBehaviour {
 				player.GetComponent<PhotonView> ().RPC ("TakeDamage", PhotonTargets.AllBuffered, player, attackDamage);//RPC is global method, am invoking it on the photonview componenth.TakeDamage (Time.deltaTime * attackDamage);
 			}
 			attackTimeCounter = 0f;
-			yield return new WaitForSeconds(20);
+			yield return new WaitForSeconds(1);
 			anim.SetBool("Attacking",false);
 		}
 	}
@@ -138,10 +148,10 @@ public class EnemyAI : MonoBehaviour {
 		nav.destination = spawnPoint.position;
 		if(Vector3.Distance(transform.position, spawnPoint.position) < 2f)
 		{
-			Debug.Log("hit at all");
+			//Debug.Log("hit at all");
 			transform.rotation = Quaternion.Slerp (transform.rotation, spawnPoint.rotation, Time.deltaTime * 1);
 			anim.SetBool ("isWalking", false);
-			Debug.Log("rot of enemy"+transform.eulerAngles+ " rot of spawn"+spawnPoint.eulerAngles);
+			//Debug.Log("rot of enemy"+transform.eulerAngles+ " rot of spawn"+spawnPoint.eulerAngles);
 			if(transform.eulerAngles == spawnPoint.eulerAngles){//checking to see if they have finished turning around -- eulerAnlges are essentially a normalised version of rotation (rotation won't work in this scenario)
 				RandomiseDist ();//when enemy has returned, re-randomise the distance at which chases player
 				returnedToSpawn = true;//so that this function is not run unnecessarily
@@ -177,8 +187,8 @@ public class EnemyAI : MonoBehaviour {
 		chaseDist = Random.Range (3f,7f); //making chase distance random
 		chaseDist = Random.Range (3f,chaseDist); //favouring the lower side
 	 	
-		returnDist = Random.Range (7f,10f); //also making return distance random
-		returnDist = Random.Range (returnDist,15f); //favouring the higher side
+		returnDist = Random.Range (150f,200f); //also making return distance random
+		returnDist = Random.Range (returnDist,220f); //favouring the higher side
 
 		//Debug.Log ("chase distance for "+spawnPoint.transform.position+" is: "+chaseDist+", return distance is: "+returnDist);
 

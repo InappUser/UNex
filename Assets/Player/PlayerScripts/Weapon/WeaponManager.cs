@@ -24,7 +24,7 @@ public class WeaponManager : MonoBehaviour {
 	private float wheelnum = 1;
 	private bool wheelChanged = false;
 	private bool weaponChanged = false;
-	private GameObject weaponHold;
+	private GameObject weaponHolding;
 
 
 	Weapon InstantiateMachineGun()
@@ -35,7 +35,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetShootExitBarrel (exitBarrelEffect);
 		machineGun.SetSDamage(15f);
 		machineGun.SetFireRate (0.09f);
-		machineGun.SetReloadTime(3.5f);
+		machineGun.SetReloadTime(2.55f);
 		machineGun.SetWaitBeforeInitFireTime(0f);
 		machineGun.SetClipSize (30);//ensuring that the player does not need to reload when changing to weapon for first time
 		machineGun.clipcount = machineGun.GetClipSize ();
@@ -77,15 +77,17 @@ public class WeaponManager : MonoBehaviour {
 	}
 	void Awake()
 	{
-		//weaponHold = new GameObject ();
+		//weaponHolding = new GameObject ();
 		weapons = new Weapon[3];//hard coded as there will only be 3 weapons
 		weapons[0] = InstantiateMachineGun ();
 		weapons[1] = InstantiateShotgun ();
 		weapons[2] = InstantiateRocketLauncher ();
+
 		currentWeapon = machineGun; //machine gun by default
+		weaponHolding = (GameObject)Instantiate (machineGunModel);
+		weaponHolding.transform.parent = transform;
 
 	}
-
 
 	// Update is called once per frame
 	void Update () {
@@ -126,16 +128,16 @@ public class WeaponManager : MonoBehaviour {
 	void ChangeWeaponModel()
 	{
 		//Debug.Log ("trying to destroy: "+gameObject.transform.parent.GetChild (1).gameObject.name);
-		Destroy (gameObject.transform.parent.GetChild(1).gameObject);//getting rid of previous object
-		weaponHold=(GameObject)Instantiate(currentWeapon.GetModel(),transform.parent.position,player.transform.rotation *currentWeapon.GetModel().transform.rotation);
+		Destroy (gameObject.transform.GetChild(0).gameObject);//getting rid of previous object
+		weaponHolding=(GameObject)Instantiate(currentWeapon.GetModel(),transform.position,player.transform.rotation *currentWeapon.GetModel().transform.rotation);
 		//^putting the player-selected object in place
-		if(weaponHold){//ensuring that the model is scaled correctly
+		if(weaponHolding){//ensuring that the model is scaled correctly
 			Vector3 one = new Vector3 ();
 			one.x = 1f;
 			one.y = 1f;
 			one.z = 1f;
-			weaponHold.transform.parent = transform.parent;
-			weaponHold.transform.localScale = one;
+			weaponHolding.transform.parent = transform;
+			weaponHolding.transform.localScale = one;
 		}
 	}
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e5f1089865ef84935afb21356f223fa7
+guid: 5f81b8c3187ea314b92826c6fa7abfa4
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -36,30 +36,33 @@ ModelImporter:
     100060: forearm_L_001
     100062: forearm_R
     100064: forearm_R_001
-    100066: hand_L
-    100068: hand_R
-    100070: //RootNode
-    100072: HumanModel
-    100074: HumanModel_Body
-    100076: MachineGun
-    100078: Magazine
-    100080: palm_index_L
-    100082: palm_index_R
-    100084: palm_middle_L
-    100086: palm_middle_R
-    100088: palm_pinky_L
-    100090: palm_pinky_R
-    100092: palm_ring_L
-    100094: palm_ring_R
-    100096: thumb_01_L
-    100098: thumb_01_R
-    100100: thumb_02_L
-    100102: thumb_02_R
-    100104: thumb_03_L
-    100106: thumb_03_R
-    100108: Trigger
-    100110: upper_arm_L
-    100112: upper_arm_R
+    100066: Hand-Mag
+    100068: Hand-Mag_0
+    100070: hand_L
+    100072: hand_R
+    100074: HumanModel
+    100076: HumanModel_Body
+    100078: MachineGun
+    100080: //RootNode
+    100082: Magazine
+    100084: palm_index_L
+    100086: palm_index_R
+    100088: palm_middle_L
+    100090: palm_middle_R
+    100092: palm_pinky_L
+    100094: palm_pinky_R
+    100096: palm_ring_L
+    100098: palm_ring_R
+    100100: thumb_01_L
+    100102: thumb_01_R
+    100104: thumb_02_L
+    100106: thumb_02_R
+    100108: thumb_03_L
+    100110: thumb_03_R
+    100112: Trigger1
+    100114: upper_arm_L
+    100116: upper_arm_R
+    100118: HandMag
     400000: clavicle_L
     400002: clavicle_R
     400004: Control
@@ -93,38 +96,44 @@ ModelImporter:
     400060: forearm_L_001
     400062: forearm_R
     400064: forearm_R_001
-    400066: hand_L
-    400068: hand_R
-    400070: //RootNode
-    400072: HumanModel
-    400074: HumanModel_Body
-    400076: MachineGun
-    400078: Magazine
-    400080: palm_index_L
-    400082: palm_index_R
-    400084: palm_middle_L
-    400086: palm_middle_R
-    400088: palm_pinky_L
-    400090: palm_pinky_R
-    400092: palm_ring_L
-    400094: palm_ring_R
-    400096: thumb_01_L
-    400098: thumb_01_R
-    400100: thumb_02_L
-    400102: thumb_02_R
-    400104: thumb_03_L
-    400106: thumb_03_R
-    400108: Trigger
-    400110: upper_arm_L
-    400112: upper_arm_R
+    400066: Hand-Mag
+    400068: Hand-Mag_0
+    400070: hand_L
+    400072: hand_R
+    400074: HumanModel
+    400076: HumanModel_Body
+    400078: MachineGun
+    400080: //RootNode
+    400082: Magazine
+    400084: palm_index_L
+    400086: palm_index_R
+    400088: palm_middle_L
+    400090: palm_middle_R
+    400092: palm_pinky_L
+    400094: palm_pinky_R
+    400096: palm_ring_L
+    400098: palm_ring_R
+    400100: thumb_01_L
+    400102: thumb_01_R
+    400104: thumb_02_L
+    400106: thumb_02_R
+    400108: thumb_03_L
+    400110: thumb_03_R
+    400112: Trigger1
+    400114: upper_arm_L
+    400116: upper_arm_R
+    400118: HandMag
     4300000: HumanModel_Body
     4300002: MachineGun
+    4300004: Hand-Mag
     7400000: Default Take
     7400002: Reload
     7400004: Shoot
+    7400006: MGIdle
     9500000: //RootNode
-    13700000: HumanModel_Body
-    13700002: MachineGun
+    13700000: Hand-Mag
+    13700002: HumanModel_Body
+    13700004: MachineGun
   materials:
     importMaterials: 1
     materialName: 0
