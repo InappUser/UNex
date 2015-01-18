@@ -24,7 +24,7 @@ public class EnemyJumping{
 	}
 
 	public void getjump(){
-		Debug.Log ("jumped is"+hasJumped);
+		//Debug.Log ("jumped is"+hasJumped);
 	}
 
 	public bool Jump(GameObject player){
@@ -36,7 +36,7 @@ public class EnemyJumping{
 			counter = 0;//optimising - ensuring that searches only occur every 5 seconds
 			Debug.Log("enemy heading to "+currentJumpSpot.transform.position);
 		}
-		if(Vector3.Distance(myEnemy.transform.position, enemyNav.destination) < 1){
+		if(Vector3.Distance(myEnemy.transform.position, enemyNav.destination) < .1){
 			MakeTransition();
 		}
 		else{

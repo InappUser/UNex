@@ -88,7 +88,7 @@ public class Shoot : MonoBehaviour {
 				yield break;//if is the rocket launcher then the rocket will deal damage etc.
 			}
 			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
-			Debug.Log("found gun end "+transform.FindChild("GunEnd"));
+			//Debug.Log("found gun end "+transform.FindChild("GunEnd"));
 			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.GetChild(0).GetChild(0).position,shootExit.transform.rotation);
 			muzzleFlash.transform.parent = transform.parent;
 		}

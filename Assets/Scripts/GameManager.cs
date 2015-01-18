@@ -19,16 +19,18 @@ public class GameManager : MonoBehaviour {
 
 	private float restartDelay = 3f;
 	private float restartTime;
-	private Color imagecolour = new Color(1f,0f,0f,.6f);
-	private Color textcolour = new Color(0f,0f,0f,1f);
+	private Color imagecolour = new Color(1f,0f,0f,.2f);
+	private Color textcolour = new Color(0f,0f,0f,.5f);
+	private Color zero;
 	private GameObject player;
 	private Health playerHealth;
 	private WeaponManager playerWeapon;
 	private EquipmentManager playerEquipment;
 	private Shoot weaponAmmo;
 	private bool paused = false;
+	private bool endingConceivable = false;//used to ensure that have been enemies, before checking that there are none left
 	private UIManager pauseGame;
-	static short level=1;
+	static short level;
 	private float timerSec=0f;
 	private short timerMin=0;
 
@@ -43,6 +45,9 @@ public class GameManager : MonoBehaviour {
 	
 	void Start()
 	{
+		Debug.Log ("Starting in game manager");
+		zero = new Color (0f,0f,0f,0f);
+		level = (short)Application.loadedLevel;
 		pauseGame = gameObject.GetComponent<UIManager> ();
 		//enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
 	}
@@ -51,10 +56,11 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Spawning.spawnedEnemies) {
 			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
-			//Debug.Log (enemyCount);
-			Spawning.spawnedEnemies = false;}
+			Spawning.spawnedEnemies = false;
+			endingConceivable=true;}
 
 		playerScore.text = enemyCount.ToString();
+		Debug.Log("enemies spawned is "+Spawning.spawnedEnemies);
 
 		if (!player) {
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -72,7 +78,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (enemyCount <= 0) {
+		if (endingConceivable && enemyCount < 1) {
 			LoadLevel ();	
 		}
 	}
@@ -80,7 +86,7 @@ public class GameManager : MonoBehaviour {
 
 	void GamePause()
 	{
-		Debug.Log ("pressed"+ paused);
+		//Debug.Log ("pressed"+ paused);
 		pauseGame.PausedResume (player);
 
 	}
@@ -144,26 +150,30 @@ public class GameManager : MonoBehaviour {
 
 	void LoadLevel()
 	{
+		Debug.Log ("Loading level");
 		GameObject[] allGOs = GameObject.FindObjectsOfType<GameObject> ();
-
-		winImage.color = Color.Lerp(winImage.color, imagecolour ,1f * Time.deltaTime);
-		winText.color = Color.Lerp(winText.color, textcolour ,4f * Time.deltaTime);
+		winImage.color = Color.Lerp (winImage.color, imagecolour, 1.5f * Time.deltaTime);
+		winText.color = Color.Lerp (winText.color, textcolour, 1f * Time.deltaTime);
+		//Debug.Log(winImage.color = Color.Lerp(winImage.color, imagecolour ,1.5f * Time.deltaTime));
+		//Debug.Log(winText.color = Color.Lerp(winText.color, textcolour ,1f * Time.deltaTime));
 		restartTime += Time.deltaTime;
 		Spawning.spawnedEnemies = false;//resetting spawnedEnemies for next level
 		EnemyAI.alerted = false;// resetting whether the alive enemies are alterted upon level change
 		cleanPhotonObjects();
 		if(restartTime >= restartDelay){
+			
+			winImage.color = zero;
+			winText.color  = zero;
+
 			PhotonNetwork.LeaveRoom();
 			if(level <1){
-				/*Application.*/PhotonNetwork.LoadLevel(level++);
+				/*Application.*/PhotonNetwork.LoadLevel(++level);
 			}
 			else{
-				PhotonNetwork.LoadLevel(level--);
-				Debug.Log("level: "+level+"--");
+				PhotonNetwork.LoadLevel(--level);
+				//Debug.Log("level: "+level+"--");
 			}
-			
-				//Application.LoadLevel(level++);
-			
+			Debug.Log ("Resetting colours");
 		}
 	}
 

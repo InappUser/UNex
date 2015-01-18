@@ -1,17 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Enemy\Scripts\EnemyJumping.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UIManager.cs">
     <Files>
-      <File FileName="Assets\Enemy\Scripts\EnemyJumping.cs" Line="32" Column="29" />
-      <File FileName="Assets\Enemy\Scripts\EnemyAI.cs" Line="103" Column="36" />
+      <File FileName="Assets\Player\PlayerScripts\NetworkViewOffOn.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Player\PlayerScripts\Equipment\GrenadeDetonation.cs" Line="1" Column="1" />
-      <File FileName="Assets\Player\PlayerScripts\Projectile\Detonation.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Health.cs" Line="1" Column="1" />
-      <File FileName="Assets\Player\PlayerScripts\PlayerSensitivity.cs" Line="1" Column="1" />
-      <File FileName="Assets\Player\PlayerScripts\Weapon\Shoot.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\NetworkManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\MouseLook.cs" Line="24" Column="34" />
+      <File FileName="Assets\Player\PlayerScripts\MyNetworkCharacter.cs" Line="30" Column="4" />
+      <File FileName="Assets\Player\PlayerScripts\PlayerMovement.cs" Line="21" Column="32" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="153" Column="62" />
+      <File FileName="Assets\Scripts\UIManager.cs" Line="142" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

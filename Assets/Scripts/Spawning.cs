@@ -168,7 +168,8 @@ public class Spawning : MonoBehaviour {
 		//for (int i=0; i < enemyTotalSpawnPoints.Length; i++) {
 		//	/*GameObject enemyGO = (GameObject)*/PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[i].transform.position, enemyTotalSpawnPoints[i].transform.rotation,0);		
 		//}
-		spawnedEnemies = true;
+		Spawning.spawnedEnemies = true;
+		Debug.Log ("from spawning, spawned is "+Spawning.spawnedEnemies);
 
 	}
 
