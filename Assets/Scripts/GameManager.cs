@@ -13,12 +13,15 @@ public class GameManager : MonoBehaviour {
 	public Text playerEquipmentLeftText;
 	public Text playerTimer;
 	public GameObject pauseUI;
-	public NetworkManager networkManager;
 	public GameObject spectator;
-	public static int enemyCount =1;//initialising so that game doesn't end immediately 
+	public NetworkManager networkManager;
+	public static int enemyCount =1;//initialising so that game doesn't end immediately - setting this in start may be an easier way to stop games ending when loading new level
+
+	static short level;
 
 	private float restartDelay = 3f;
 	private float restartTime;
+	private float timerSec=0f;
 	private Color imagecolour = new Color(1f,0f,0f,.2f);
 	private Color textcolour = new Color(0f,0f,0f,.5f);
 	private Color zero;
@@ -27,12 +30,9 @@ public class GameManager : MonoBehaviour {
 	private WeaponManager playerWeapon;
 	private EquipmentManager playerEquipment;
 	private Shoot weaponAmmo;
-	private bool paused = false;
-	private bool endingConceivable = false;//used to ensure that have been enemies, before checking that there are none left
 	private UIManager pauseGame;
-	static short level;
-	private float timerSec=0f;
 	private short timerMin=0;
+	private bool paused = false;
 
 	public UIManager ReturnPauseUI()
 	{
@@ -56,8 +56,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Spawning.spawnedEnemies) {
 			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
-			Spawning.spawnedEnemies = false;
-			endingConceivable=true;}
+			Spawning.spawnedEnemies = false;}
 
 		playerScore.text = enemyCount.ToString();
 		Debug.Log("enemies spawned is "+Spawning.spawnedEnemies);
@@ -78,7 +77,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (endingConceivable && enemyCount < 1) {
+		if (enemyCount < 1) {
 			LoadLevel ();	
 		}
 	}
@@ -164,6 +163,7 @@ public class GameManager : MonoBehaviour {
 			
 			winImage.color = zero;
 			winText.color  = zero;
+			enemyCount =1;
 
 			PhotonNetwork.LeaveRoom();
 			if(level <1){
