@@ -137,9 +137,10 @@ public class Shoot : MonoBehaviour {
 
 					try{
 						if(PhotonNetwork.offlineMode){
-							hitGOHealth.TakeDamage(gO, damage);}//if in online mode, don't use RPCs: they seem to be a bit buggy
+							hitGOHealth.TakeDamage(gO.name, damage);}//if in online mode, don't use RPCs: they seem to be a bit buggy
 						else{
-							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,gO, damage);//RPC is global method, am invoking it on the photonview component
+							Debug.Log("hit "+hitGOHealth.gameObject.name+" on the network");
+							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,gO.name, damage);//RPC is global method, am invoking it on the photonview component
 						}//of the hit object, i.e. sending the message to every object with a photonview component
 					}
 					catch(System.Exception ex)

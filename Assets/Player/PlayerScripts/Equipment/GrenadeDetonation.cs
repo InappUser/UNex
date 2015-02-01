@@ -31,8 +31,8 @@ public class GrenadeDetonation : MonoBehaviour {
 				Health hitGOHealth = go.GetComponent<Health>();
 				if(hitGOHealth){
 					if(PhotonNetwork.offlineMode){
-						hitGOHealth.TakeDamage(hitGOHealth.gameObject,damage);}else{
-					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,hitGOHealth.gameObject,damage);
+						hitGOHealth.TakeDamage(hitGOHealth.gameObject.name,damage);}else{
+					hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,hitGOHealth.gameObject.name,damage);
 					Debug.Log("hurt");}
 				}
 			}		

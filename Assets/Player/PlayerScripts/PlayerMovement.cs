@@ -41,9 +41,9 @@ public class PlayerMovement : MonoBehaviour {
 			//Debug.Log("falling");
 			Health h = gameObject.GetComponent<Health>();
 			if(PhotonNetwork.offlineMode){
-				h.TakeDamage(gameObject, Time.deltaTime * 100f);}
+				h.TakeDamage(gameObject.name, Time.deltaTime * 100f);}
 			else{
-				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,gameObject, Time.deltaTime * 60f);
+				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,gameObject.name, Time.deltaTime * 60f);
 			}
 			//Debug.Log("damage: "+ Time.deltaTime  * 40f);
 		}

@@ -7,13 +7,23 @@ public class Detonation : MonoBehaviour {
 	public float explosionRadius = 100f;
 	public float killDistance = 4f;
 	//remeber- these are public and are overriden by values set in unity
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider col)
 	{
-		Detonate ();
+		if(col.transform.name == "FPS_Player(Clone)" && col.transform.GetComponent<PhotonView>().isMine){//if is the player and the player is owned by the client, the dont do damage
+			Debug.Log("did not run");
+			return;
+		}else{
+			Detonate ();
+		}
 	}
-	void OnCollisionEnter()
+	void OnCollisionEnter(Collision col)
 	{
-		Detonate ();
+		if(col.transform.name == "FPS_Player(Clone)" && col.transform.GetComponent<PhotonView>().isMine){//if is the player and the player is owned by the client, the dont do damage
+			Debug.Log("did not run");
+			return;
+		}else{
+			Detonate ();
+		}
 	}
 	/*void FixedUpdate()
 	{
@@ -46,11 +56,11 @@ public class Detonation : MonoBehaviour {
 			if(PhotonNetwork.offlineMode)
 				{
 				if(h.name=="FPS_Player(Clone)"){
-					h.TakeDamage(h.gameObject, (damage*damageRatio)/2);
+					h.TakeDamage(h.gameObject.name, (damage*damageRatio)/2);
 				}else{
-					h.TakeDamage(h.gameObject, damage*damageRatio);}
+					h.TakeDamage(h.gameObject.name, damage*damageRatio);}
 			}else{
-				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,h.gameObject, damage*damageRatio);}
+				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,h.gameObject.name, damage*damageRatio);}
 			}
 
 		}

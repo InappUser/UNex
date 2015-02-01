@@ -20,12 +20,13 @@ public class WeaponManager : MonoBehaviour {
 	private Weapon machineGun;
 	private Weapon shotGun;
 	private Weapon rocketLauncher;
+	private Animator animOUT;
+	private GameObject weaponHolding;
+	private Vector3 one;
 	private short currentWeaponnum = 1;
 	private float wheelnum = 1;
 	private bool wheelChanged = false;
 	private bool weaponChanged = false;
-	private GameObject weaponHolding;
-	private Vector3 one;
 
 	
 	void Awake()
@@ -46,6 +47,8 @@ public class WeaponManager : MonoBehaviour {
 		weaponHolding = (GameObject)Instantiate (machineGunModel, transform.position,player.transform.rotation *currentWeapon.GetModel().transform.rotation);
 		weaponHolding.transform.parent = transform;
 		weaponHolding.transform.localScale = one;
+
+		animOUT = transform.root.GetComponent<Animator> ();
 	}
 
 	// Update is called once per frame
@@ -79,6 +82,7 @@ public class WeaponManager : MonoBehaviour {
 	{
 		weaponChanged = true;//so that the reload animation etc can stop if weapon has changed
 		currentWeapon = weapons[weap-1];//-1 because array starts at 0 rather than 1, which would be more intuative
+		animOUT.SetInteger ("ActiveWeapon", weap - 1);//changing the outside players weapon accordingly
 		ChangeWeaponModel();
 		currentWeaponnum = weap;
 		wheelnum =weap;//if none of these buttons are pressed then do nothing

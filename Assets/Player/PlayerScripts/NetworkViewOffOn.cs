@@ -11,7 +11,7 @@ public class NetworkViewOffOn : Photon.MonoBehaviour {
 		if(photonView.isMine){
 
 			my.SetActive(true);
-			other.SetActive(true);
+			other.SetActive(false);
 			//my.GetComponentInChildren<>
 		}
 		else{

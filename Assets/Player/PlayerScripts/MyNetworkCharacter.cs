@@ -50,6 +50,8 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
   			stream.SendNext(anim.GetFloat("FSpeed"));//sending the players forward/backward animation info
 			stream.SendNext(anim.GetFloat("SSpeed"));//sending the players left/right animation info
 			stream.SendNext(anim.GetBool("Jump"));//sending the players jump animation info
+			stream.SendNext(anim.GetBool("Reloading"));//sending the players reloading animation info
+			stream.SendNext(anim.GetInteger("ActiveWeapon"));//sending which weapon the player is holding (0=MG, 1=SG, 2=RL)
 
 			/*for(int i=0;i <enemies.Length;i++){
 				if(enemies[i]!= null){
@@ -72,7 +74,9 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			anim.SetFloat("FSpeed",(float)stream.ReceiveNext());
 			anim.SetFloat("SSpeed",(float)stream.ReceiveNext());//the order in which these are sent needs to be mirrored when recieved
 			anim.SetBool("Jump",(bool)stream.ReceiveNext());
-
+			anim.SetBool("Reloading",(bool)stream.ReceiveNext()); //recieving information for reloading from other players
+			anim.SetInteger("ActiveWeapon",(int)stream.ReceiveNext()); 
+			
 			/*for(int i=0;i <enemies.Length;i++)
 				enemies[i].transform.position =(Vector3)stream.ReceiveNext();*/
 			if(!recivedFirstUpdate)//if the first update has not been recieved
