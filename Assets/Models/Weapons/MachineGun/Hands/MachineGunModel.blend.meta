@@ -60,6 +60,8 @@ ModelImporter:
     100108: Trigger1
     100110: upper_arm_L
     100112: upper_arm_R
+    100114: grpMagazine
+    100116: MachineGun_001
     400000: clavicle_L
     400002: clavicle_R
     400004: Control
@@ -117,8 +119,11 @@ ModelImporter:
     400108: Trigger1
     400110: upper_arm_L
     400112: upper_arm_R
+    400114: grpMagazine
+    400116: MachineGun_001
     4300000: HumanModel_Body
     4300002: MachineGun
+    4300004: MachineGun_001
     7400000: Default Take
     7400002: Reload
     7400004: Shoot
@@ -127,6 +132,7 @@ ModelImporter:
     9500000: //RootNode
     13700000: HumanModel_Body
     13700002: MachineGun
+    13700004: MachineGun_001
   materials:
     importMaterials: 1
     materialName: 0

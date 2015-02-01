@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour {
 	
 	void Start()
 	{
-		Debug.Log ("Starting in game manager");
 		zero = new Color (0f,0f,0f,0f);
 		level = (short)Application.loadedLevel;
 		pauseGame = gameObject.GetComponent<UIManager> ();
@@ -59,7 +58,6 @@ public class GameManager : MonoBehaviour {
 			Spawning.spawnedEnemies = false;}
 
 		playerScore.text = enemyCount.ToString();
-		Debug.Log("enemies spawned is "+Spawning.spawnedEnemies);
 
 		if (!player) {
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -163,7 +161,6 @@ public class GameManager : MonoBehaviour {
 			
 			winImage.color = zero;
 			winText.color  = zero;
-			enemyCount =1;
 
 			PhotonNetwork.LeaveRoom();
 			if(level <1){

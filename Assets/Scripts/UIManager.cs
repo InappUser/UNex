@@ -20,8 +20,10 @@ public class UIManager : MonoBehaviour {
 		for (int i =0; i < suspectedGOs.Length; i++) {//adding gameobject to the list if it has the same layer as passed
 			if(suspectedGOs[i].layer == layer){
 				layerGOsList.Add(suspectedGOs[i]);
-				if(suspectedGOs[i].name == "TxtPlayerName")
+				if(suspectedGOs[i].name == "TxtPlayerName"){
 					playerName = suspectedGOs[i].GetComponent<Text>();
+					playerName.text = "test";
+					UnityEngine.Debug.Log("player name is "+playerName.text);}
 			}
 		}
 		if(layerGOsList.Count == 0){//returning null if no gameobjects found on that layer
@@ -44,6 +46,7 @@ public class UIManager : MonoBehaviour {
 				ChangeUIColor(uis[i],1);}		
 		}
 		//UIEnableOnly ("InGameUI");
+
 	}
 
 	public void PausedResume(GameObject player)
@@ -155,7 +158,8 @@ public class UIManager : MonoBehaviour {
 	}
 	public void SetPlayerName(string text)
 	{
-		playerName.text = text;
+		playerName.text.Equals(text);
+		UnityEngine.Debug.Log ("Textbox is set to \""+playerName.text+ "\" is suposed to be "+ text);
 	}
 
 	public void ToggleFullScreen()
@@ -171,6 +175,7 @@ public class UIManager : MonoBehaviour {
 	}
 	public void UpdateGame()
 	{
+		UnityEngine.Debug.Log ("updating game");
 		try{
 			Process uProc = new Process();
 			uProc.StartInfo.FileName = "update.exe";

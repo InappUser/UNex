@@ -5,7 +5,8 @@ public class Shoot : MonoBehaviour {
 	public LineRenderer shootLine;
 	public bool reloading = false;
 
-	private Animator anim;
+	private Animator animIN;
+	private Animator animOUT;
 	private Health hitGOHealth;//ammo size will never be big enough to justify full int
 	private	Transform shootExit;
 	private	Vector3 shootExitPos;
@@ -34,17 +35,22 @@ public class Shoot : MonoBehaviour {
 		KeepGunCurrent ();
 
 		if(Input.GetButton("Fire1") && (fRateCool<0) && weapon.currentWeapon.clipcount >0 && !reloading && !firing){
-			StartCoroutine( Fire());}//is an ienumerator so that a delay can occur with the shotgun
-//		if (weapon.currentWeapon.fireRateCoolDown >= weapon.currentWeapon.GetFireRate()) {
-//			shootLine.enabled = false;}		
+			StartCoroutine( Fire());//is an ienumerator so that a delay can occur with the shotgun
+		}else if( weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && !Input.GetButton("Fire1") && animIN.GetBool("Shooting")){
+			//if is the machine gun, the fire button is not being held and the animINator's shooting bool is true then set it to false
+			animIN.SetBool ("Shooting", false);
+			Debug.Log("not firing machine gun");}
+			
 		if(!reloading && (Input.GetKey (KeyCode.R) || weapon.currentWeapon.clipcount <=0) && weapon.currentWeapon.clipcount < weapon.currentWeapon.GetClipSize()){
 			StartCoroutine(ActivateAnim("Reloading", true, weapon.currentWeapon.GetReloadTime()));}
 
 		if (reloading && weapon.GetWeaponChanged () == true) {
 			StopCoroutine("ActivateAnim");
 			reloading = false;
-			if(anim)
-				anim.SetBool ("Reloading", false);
+			if(animIN)
+				animIN.SetBool ("Reloading", false);
+			if(animOUT)
+				animOUT.SetBool ("Reloading", false);
 			weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
 			weapon.WeaponChangeComplete();
 		}
@@ -59,8 +65,9 @@ public class Shoot : MonoBehaviour {
 		shootExitPos.x +=  1.3f * transform.rotation.x;
 		shootExit = transform;
 
-		anim = transform.parent.GetComponentInChildren<Animator>();
-		//assigning anim the value of the animator available in the currentweapon. Ensuring that it is kept current
+		animIN = transform.parent.GetComponentInChildren<Animator>();//for activating animations for inside player
+		animOUT = transform.root.GetComponent<Animator> ();//for activating animations for outside player (for other players)
+		//assigning animIN the value of the animINator available in the currentweapon. Ensuring that it is kept current
 		weapon.currentWeapon.fireRateCoolDown -= Time.deltaTime;//decrementing 
 		fRateCool = weapon.currentWeapon.fireRateCoolDown;//these exist purley for legibility 
 		//(ensures that the ammo will change as soon as the weapon has)
@@ -71,8 +78,7 @@ public class Shoot : MonoBehaviour {
 	IEnumerator Fire()
 	{
 
-
-		StartCoroutine (ActivateAnim ("Shooting", false, weapon.currentWeapon.GetFireRate ()));//starting the animation
+		StartCoroutine (ActivateAnim ("Shooting", false, weapon.currentWeapon.GetFireRate ()));//starting the animINation
 
 		firing = true;
 		yield return new WaitForSeconds (weapon.currentWeapon.GetWaitBeforeInitFireTime());//delaying firing the weapon until specified time
@@ -99,7 +105,7 @@ public class Shoot : MonoBehaviour {
 			//Vector3 rayPos = new Vector3(campos.x + (-.4f),campos.y+(2f),campos.z);
 			for(int i=0;i<shotgunExits.Length;i++)
 			{
-				DrawRay(shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));
+				DrawRay(shotgunExits[i].transform.forward, (weapon.currentWeapon.GetDamage()/shotgunExits.Length));//spreading the amount of damage equally between each exit point
 			}
 		}else{
 			DrawRay (Camera.main.transform.forward, weapon.currentWeapon.GetDamage());
@@ -124,23 +130,23 @@ public class Shoot : MonoBehaviour {
 			//Debug.Log("root is: "+gO.transform.root.name);
 			if(hitGOHealth){
 				if(!hitGOHealth.transform.root.GetComponent<PhotonView>())
-				{	//Debug.Log("No photonview copmonent found of this game object");
-					//Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);
+				{	Debug.Log("No photonview copmonent found of this game object");
+					Debug.Log("gameobject found: "+ hitGOHealth.transform.root.name);
 				}
 				else{
 
 					try{
 						if(PhotonNetwork.offlineMode){
-							hitGOHealth.TakeDamage(gO, damage);}
+							hitGOHealth.TakeDamage(gO, damage);}//if in online mode, don't use RPCs: they seem to be a bit buggy
 						else{
 							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,gO, damage);//RPC is global method, am invoking it on the photonview component
-						}
+						}//of the hit object, i.e. sending the message to every object with a photonview component
 					}
 					catch(System.Exception ex)
 					{
 						Debug.Log(ex);
 					}
-					}//of the hit object, i.e. sending the message to every object with a photonview component
+					}
 			}
 			//shootLine.SetPosition(1,hitInfo.point);
 		}
@@ -149,16 +155,21 @@ public class Shoot : MonoBehaviour {
 
 	IEnumerator ActivateAnim(string boolName, bool isReloading, float waitTime)
 	{
-		if(anim !=null){ //making sure that the animator is assigned
+		if(animIN !=null){ //making sure that the animINator is assigned
 			if(isReloading){
 				reloading = true;//saying that am currently reloading
-			}//set the appropriate animator bool to true
-			anim.SetBool (boolName, true);
+				animOUT.SetBool(boolName, true);//currently reloading is all that the outsie is capable of, so not setting bool for bools that don'e exist in mechanim
+			}//set the appropriate animINator bool to true
+			animIN.SetBool (boolName, true);
 			}
 		yield return new WaitForSeconds (waitTime);
 
-		if(anim)
-			anim.SetBool (boolName, false);
+		if(animIN){//if is not the machine gun or is the machine gun and the fire button is not being pressed and the bool is "shooting" - designed to ensure that the machine gun's reloading animINation is not affected
+			if( weapon.currentWeapon.GetWeaponType() != Weapon.WeaponType.Stream || ((weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && !Input.GetButton("Fire1")) || boolName == "Reloading") ){
+				animIN.SetBool (boolName, false);
+				if(boolName == "Reloading"){
+					Debug.Log("Outside reloading");
+					animOUT.SetBool(boolName, false);}}}
 
 		if(isReloading){
 			reloading = false;//state that reloading has finished, if this was used for reloading, and reset ammo

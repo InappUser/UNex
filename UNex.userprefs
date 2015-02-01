@@ -1,15 +1,20 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Player\PlayerScripts\NetworkViewOffOn.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="18" Column="174" />
-      <File FileName="Assets\Player\PlayerScripts\NetworkViewOffOn.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Weapon\Shoot.cs" Line="158" Column="34" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="22" Column="28" />
+      <File FileName="Assets\Scripts\Map_Teleporting.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\NetworkViewOffOn.cs" Line="13" Column="21" />
       <File FileName="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\NetworkManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\MouseLook.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\MyNetworkCharacter.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Spawning.cs" Line="172" Column="66" />
+      <File FileName="Assets\Scripts\Spawning.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Health.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Projectile\Detonation.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UIManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
