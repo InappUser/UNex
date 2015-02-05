@@ -82,7 +82,7 @@ public class NetworkManager : MonoBehaviour {
 			if(PhotonNetwork.player.name != "" && !setPlayerName)
 			{
 				ui.SetPlayerName(PhotonNetwork.player.name);
-				UnityEngine.Debug.Log(ui.GetPlayerName());
+				//UnityEngine.Debug.Log(ui.GetPlayerName());
 				setPlayerName = true;
 			}
 			//PhotonNetwork.player.name = Regex.Replace(^);

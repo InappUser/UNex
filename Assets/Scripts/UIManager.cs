@@ -8,6 +8,7 @@ using System.Diagnostics;
 public class UIManager : MonoBehaviour {
 	public bool paused = false;
 	public static bool resume = false;
+	public static bool scActive = true;    
 	private GameObject[] uis;//an array of UI gameobjects
 	private Text playerName;
 
@@ -23,7 +24,8 @@ public class UIManager : MonoBehaviour {
 				if(suspectedGOs[i].name == "TxtPlayerName"){
 					playerName = suspectedGOs[i].GetComponent<Text>();
 					playerName.text = "test";
-					UnityEngine.Debug.Log("player name is "+playerName.text);}
+					//UnityEngine.Debug.Log("player name is "+playerName.text);
+				}
 			}
 		}
 		if(layerGOsList.Count == 0){//returning null if no gameobjects found on that layer
@@ -36,13 +38,12 @@ public class UIManager : MonoBehaviour {
 		uis = FindGameObjectByLayer (5);//5 is index for the "UI" layer
 		for (int i =0; i< uis.Length; i++) {
 			if(uis[i].name == "InputPlayerName"){
-				ChangeUIColor(uis[i],0.5f);
-				//UnityEngine.Debug.Log("hit the shizzel");
-			}
-			else if(uis[i].name == "ImgBackground"){
+				ChangeUIColor(uis[i],0.5f); //passing the gameobject and how opaque it will be when enabled
+			}else if(uis[i].name == "ImgBackground"){ //exceptions where the UI needs to be somewhat transparent
 				ChangeUIColor(uis[i],0.3f);
-			}
-			else{
+			}else if(uis[i].name == "PnlSB"){
+				ChangeUIColor(uis[i],0.4f);
+			}else{
 				ChangeUIColor(uis[i],1);}		
 		}
 		//UIEnableOnly ("InGameUI");
@@ -78,6 +79,16 @@ public class UIManager : MonoBehaviour {
 		}catch(System.Exception ex){
 			UnityEngine.Debug.LogError("Don't know about player!\nYou probably left an instance in the hierarchy\n"+ex);}
 	}
+	public void showHideSB(){
+		if(scActive){
+			scActive = false;
+			UIEnable("SBUI");
+		}else{
+			scActive = true;
+			UIDisable("SBUI");
+		}
+	}
+
 	public void UIEnableOnly(string enable)
 	{
 		for(int i=0;i<uis.Length;i++){//setting all UI to inacive at start
@@ -132,12 +143,10 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
-	public void ResumeGame ()
-	{
+
+	public void ResumeGame(){
 		resume = true;
 	}
-
-
 	public void ExitGame()
 	{
 		Application.Quit ();
@@ -159,7 +168,7 @@ public class UIManager : MonoBehaviour {
 	public void SetPlayerName(string text)
 	{
 		playerName.text.Equals(text);
-		UnityEngine.Debug.Log ("Textbox is set to \""+playerName.text+ "\" is suposed to be "+ text);
+		//UnityEngine.Debug.Log ("Textbox is set to \""+playerName.text+ "\" is suposed to be "+ text);
 	}
 
 	public void ToggleFullScreen()
