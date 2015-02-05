@@ -15,13 +15,14 @@ public class GameManager : MonoBehaviour {
 	public GameObject pauseUI;
 	public GameObject spectator;
 	public NetworkManager networkManager;
-	public static int enemyCount =1;//initialising so that game doesn't end immediately - setting this in start may be an easier way to stop games ending when loading new level
+	public int enemyStaticsDead =0;//initialising so that game doesn't end immediately - setting this in start may be an easier way to stop games ending when loading new level
 
+	public static int enemStaticTotal=1;
 	static short level;
 
 	private float restartDelay = 3f;
 	private float restartTime;
-	private float timerSec=0f;
+	private float timerSec=1f;
 	private Color imagecolour = new Color(1f,0f,0f,.2f);
 	private Color textcolour = new Color(0f,0f,0f,.5f);
 	private Color zero;
@@ -30,13 +31,12 @@ public class GameManager : MonoBehaviour {
 	private WeaponManager playerWeapon;
 	private EquipmentManager playerEquipment;
 	private Shoot weaponAmmo;
-	private UIManager pauseGame;
+	private UIManager uiManager;
 	private short timerMin=0;
-	private bool paused = false;
 
 	public UIManager ReturnPauseUI()
 	{
-		return pauseGame;
+		return uiManager;
 	}
 	public GameObject ReturnSpectator()
 	{
@@ -47,17 +47,17 @@ public class GameManager : MonoBehaviour {
 	{
 		zero = new Color (0f,0f,0f,0f);
 		level = (short)Application.loadedLevel;
-		pauseGame = gameObject.GetComponent<UIManager> ();
-		//enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
+		uiManager = gameObject.GetComponent<UIManager> ();
+		//enemyStaticsDead = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Spawning.spawnedEnemies) {
-			enemyCount = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
-			Spawning.spawnedEnemies = false;}
+//		if (Spawning.spawnedEnemies) { //poor way to get current amount of alive
+//			enemyStaticsDead = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
+//			Spawning.spawnedEnemies = false;}
 
-		playerScore.text = enemyCount.ToString();
+		playerScore.text = (PlayerScore.enemiesTotal-enemyStaticsDead).ToString();
 
 		if (!player) {
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -69,13 +69,15 @@ public class GameManager : MonoBehaviour {
 			AmmoCount();
 			KeepTime();
 			if((Input.GetKeyDown(KeyCode.Escape) || UIManager.resume) && player && player.GetComponent<Health>().GetHealth() >0){
-				//Debug.Log("pausegame: "+pauseGame.resume);
+				//Debug.Log("pausegame: "+uiManager.resume);
 				UIManager.resume = false;//these were made static - there will only ever be one instance per player
-				pauseGame.PausedResume (player);//abstracting the pause to the pause script
+				uiManager.PausedResume (player);//abstracting the pause to the pause script
 			}
+			if(Input.GetKeyDown(KeyCode.Tab) && !uiManager.paused){
+				uiManager.showHideSB();}
 		}
 
-		if (enemyCount < 1) {
+		if (enemStaticTotal < 1) {
 			LoadLevel ();	
 		}
 	}
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour {
 	void GamePause()
 	{
 		//Debug.Log ("pressed"+ paused);
-		pauseGame.PausedResume (player);
+		uiManager.PausedResume (player);
 
 	}
 	
@@ -136,12 +138,14 @@ public class GameManager : MonoBehaviour {
 	}
 	void KeepTime()
 	{
-		timerSec += Time.deltaTime;
-		if(timerSec>=60f){
-			timerSec = 0f;
-			timerMin++;
+		if(enemStaticTotal >0){//ensuring that the timer stops once enemies have been killed
+			timerSec += Time.deltaTime;
+			if(timerSec>=60f){
+				timerSec = 0f;
+				timerMin++;
+			}
+			playerTimer.text = timerMin.ToString ("00") + ":" + timerSec.ToString ("00");
 		}
-		playerTimer.text = timerMin.ToString ("00") + ":" + timerSec.ToString ("00");
 
 	}
 
@@ -197,5 +201,8 @@ public class GameManager : MonoBehaviour {
 		}
 		PhotonNetwork.SetSendingEnabled (0, false);
 		PhotonNetwork.isMessageQueueRunning = false;
+	}
+	public int returnPlayerTime(){
+		return (int)((timerMin*60)+timerSec);
 	}
 }

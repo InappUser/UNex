@@ -5,12 +5,12 @@ public class Health : MonoBehaviour {
 	public float hitPoints = 100f;
 	public float currentHitPoints;
 
-	private GameManager spectatorFind;
+	private GameManager gm;
 	private GameObject spectator;
 	private GameObject player;
 	private Spawning spawn;
 	private bool alreadyDead = false;
-
+	
 	private float eHeadHealthDamage = 1.5f;
 	private float eTorsoHealthDamage = 1f;
 	private float eArmsHealthDamage = .6f;
@@ -24,8 +24,8 @@ public class Health : MonoBehaviour {
 	void Awake () {
 		spawn = GameObject.FindObjectOfType<Spawning> ();
 		currentHitPoints = hitPoints;
-		spectatorFind = (GameManager)GameObject.FindObjectOfType<GameManager> ();
-		spectator = spectatorFind.ReturnSpectator ();
+		gm = (GameManager)GameObject.FindObjectOfType<GameManager> ();
+		spectator = gm.ReturnSpectator ();
 	}
 	public float GetHealth()
 	{
@@ -58,7 +58,7 @@ public class Health : MonoBehaviour {
 		//Debug.Log("enemyType: "+gameObject.tag);
 		PhotonView pv = PhotonView.Get (this);
 		if (gameObject.tag == "EnemyStatic") {
-			GameManager.enemyCount --;
+			gm.enemyStaticsDead ++;
 		}
 		if(gameObject.tag == "EnemyAlive"){
 			EnemyAI.alerted = true;
@@ -67,7 +67,6 @@ public class Health : MonoBehaviour {
 		if(GetComponent<PhotonView>().instantiationId==0)
 		{
 			Destroy(gameObject);//if the gameobject doesn't have a photonview id delete normaly
-			PlayerScore.EnemiesLeft --;
 		}
 		else if(GetComponent<PhotonView>()){
 			if(gameObject !=null && pv.isMine){//if gameobject is instantiated by photon destroy this way
