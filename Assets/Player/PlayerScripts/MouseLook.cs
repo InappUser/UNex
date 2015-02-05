@@ -68,8 +68,10 @@ public class MouseLook : MonoBehaviour {
 
 		headbobbing ();
 		AlterRotation ();
-		if(Input.GetKeyDown(KeyCode.B))
+		if (Input.GetKeyDown (KeyCode.B)) {
+			Debug.Log("pressed b");
 			resetRot = true;
+		}
 //		if (!foundSens) {
 //			try {
 //				foundSens = true;
@@ -107,7 +109,14 @@ public class MouseLook : MonoBehaviour {
 
 	void AlterRotation()
 	{
-
+		if (resetRot) {
+			zero.x = transform.rotation.x;
+			//zero.z = transform.rotation.z;
+			transform.rotation = zero;
+			Debug.Log(zero);
+			resetRot = false;
+			return;
+		}
 
 		if (axes == RotationAxes.MouseXAndY)
 		{
@@ -131,12 +140,6 @@ public class MouseLook : MonoBehaviour {
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
-		}
-		if (resetRot) {
-			transform.rotation = zero;
-			Debug.Log(zero);
-			//resetRot = false;
-			return;
 		}
 	}
 	void headbobbing()
