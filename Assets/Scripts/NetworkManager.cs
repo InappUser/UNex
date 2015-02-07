@@ -75,7 +75,7 @@ public class NetworkManager : MonoBehaviour {
 /*		}else*/ if(!PhotonNetwork.connected){//if user isn't currently connected 
 			PhotonNetwork.automaticallySyncScene = true;
 			//http://forum.exitgames.com/viewtopic.php?f=17&t=2575
-			UnityEngine.Debug.Log("name "+PhotonNetwork.player.name+"is set? "+setPlayerName);
+			//UnityEngine.Debug.Log("name "+PhotonNetwork.player.name+"is set? "+setPlayerName);
 			if(ui.GetPlayerName() !=""){
 				PhotonNetwork.player.name = ui.GetPlayerName();}
 

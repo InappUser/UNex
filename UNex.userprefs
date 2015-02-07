@@ -1,24 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerScore.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Enemy\Scripts\Sounds.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerScore.cs" Line="24" Column="26" />
-      <File FileName="Assets\Scripts\UIManager.cs" Line="28" Column="5" />
+      <File FileName="Assets\Enemy\Scripts\Sounds.cs" Line="9" Column="13" />
+      <File FileName="Assets\Enemy\Scripts\EnemyAI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerScore.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UIManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\Weapon\Shoot.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="19" Column="2" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Map_Teleporting.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\NetworkViewOffOn.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NetworkManager.cs" Line="85" Column="7" />
+      <File FileName="Assets\Scripts\NetworkManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\MouseLook.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\MyNetworkCharacter.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Spawning.cs" Line="173" Column="34" />
-      <File FileName="Assets\Scripts\Health.cs" Line="61" Column="27" />
-      <File FileName="Assets\Player\PlayerScripts\Projectile\Detonation.cs" Line="58" Column="37" />
-      <File FileName="Assets\Enemy\Scripts\EnemyAI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Spawning.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Health.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Projectile\Detonation.cs" Line="1" Column="1" />
       <File FileName="Assets\Player\PlayerScripts\Equipment\GrenadeDetonation.cs" Line="1" Column="1" />
-      <File FileName="Assets\Player\PlayerScripts\PlayerSensitivity.cs" Line="16" Column="35" />
+      <File FileName="Assets\Player\PlayerScripts\PlayerSensitivity.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

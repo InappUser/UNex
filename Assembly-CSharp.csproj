@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Enemy\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Enemy\Scripts\EnemyJumping.cs" />
+     <Compile Include="Assets\Enemy\Scripts\EnemySounds.cs" />
      <Compile Include="Assets\Photon Unity Networking\Demos\DemoBoxes\OnAwakePhysicsSettings.cs" />
      <Compile Include="Assets\Photon Unity Networking\Demos\DemoBoxes\TestGuiInstantiate.cs" />
      <Compile Include="Assets\Photon Unity Networking\Demos\DemoFriendsAndCustomAuth\GUICustomAuth.cs" />

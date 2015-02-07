@@ -61,6 +61,9 @@ ModelImporter:
     100110: upper_arm_L
     100112: upper_arm_R
     100114: Cylinder
+    100116: Shell1
+    100118: Shell2
+    100120: SHells
     400000: clavicle_L
     400002: clavicle_R
     400004: Control
@@ -119,11 +122,15 @@ ModelImporter:
     400110: upper_arm_L
     400112: upper_arm_R
     400114: Cylinder
+    400116: Shell1
+    400118: Shell2
+    400120: SHells
     2300000: Cylinder
     3300000: Cylinder
     4300000: HumanModel_Body
     4300002: Shotgun
     4300004: Cylinder
+    4300006: SHells
     7400000: Default Take
     7400002: Reload
     7400004: SHotGunIdle
@@ -134,6 +141,7 @@ ModelImporter:
     11100000: //RootNode
     13700000: HumanModel_Body
     13700002: Shotgun
+    13700004: SHells
   materials:
     importMaterials: 1
     materialName: 0

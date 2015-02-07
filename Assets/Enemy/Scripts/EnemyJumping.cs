@@ -49,7 +49,7 @@ public class EnemyJumping{
 		if(hasJumped == false){ //if they haven't jumped yet, then go to the jump spot, later they will land on the jumpspot's child
 			currentJumpSpot = jumpStarts[0];
 			foreach (GameObject spot in jumpStarts) {
-				if((Vector3.Distance(playerPos,spot.transform.position) < Vector3.Distance(playerPos,currentJumpSpot.transform.position))&& enemyNav.pathStatus != NavMeshPathStatus.PathPartial){// if the distance between the new spot and the player is smaller then that of the player and the current closest spot, then make the new spot the closest spot
+				if((Vector3.Distance(playerPos,spot.transform.position) < Vector3.Distance(playerPos,currentJumpSpot.transform.position))&& enemyNav.pathStatus == NavMeshPathStatus.PathComplete){// if the distance between the new spot and the player is smaller then that of the player and the current closest spot, then make the new spot the closest spot
 					currentJumpSpot = spot; //means that the enemy will go to the closest jumping spot to the player
 				}
 			}
@@ -58,7 +58,7 @@ public class EnemyJumping{
 		}else{//if they have jumped , then go to the jumpspot's child, later they will land on the jumpspot
 			currentJumpSpot = jumpStarts[0].transform.GetChild(0).gameObject;
 			foreach (GameObject spot in jumpStarts) {
-				if((Vector3.Distance(playerPos,spot.transform.GetChild(0).position) < Vector3.Distance(playerPos,currentJumpSpot.transform.position))&& enemyNav.pathStatus != NavMeshPathStatus.PathPartial){// if the distance between the new spot and the player is smaller then that of the player and the current closest spot, then make the new spot the closest spot
+				if((Vector3.Distance(playerPos,spot.transform.GetChild(0).position) < Vector3.Distance(playerPos,currentJumpSpot.transform.position))&& enemyNav.pathStatus == NavMeshPathStatus.PathComplete){// if the distance between the new spot and the player is smaller then that of the player and the current closest spot, then make the new spot the closest spot
 					currentJumpSpot = spot.transform.GetChild(0).gameObject; //means that the enemy will go to the closest jumping spot to the player -- am also checking to see if the path is navigable
 				}
 			}

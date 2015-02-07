@@ -12,10 +12,12 @@ public class EnemyAI : MonoBehaviour {
 	//made true when an enemy dies; in the health script upon the death being and enemy
 	
 	private GameObject player;
+	Vector3 sightingDeltaPos;//the distance between the player and the enemy
 	private bool returnedToSpawn = false;
 	private bool wasChasing = false;//used to ensure that the enemy is not told to return to spawn over and over again
 	private bool chasing = false;
 	private bool tooCloseTooLong=false;
+	private bool hasBeenAlerted = false;
 	private float tooLong = 4f;
 	private float tooLongTimer = 0;
 
@@ -49,24 +51,18 @@ public class EnemyAI : MonoBehaviour {
 	{
 		jump.getjump ();
 		if (FoundPlayer () && !pauseGame.paused) {
+			//if the player is too close
+			if(distance < attackDistance*2){//if the above is not met and they player is too far away, then reset tooCloseTooLong
+				tooLongTimer += Time.deltaTime;
+				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
 
 			//calculating if a chase is eligable
 			if ((distance < chaseDist && alerted)||tooCloseTooLong) {//chasing the player if they get too close and are alerted, or got too close for too long
 				chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/
 				tooLongTimer = 0f;//resetting timer, so that player once again needs to be too close for too long
-			} else if (distance > returnDist) {//when the enemy will return to their spawn
+			}else if (distance > returnDist) {//when the enemy will return to their spawn
 				chasing = false;
 			}
-		
-
-			//Attacking
-			if ((chasing || wasChasing) && distance < attackDistance) { //if the player is eligible for attacking, then attack them
-				//Debug.Log("Attacking from update");
-				StartCoroutine ( Attack ());
-			}else if(distance < attackDistance*2){//if the above is not met and they player is too far away, then reset tooCloseTooLong
-				tooLongTimer += Time.deltaTime;
-				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
-
 
 			//Chasing or Returning to spawn
 			if (chasing && player && player.GetComponent<Health> ().currentHitPoints > 0) {//if found the player, they aren't dead and are supposed to chase, chase
@@ -95,26 +91,27 @@ public class EnemyAI : MonoBehaviour {
 	void Chase ()
 	{
 		// Create a vector from the enemy to the last sighting of the player.
-		Vector3 sightingDeltaPos =  player.transform.position- transform.position;
+		sightingDeltaPos =  player.transform.position- transform.position;
 
 		anim.SetBool ("isWalking",true);//making enemy walk if they are chasing player
 		nav.CalculatePath (player.transform.position, navPath);//getting the path between the player and the enemy - only used for checking if the player is in an unreachable spot
 		 
 		if(navPath.status == NavMeshPathStatus.PathPartial){//if the player is out of reach, find jump spot and get to them
 			if(!jump.Jump(player)) //keep doing this until the "Jump" method in jump returns true, at which point the chase can resume
-				//Debug.Log("trying to jump");
+				//Debug.Log("trying to jump");//essentially:keep trying to execute this method until it returns true
 				return;
 		} else if(navPath.status == NavMeshPathStatus.PathInvalid){
 			Debug.Log("navPath is invalid");
 		}
 
 
-		if (sightingDeltaPos.sqrMagnitude >1.5f){
+		if (sightingDeltaPos.sqrMagnitude >10.5f){//if they are too far to attack, just chase
 			nav.destination = player.transform.position;
-			Debug.Log("chasing player");
+			//Debug.Log("chasing player");
 			anim.SetBool("Attacking",false);
 		}
 		else{
+			//Debug.Log("attacking player");
 			StartCoroutine(Attack ());}
 
 		nav.speed = speed;// Set the appropriate speed for the NavMeshAgent.
@@ -123,13 +120,20 @@ public class EnemyAI : MonoBehaviour {
 
 	IEnumerator Attack()
 	{
-		nav.destination = transform.position;
-		anim.SetBool ("isWalking",false);
+		if (sightingDeltaPos.sqrMagnitude <.1f){
+			anim.SetBool ("isWalking",false);
+			nav.destination = transform.position;//stopping the enemy when they get close enough to the player
+		}else{
+			nav.destination = player.transform.position;
+		}
+
 		anim.SetBool ("Attacking",true);
 		returnedToSpawn = false;//resetting so that they can return to spawn again
 		//yield return new WaitForSeconds (timeBetweenAttacks);
+
 		Health h = player.GetComponent<Health> ();
 		attackTimeCounter += Time.deltaTime;//using this method rather than wait for as this function is executed a over and over
+
 		if (h && h.currentHitPoints>0 && attackTimeCounter >= timeBetweenAttacks && hitPlayer) {
 			hitPlayer = false;
 			if(PhotonNetwork.offlineMode){
@@ -145,6 +149,7 @@ public class EnemyAI : MonoBehaviour {
 
 	void returnToSpawn()
 	{
+		anim.SetBool ("Attacking", false);//ensuring that attack animation has stopped
 		nav.destination = spawnPoint.position;
 		if(Vector3.Distance(transform.position, spawnPoint.position) < 2f)
 		{
@@ -157,7 +162,6 @@ public class EnemyAI : MonoBehaviour {
 				returnedToSpawn = true;//so that this function is not run unnecessarily
 			}
 		}
-
 	}
 
 	void AssignEnemySpawns()
@@ -187,8 +191,8 @@ public class EnemyAI : MonoBehaviour {
 		chaseDist = Random.Range (3f,7f); //making chase distance random
 		chaseDist = Random.Range (3f,chaseDist); //favouring the lower side
 	 	
-		returnDist = Random.Range (150f,200f); //also making return distance random
-		returnDist = Random.Range (returnDist,220f); //favouring the higher side
+		returnDist = Random.Range (15f,20f); //also making return distance random
+		returnDist = Random.Range (returnDist,22f); //favouring the higher side
 
 		//Debug.Log ("chase distance for "+spawnPoint.transform.position+" is: "+chaseDist+", return distance is: "+returnDist);
 

@@ -169,7 +169,7 @@ public class Shoot : MonoBehaviour {
 			if( weapon.currentWeapon.GetWeaponType() != Weapon.WeaponType.Stream || ((weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && !Input.GetButton("Fire1")) || boolName == "Reloading") ){
 				animIN.SetBool (boolName, false);
 				if(boolName == "Reloading"){
-					Debug.Log("Outside reloading");
+					//Debug.Log("Outside reloading");
 					animOUT.SetBool(boolName, false);}}}
 
 		if(isReloading){

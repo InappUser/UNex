@@ -26,7 +26,7 @@ public class RocketEngine : MonoBehaviour {
 		{
 			speed = speed*4;
 			increased = true;
-			Debug.Log("speed increase");
+			//Debug.Log("speed increase");
 		}
 		if(time >= .4f && !normalised)
 		{
