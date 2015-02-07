@@ -120,7 +120,7 @@ public class EnemyAI : MonoBehaviour {
 
 	IEnumerator Attack()
 	{
-		if (sightingDeltaPos.sqrMagnitude <1.5f){
+		if (sightingDeltaPos.sqrMagnitude <.1f){
 			anim.SetBool ("isWalking",false);
 			nav.destination = transform.position;//stopping the enemy when they get close enough to the player
 		}else{
