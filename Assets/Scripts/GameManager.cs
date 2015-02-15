@@ -20,9 +20,7 @@ public class GameManager : MonoBehaviour {
 	public static int enemStaticTotal=1;
 	static short level;
 
-	private float restartDelay = 3f;
-	private float restartTime;
-	private float timerSec=1f;
+	private Spawning spawnEndGame;
 	private Color imagecolour = new Color(1f,0f,0f,.2f);
 	private Color textcolour = new Color(0f,0f,0f,.5f);
 	private Color zero;
@@ -32,7 +30,11 @@ public class GameManager : MonoBehaviour {
 	private EquipmentManager playerEquipment;
 	private Shoot weaponAmmo;
 	private UIManager uiManager;
+	private float restartDelay = 3f;
+	private float restartTime;
+	private float timerSec=1f;
 	private short timerMin=0;
+	private bool ended = false; 
 
 	public UIManager ReturnPauseUI()
 	{
@@ -48,16 +50,17 @@ public class GameManager : MonoBehaviour {
 		zero = new Color (0f,0f,0f,0f);
 		level = (short)Application.loadedLevel;
 		uiManager = gameObject.GetComponent<UIManager> ();
+		spawnEndGame = gameObject.GetComponent<Spawning> ();
+		Spawning.spawnedEnemies = true;
 		//enemyStaticsDead = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		if (Spawning.spawnedEnemies) { //poor way to get current amount of alive
-//			enemyStaticsDead = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
-//			Spawning.spawnedEnemies = false;}
-
-		playerScore.text = (PlayerScore.enemiesTotal-enemyStaticsDead).ToString();
+		//Debug.Log ("SPAWNED ENEMIES " + Spawning.spawnedEnemies);
+		if (Spawning.spawnedEnemies) { //poor way to get current amount of alive
+			PlayerScore.enemiesTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
+			Spawning.spawnedEnemies = false;}
 
 		if (!player) {
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -75,11 +78,12 @@ public class GameManager : MonoBehaviour {
 			}
 			if(Input.GetKeyDown(KeyCode.Tab) && !uiManager.paused){
 				uiManager.showHideSB();}
+			//Debug.Log ("number of enemy statics " + (PlayerScore.enemiesTotal));
+			if ((PlayerScore.enemiesTotal-enemyStaticsDead) < 1) {
+				LoadLevel ();	
+			}
 		}
 
-		if (enemStaticTotal < 1) {
-			LoadLevel ();	
-		}
 	}
 	
 
@@ -160,6 +164,11 @@ public class GameManager : MonoBehaviour {
 		restartTime += Time.deltaTime;
 		Spawning.spawnedEnemies = false;//resetting spawnedEnemies for next level
 		EnemyAI.alerted = false;// resetting whether the alive enemies are alterted upon level change
+		PlayerScore.enemiesTotal = 0;
+		if(!ended){
+			spawnEndGame.Death (player, true);
+			ended = true;
+			}
 		cleanPhotonObjects();
 		if(restartTime >= restartDelay){
 			
@@ -168,10 +177,10 @@ public class GameManager : MonoBehaviour {
 
 			PhotonNetwork.LeaveRoom();
 			if(level <1){
-				/*Application.*/PhotonNetwork.LoadLevel(++level);
+				PhotonNetwork.LoadLevel(/*++*/level);
 			}
 			else{
-				PhotonNetwork.LoadLevel(--level);
+				PhotonNetwork.LoadLevel(/*--*/level);
 				//Debug.Log("level: "+level+"--");
 			}
 			Debug.Log ("Resetting colours");

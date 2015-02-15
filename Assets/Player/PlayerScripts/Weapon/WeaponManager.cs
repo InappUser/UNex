@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour {
 	public GameObject exitBarrelEffect;
 	public Weapon currentWeapon;
 	public GameObject player;
-
+	public UseEquipment useEquipment;// using this to pass the appropriate animator when a weapon has been changed as the animation needs to be played for the weapon
 
 	private Weapon[] weapons;
 	private Weapon machineGun;
@@ -23,8 +23,8 @@ public class WeaponManager : MonoBehaviour {
 	private Animator animOUT;
 	private GameObject weaponHolding;
 	private Vector3 one;
-	private short currentWeaponnum = 1;
-	private float wheelnum = 1;
+	private short currentWeaponNum = 1;
+	private float wheelNum = 1;
 	private bool wheelChanged = false;
 	private bool weaponChanged = false;
 
@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour {
 		weaponHolding = (GameObject)Instantiate (machineGunModel, transform.position,player.transform.rotation *currentWeapon.GetModel().transform.rotation);
 		weaponHolding.transform.parent = transform;
 		weaponHolding.transform.localScale = one;
-
+		useEquipment.SetAnim (weaponHolding.transform.GetChild(1).GetComponent<Animator> ());//passing the correct animator to the useEquipment at the beggining
 		animOUT = transform.root.GetComponent<Animator> ();
 	}
 
@@ -56,24 +56,24 @@ public class WeaponManager : MonoBehaviour {
 		weaponChanged = false;//having the bool flicker like a trigger 
 		wheelChanged = false;
 		if(!Input.GetKey(KeyCode.LeftShift)){//if the shift key is not held down; shift activates equipment
-			if(Input.GetAxisRaw("Mouse ScrollWheel")>0 && wheelnum <4){
-				wheelnum++;
-				//wheelnum += Mathf.Clamp( wheelnum+ -(int)(Input.GetAxisRaw("Mouse ScrollWheel")*100)  ,1,3);//minus is to make less confusing on mac
-				//*100 so that 1 turn on the wheel increments wheelnum fully
+			if(Input.GetAxisRaw("Mouse ScrollWheel")>0 && wheelNum <4){
+				wheelNum++;
+				//wheelNum += Mathf.Clamp( wheelNum+ -(int)(Input.GetAxisRaw("Mouse ScrollWheel")*100)  ,1,3);//minus is to make less confusing on mac
+				//*100 so that 1 turn on the wheel increments wheelNum fully
 				wheelChanged = true;
 			}
 
-			if(Input.GetAxisRaw("Mouse ScrollWheel")<0 && wheelnum >1){
-				wheelnum--;
+			if(Input.GetAxisRaw("Mouse ScrollWheel")<0 && wheelNum >1){
+				wheelNum--;
 				wheelChanged = true;
 			}
 			//if the weapon is not already selected and either the '1' key is pressed or the scrollnum = 0
 
-			if(currentWeaponnum!=1 && (Input.GetKeyDown(KeyCode.Alpha1)|| (wheelnum == 1 && wheelChanged == true)))
+			if(currentWeaponNum!=1 && (Input.GetKeyDown(KeyCode.Alpha1)|| (wheelNum == 1 && wheelChanged == true)))
 				{WeaponSelect(1);}
-			else if(currentWeaponnum!=2 && (Input.GetKeyDown(KeyCode.Alpha2)|| (wheelnum == 2 && wheelChanged == true)))
+			else if(currentWeaponNum!=2 && (Input.GetKeyDown(KeyCode.Alpha2)|| (wheelNum == 2 && wheelChanged == true)))
 				{WeaponSelect(2);}
-			else if(currentWeaponnum!=3 && (Input.GetKeyDown(KeyCode.Alpha3)|| (wheelnum == 3 && wheelChanged == true)))
+			else if(currentWeaponNum!=3 && (Input.GetKeyDown(KeyCode.Alpha3)|| (wheelNum == 3 && wheelChanged == true)))
 				{WeaponSelect(3);}
 
 			}
@@ -84,8 +84,9 @@ public class WeaponManager : MonoBehaviour {
 		currentWeapon = weapons[weap-1];//-1 because array starts at 0 rather than 1, which would be more intuative
 		animOUT.SetInteger ("ActiveWeapon", weap - 1);//changing the outside players weapon accordingly
 		ChangeWeaponModel();
-		currentWeaponnum = weap;
-		wheelnum =weap;//if none of these buttons are pressed then do nothing
+		currentWeaponNum = weap;
+		wheelNum =weap;//if none of these buttons are pressed then do nothing
+		useEquipment.SetAnim (weaponHolding.transform.GetChild(1).GetComponent<Animator> ());//passing the correct animator to the useEquipment at the beggining//changing the animator for use equipment appropriately. This ensures that animations can be played when using equipment
 	}
 
 	void ChangeWeaponModel()
@@ -150,7 +151,7 @@ public class WeaponManager : MonoBehaviour {
 		rocketLauncher.SetSDamage(0f);
 		rocketLauncher.SetFireRate (0.7f);
 		rocketLauncher.SetReloadTime(6f);
-		rocketLauncher.SetWaitBeforeInitFireTime(.11f);
+		rocketLauncher.SetWaitBeforeInitFireTime(.21f);
 		rocketLauncher.SetClipSize (2);
 		rocketLauncher.clipcount = rocketLauncher.GetClipSize ();
 		rocketLauncher.SetWeaponName("Rocket Launcher");

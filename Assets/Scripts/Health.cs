@@ -44,7 +44,7 @@ public class Health : MonoBehaviour {
 			//Debug.Log("executed death");	
 			currentHitPoints = 0;
 			if(transform.root.gameObject.tag == "Player"){
-				spawn.Death(transform.root.gameObject);
+				spawn.Death(transform.root.gameObject, false);
 				alreadyDead = false;
 			}
 			else{
@@ -59,6 +59,7 @@ public class Health : MonoBehaviour {
 		PhotonView pv = PhotonView.Get (this);
 		if (gameObject.tag == "EnemyStatic") {
 			gm.enemyStaticsDead ++;
+			//Debug.Log("hasRun");
 		}
 		if(gameObject.tag == "EnemyAlive"){
 			EnemyAI.alerted = true;
@@ -74,8 +75,6 @@ public class Health : MonoBehaviour {
 				//gameObject.GetComponent	<Shoot>().enabled = false;//futureproofing
 
 				try{
-					
-
 					PhotonNetwork.Destroy(gameObject);
 				}//and make sure only one thing can destroy it (using master)
 				catch{

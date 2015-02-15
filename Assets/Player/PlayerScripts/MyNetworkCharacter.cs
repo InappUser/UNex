@@ -11,7 +11,7 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 	private Quaternion realGunRotation = Quaternion.identity;
 	private Animator anim;
 	private bool recivedFirstUpdate = false;
-	//private GameObject[] enemies;
+	private GameObject[] enemies;
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
@@ -19,6 +19,7 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 		{
 			Debug.LogError("An animator is not attached to character");
 		}
+		enemies = GameObject.FindGameObjectsWithTag ("EnemyAlive");
 	}
 	
 	// Fixed because funciton is dealing with movement
@@ -37,14 +38,16 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 	}
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
+		//Debug.Log ("Photon serialising for " + transform.name);
 		if(anim == null){
 			anim = GetComponent<Animator>();//this is required in order to get rid of the "Object reference not set to an instance of an object photon view"
 		}
+		//Debug.Log ("player stream is wrinting: " + stream.isWriting + ". stream is reading" + stream.isReading);
 		if (stream.isWriting) 
 		{//this is our player, transform information needs to be sent to the network
 
 			stream.SendNext(transform.position);//sending players position
-			Debug.Log("this players position "+transform.position);
+			//Debug.Log("this players position "+transform.position);
 			stream.SendNext(transform.rotation);//sending players rotation
 			stream.SendNext(gunFrom.transform.rotation); //sending gun rotation
   			stream.SendNext(anim.GetFloat("FSpeed"));//sending the players forward/backward animation info
@@ -53,12 +56,12 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			stream.SendNext(anim.GetBool("Reloading"));//sending the players reloading animation info
 			stream.SendNext(anim.GetInteger("ActiveWeapon"));//sending which weapon the player is holding (0=MG, 1=SG, 2=RL)
 
-			/*for(int i=0;i <enemies.Length;i++){
-				if(enemies[i]!= null){
-					stream.SendNext(enemies[i].transform.position);
-				}
-				Debug.Log ("i: "+i);
-			}*/
+			//for(int i=0;i <enemies.Length;i++){
+				//(enemies[i]!= null){
+				//	stream.SendNext(enemies[i].transform.position);
+				//}
+				//Debug.Log ("i: "+i);
+			//}
 
 		}
 		else
@@ -67,7 +70,7 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 
 
 			realPosition =(Vector3)stream.ReceiveNext()/*as Vector3*/;//recieving position
-			Debug.Log("other players position "+transform.position);
+			//Debug.Log("other players position "+transform.position);
 			realRotation =(Quaternion)stream.ReceiveNext()/*as Quaternion*/;//recieving rotation
 			realGunRotation = (Quaternion)stream.ReceiveNext();
 			//this is two ways of "casting" - ensuring that stream is correct format
@@ -77,8 +80,9 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			anim.SetBool("Reloading",(bool)stream.ReceiveNext()); //recieving information for reloading from other players
 			anim.SetInteger("ActiveWeapon",(int)stream.ReceiveNext()); 
 			
-			/*for(int i=0;i <enemies.Length;i++)
-				enemies[i].transform.position =(Vector3)stream.ReceiveNext();*/
+			//for(int i=0;i <enemies.Length;i++)
+				//enemies[i].transform.position =(Vector3)stream.ReceiveNext();//fundamentally flawed- doesn't need to go through every enemy. this repeatedly sets the
+			//position of unmoving enemies unnecisarily, causing a lot of lag. This also means that the way in which 
 			if(!recivedFirstUpdate)//if the first update has not been recieved
 			{
 				transform.position = realPosition;

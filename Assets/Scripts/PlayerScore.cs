@@ -18,7 +18,7 @@ public class PlayerScore : MonoBehaviour {
 	}
 
 	void Update () {
-		enemiesText.text = "Enemies Left: " + gm.enemyStaticsDead;//GameManagers enemycount has the current amount of enemies in the game
+		enemiesText.text = "Enemies Left: " + (PlayerScore.enemiesTotal-gm.enemyStaticsDead);//GameManagers enemycount has the current amount of enemies in the game
 		SetScorboardVals ();
 	}
 	void SetScorboardVals(){

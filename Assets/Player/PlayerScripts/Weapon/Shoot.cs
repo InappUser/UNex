@@ -25,8 +25,6 @@ public class Shoot : MonoBehaviour {
 
 		weapon = gameObject.GetComponent<WeaponManager> ();
 		//weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
-
-
 	}
 
 	void Update()
@@ -44,7 +42,7 @@ public class Shoot : MonoBehaviour {
 		if(!reloading && (Input.GetKey (KeyCode.R) || weapon.currentWeapon.clipcount <=0) && weapon.currentWeapon.clipcount < weapon.currentWeapon.GetClipSize()){
 			StartCoroutine(ActivateAnim("Reloading", true, weapon.currentWeapon.GetReloadTime()));}
 
-		if (reloading && weapon.GetWeaponChanged () == true) {
+		if (reloading && weapon.GetWeaponChanged ()) {
 			StopCoroutine("ActivateAnim");
 			reloading = false;
 			if(animIN)
@@ -90,7 +88,7 @@ public class Shoot : MonoBehaviour {
 		if(weapon.currentWeapon.GetShootEffect()){//setting the effect
 			//shooting the rocket further forward if the weapon is a rocket
 			if(weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Projectile){
-				Instantiate (weapon.currentWeapon.GetShootEffect(), shootExitPos + (shootExit.forward*0.1f), Camera.main.transform.rotation);
+				Instantiate (weapon.currentWeapon.GetShootEffect(), shootExitPos + shootExit.forward, Camera.main.transform.rotation);
 				yield break;//if is the rocket launcher then the rocket will deal damage etc.
 			}
 			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
@@ -101,7 +99,7 @@ public class Shoot : MonoBehaviour {
 
 		if (weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.SingleShot) {//shooting the ray
 
-			Vector3 rayForward = new Vector3(Camera.main.transform.forward.x+.002f,Camera.main.transform.forward.y,Camera.main.transform.forward.z);
+			Vector3 rayForward = new Vector3(Camera.main.transform.forward.x,Camera.main.transform.forward.y,Camera.main.transform.forward.z);
 			//Vector3 rayPos = new Vector3(campos.x + (-.4f),campos.y+(2f),campos.z);
 			for(int i=0;i<shotgunExits.Length;i++)
 			{
@@ -126,7 +124,7 @@ public class Shoot : MonoBehaviour {
 				Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.identity);}
 			GameObject gO = hitInfo.collider.gameObject;//getting the hit gameobject
 			
-			hitGOHealth =gO.transform.root.GetComponent<Health>();
+			hitGOHealth = gO.transform.root.GetComponent<Health>();
 			//Debug.Log("root is: "+gO.transform.root.name);
 			if(hitGOHealth){
 				if(!hitGOHealth.transform.root.GetComponent<PhotonView>())
@@ -139,7 +137,7 @@ public class Shoot : MonoBehaviour {
 						if(PhotonNetwork.offlineMode){
 							hitGOHealth.TakeDamage(gO.name, damage);}//if in online mode, don't use RPCs: they seem to be a bit buggy
 						else{
-							Debug.Log("hit "+hitGOHealth.gameObject.name+" on the network");
+							//Debug.Log("hit "+hitGOHealth.gameObject.name+" on the network");
 							hitGOHealth.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,gO.name, damage);//RPC is global method, am invoking it on the photonview component
 						}//of the hit object, i.e. sending the message to every object with a photonview component
 					}
@@ -147,7 +145,7 @@ public class Shoot : MonoBehaviour {
 					{
 						Debug.Log(ex);
 					}
-					}
+				}
 			}
 			//shootLine.SetPosition(1,hitInfo.point);
 		}
@@ -156,10 +154,11 @@ public class Shoot : MonoBehaviour {
 
 	IEnumerator ActivateAnim(string boolName, bool isReloading, float waitTime)
 	{
-		if(animIN !=null){ //making sure that the animINator is assigned
+		if(animIN){ //making sure that the animINator is assigned
 			if(isReloading){
 				reloading = true;//saying that am currently reloading
-				animOUT.SetBool(boolName, true);//currently reloading is all that the outsie is capable of, so not setting bool for bools that don'e exist in mechanim
+				animOUT.SetBool(boolName, true);//currently reloading is all that the outsie is capable of, so not setting bool for bools that don'e exist in 
+				animIN.SetLayerWeight(1,0f);//if reloading, then dont want the left hand to continue in the idle state 
 			}//set the appropriate animINator bool to true
 			animIN.SetBool (boolName, true);
 			}
@@ -168,13 +167,14 @@ public class Shoot : MonoBehaviour {
 		if(animIN){//if is not the machine gun or is the machine gun and the fire button is not being pressed and the bool is "shooting" - designed to ensure that the machine gun's reloading animINation is not affected
 			if( weapon.currentWeapon.GetWeaponType() != Weapon.WeaponType.Stream || ((weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && !Input.GetButton("Fire1")) || boolName == "Reloading") ){
 				animIN.SetBool (boolName, false);
-				if(boolName == "Reloading"){
+				if(isReloading){
 					//Debug.Log("Outside reloading");
 					animOUT.SetBool(boolName, false);}}}
 
 		if(isReloading){
 			reloading = false;//state that reloading has finished, if this was used for reloading, and reset ammo
-			weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
+			weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();//resetting weapon clip amount
+			animIN.SetLayerWeight(1,1f);//if reloading, then will reset the weight to 1 so that other left hand actions can be completed 
 		}
 
 	}
@@ -182,6 +182,10 @@ public class Shoot : MonoBehaviour {
 	public short GetCurrentAmmo()
 	{
 		return weapon.currentWeapon.clipcount;
+	}
+	public void InstantiateThrowable()
+	{
+		Debug.Log ("Throwable instanted");
 	}
 
 }

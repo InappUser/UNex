@@ -24,7 +24,7 @@ public class Spawning : MonoBehaviour {
 		if (player && player.transform.root.gameObject.GetPhotonView ().isMine) {
 			spectator.SetActive (!enable);
 			player.transform.FindChild ("Main Camera").gameObject.SetActive (enable);
-					
+			//Debug.Log ("Setting main camera to " + enable);		
 			
 			((MonoBehaviour)player.GetComponent ("MouseLook")).enabled = enable;//how to reference disabled components, etc.
 			if(firstSpawn){
@@ -34,6 +34,7 @@ public class Spawning : MonoBehaviour {
 			}
 			((MonoBehaviour)player.GetComponent ("PlayerMovement")).enabled = enable;
 			((MonoBehaviour)player.GetComponentInChildren<EquipmentManager>()).enabled = enable;
+
 			((MonoBehaviour)player.GetComponentInChildren<UseEquipment>()).enabled = enable;
 			//have to do cast (monobehaviour) bc of the scripts being javascript
 			Shoot[] shoots = player.GetComponentsInChildren<Shoot> ();//enabling two of the same script
@@ -73,11 +74,15 @@ public class Spawning : MonoBehaviour {
 		GameObject myPlayerGO = (GameObject)PhotonNetwork.Instantiate("FPS_Player",playerSpawn.transform.position,playerSpawn.transform.rotation,0 );
 		EnablePlayer (myPlayerGO, true);
 	}
-	public void Death(GameObject player)
+	public void Death(GameObject player, bool isEnd)
 	{
 		ui.UIDisable ("InGameUI");
 		EnablePlayer (player, false);
-		StartCoroutine(RespawnPlayer (player));
+		if(!isEnd){
+			StartCoroutine(RespawnPlayer (player));
+		}else{
+			ui.UIEnableOnly("WinUI");
+		}
 	}
 	IEnumerator RespawnPlayer(GameObject player)
 	{//if the player continues to lose health after death, they will be sent to a bunch of different spawns 

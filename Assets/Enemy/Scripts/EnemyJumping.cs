@@ -23,10 +23,6 @@ public class EnemyJumping{
 		counter=timeBetweenFinds;//so find runs first time and tehn waits
 	}
 
-	public void getjump(){
-		//Debug.Log ("jumped is"+hasJumped);
-	}
-
 	public bool Jump(GameObject player){
 		playerPos = player.transform.position;
 		counter += Time.deltaTime;
@@ -34,7 +30,7 @@ public class EnemyJumping{
 		if(enemyNav.enabled && counter>=timeBetweenFinds){
 			enemyNav.SetDestination (FindClosestJump());
 			counter = 0;//optimising - ensuring that searches only occur every 5 seconds
-			Debug.Log("enemy heading to "+currentJumpSpot.transform.position);
+			//Debug.Log("enemy heading to "+currentJumpSpot.transform.position);
 		}
 		if(Vector3.Distance(myEnemy.transform.position, enemyNav.destination) < .1){
 			MakeTransition();

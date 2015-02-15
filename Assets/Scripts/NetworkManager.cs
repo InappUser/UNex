@@ -5,21 +5,17 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;//for limiting the characters input by user
 
 public class NetworkManager : MonoBehaviour {
-	public GameObject spectator;
 	public Spawning spawn;
 	//allowing for other scripts to know if enemies have been spawned
 
-	private PlayerSpawnPoint[] playerSpawnPoints;//an array object "spawnPoints" created with the class "SpawnPoint"
-	private GameObject[] enemySpawnPoints;//enemy spawns
 	private bool singleplayer = false;
-	private bool mulitiplayer = false;
+	private bool multiplayer = false;
 	private bool setPlayerName = false;
 	private List<string> chatMessages;
 	private int maxChatMessages = 5;
-	private GameObject[] enemyCheck;
 	private UIManager ui;
 
-	public void OnFailedToConnectToPhoton(object parameters)
+	public void OnFailedToConnectToPhoton()
 	{
 		UnityEngine.Debug.LogError("Could not connect to the stuff");
 	}
@@ -28,8 +24,8 @@ public class NetworkManager : MonoBehaviour {
 	{
 		gameObject.AddComponent<PhotonView> ();
 		chatMessages = new List<string>() ;
-		enemySpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
-		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();//getting all player spawnpoints
+		/*enemySpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
+		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();*///getting all player spawnpoints
 		//Connection (); //removing auto connect to allow for button selection
 		PhotonNetwork.player.name = PlayerPrefs.GetString("User","New Player");//setting a default value to be saved
 	}
@@ -61,7 +57,7 @@ public class NetworkManager : MonoBehaviour {
 
 	void Connection()
 	{
-		PhotonNetwork.ConnectUsingSettings ("Multiplayer_FPS_1.0");//is the game version (don't want people from different vers connecting)
+		PhotonNetwork.ConnectUsingSettings ("UNex_1.0");//is the game version (don't want people from different vers connecting)
 		//using the part of the photon stuff that holds settings regarding connectionl
 	}
 
@@ -87,19 +83,19 @@ public class NetworkManager : MonoBehaviour {
 			}
 			//PhotonNetwork.player.name = Regex.Replace(^);
 
-	}
-
-	if(PhotonNetwork.connected && (singleplayer || mulitiplayer))
-	{
-		GUILayout.BeginArea(new Rect(0,0, Screen.width, Screen.height));
-		GUILayout.BeginVertical();//pushing the label down to the bottom
-		GUILayout.FlexibleSpace();
-		foreach(string message in chatMessages){
-			GUILayout.Label(message);
 		}
-		GUILayout.EndVertical();
-		GUILayout.EndArea();
-	}
+
+		if(PhotonNetwork.connected && (singleplayer || multiplayer))
+		{
+			GUILayout.BeginArea(new Rect(0,0, Screen.width, Screen.height));
+			GUILayout.BeginVertical();//pushing the label down to the bottom
+			GUILayout.FlexibleSpace();
+			foreach(string message in chatMessages){
+				GUILayout.Label(message);
+			}
+			GUILayout.EndVertical();
+			GUILayout.EndArea();
+		}
 	}
 	void OnJoinedLobby()
 	{
@@ -123,7 +119,7 @@ public class NetworkManager : MonoBehaviour {
 	public void StartSingleplayer()
 	{
 		singleplayer = true;
-		mulitiplayer = false;
+		multiplayer = false;
 		//UnityEngine.Debug.Log (singleplayer);
 		PhotonNetwork.offlineMode = true;
 		OnJoinedLobby(); //pretending we are conncted and everything is fine
@@ -131,11 +127,19 @@ public class NetworkManager : MonoBehaviour {
 	}
 	public void StartMultiplayer()
 	{
-		mulitiplayer = true;
+		multiplayer = true;
 		singleplayer = false;
 		Connection ();
 	}
-	public void UpdateGame()
+
+	public bool gameStarted(){
+		if(singleplayer || multiplayer){
+			return true;
+			UnityEngine.Debug.Log("returning true");
+		}
+		return false;
+	}
+	/*public void UpdateGame()
 	{
 		try{
 			Process uProc = new Process();
@@ -148,5 +152,5 @@ public class NetworkManager : MonoBehaviour {
 			//ui.ShowUpdateFailed();
 			ui.UIEnable("StartUIUpdateFailed");
 		}
-	}
+	}*/
 }
