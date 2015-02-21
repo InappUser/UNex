@@ -86,22 +86,26 @@ public class Spawning : MonoBehaviour {
 	}
 	IEnumerator RespawnPlayer(GameObject player)
 	{//if the player continues to lose health after death, they will be sent to a bunch of different spawns 
-		yield return new  WaitForSeconds (respawnTime);
-		//spectator.SetActive (false);
-		NM.AddChatMessage ("Respawning "+PhotonNetwork.player.name);
-		ui.UIEnable ("InGameUI");
-		
 		if(playerSpawnPoints == null)
 		{
 			Debug.LogError("There are no player spawn points available");
 			yield return false;
 		}
-		
+
 		PlayerSpawnPoint playerSpawn = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Length)];
-		//could use normal instantiate but other people will not be able to see me
+		//getting a random spawnpoint
 		player.transform.position = playerSpawn.transform.position;
-		MouseLook mslk = (MouseLook)player.transform.GetChild(0).transform.GetComponent("MouseLook");
-		mslk.ResetRotation (zero);
+		MouseLook bodyPosition = (MouseLook)player.transform.GetComponent("MouseLook");
+		MouseLook mousePosition = (MouseLook)player.transform.GetChild(0).transform.GetComponent("MouseLook");
+		bodyPosition.ResetRotation (playerSpawn.transform.rotation);
+		mousePosition.ResetRotation (playerSpawn.transform.rotation);
+		//ressetting player position and rotation prior to spawning so that spawning is less jaring
+
+		yield return new  WaitForSeconds (respawnTime);
+
+
+		NM.AddChatMessage ("Respawning "+PhotonNetwork.player.name);
+		ui.UIEnable ("InGameUI");
 //		Debug.Log (playerSpawn.transform.rotation);
 		//Debug.Log (player.transform.GetChild(0).transform.rotation);
 

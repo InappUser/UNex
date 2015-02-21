@@ -30,6 +30,7 @@ public class MouseLook : MonoBehaviour {
 	public float maximumY = 80F;
 
 	private float rotationY = 0F;
+	private float rotationX = 0.0f;
 	
 	private float headbobSpeed = 30f;
 	private float headbobStepCounter = 0f;
@@ -110,18 +111,21 @@ public class MouseLook : MonoBehaviour {
 	void AlterRotation()
 	{
 		if (resetRot) {
-			zero.x = transform.rotation.x;
+			//zero.x = transform.rotation.x;
 			//zero.z = transform.rotation.z;
 			transform.rotation = zero;
 			Debug.Log(zero);
+			rotationY = 0;
+			rotationX = 0;
 			resetRot = false;
+			//Debug.Break();
 			return;
 		}
 
 		if (axes == RotationAxes.MouseXAndY)
 		{
 			resetRot = false;
-			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
+			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 			
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
@@ -139,7 +143,7 @@ public class MouseLook : MonoBehaviour {
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
-			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+			transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
 		}
 	}
 	void headbobbing()
@@ -172,7 +176,8 @@ public class MouseLook : MonoBehaviour {
 
 	public void ResetRotation(Quaternion rotation)
 	{
-
+		zero = rotation;
+		Debug.Log ("resetting");
 		resetRot = true;
 	}
 
