@@ -121,7 +121,8 @@ public class Shoot : MonoBehaviour {
 		if (Physics.Raycast (ray, out hitInfo, 100f)) {
 			//Debug.Log("have shot");
 			if(weapon.currentWeapon.GetShootEffect()){
-				Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.identity);}
+				GameObject temp = (GameObject)Instantiate(weapon.currentWeapon.GetShootEffect(),hitInfo.point,Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+				temp.transform.parent = hitInfo.transform;}
 			GameObject gO = hitInfo.collider.gameObject;//getting the hit gameobject
 			
 			hitGOHealth = gO.transform.root.GetComponent<Health>();

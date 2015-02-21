@@ -80,9 +80,9 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: Rust_Color
       value:
-        scalar[0]: .388200015
-        scalar[1]: .200599998
-        scalar[2]: .0627000034
+        scalar[0]: .257352948
+        scalar[1]: .228996918
+        scalar[2]: .208153114
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Second_Layer_Color
@@ -184,6 +184,10 @@ SubstanceImporter:
           first:
             name: _Shininess
           second: .078125
+        data:
+          first:
+            name: _Parallax
+          second: .0199999996
       colors:
         data:
           first:

@@ -51,7 +51,7 @@ public class UseEquipment : MonoBehaviour {
 	public void InstantiateThrowable()
 	{
 		notVisiable = true;
-		//Debug.Log ("Throwable instanted");
+		Debug.Log ("Throwable instanted");
 	}
 	public void ThrownThrowable()
 	{
