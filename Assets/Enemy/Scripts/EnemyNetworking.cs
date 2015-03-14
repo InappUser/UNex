@@ -19,7 +19,7 @@ public class EnemyNetworking : Photon.MonoBehaviour {
 				//enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		
 		if (!photonView.isMine) { //checking to see if object with a pjotonview component is my player or other//if photonview is mine do nothing - the character motor is moving the player
-			Debug.Log("real position"+realPosition.ToString());
+			//Debug.Log("real position"+realPosition.ToString());
 			transform.position = Vector3.Lerp (transform.position, realPosition, 0.1f); //lerp is used for transitions
 			transform.rotation = Quaternion.Lerp (transform.rotation, realRotation, 0.1f);
 		}
@@ -29,7 +29,7 @@ public class EnemyNetworking : Photon.MonoBehaviour {
 		//Debug.Log ("stream is wrinting: " + stream.isWriting + ". stream is reading" + stream.isReading);
 		if (stream.isWriting) {
 
-			Debug.Log("writing");
+			//Debug.Log("writing");
 				stream.SendNext(transform.position);//sending players position
 			//Debug.Log("this players position "+transform.position);
 				stream.SendNext(transform.rotation);//sending players rotation
@@ -42,7 +42,7 @@ public class EnemyNetworking : Photon.MonoBehaviour {
 
 
 				realPosition =(Vector3)stream.ReceiveNext();/*as Vector3*/;//recieving position
-				Debug.Log("reading: position recieved"+ realPosition.ToString());
+				//Debug.Log("reading: position recieved"+ realPosition.ToString());
 				//Debug.Log("other players position "+transform.position);
 				realRotation =(Quaternion)stream.ReceiveNext();/*as Quaternion*/;//recieving rotation
 			
@@ -53,7 +53,7 @@ public class EnemyNetworking : Photon.MonoBehaviour {
 			//}
 
 		}
-		Debug.Log ("new script working");
+		//Debug.Log ("new script working");
 	}
 	public void SetChasing(bool isChasing){
 		chasing = isChasing;

@@ -51,7 +51,8 @@ public class MouseLook : MonoBehaviour {
 	void Awake()
 	{
 		zero = new Quaternion(0,0,0,0);
-		Screen.lockCursor = true;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 		//lock cursor 
 
 

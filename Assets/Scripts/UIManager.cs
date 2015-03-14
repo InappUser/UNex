@@ -55,11 +55,14 @@ public class UIManager : MonoBehaviour {
 		try{
 			if(!paused){//is paused
 				paused = true;
+				Cursor.lockState = CursorLockMode.None;//no longer uses boolean so need to use if statement
 			}
 			else{//is not paused
 				paused = false;
+				Cursor.lockState = CursorLockMode.Locked;
 			}
-			Screen.lockCursor = !paused;
+			
+			Cursor.visible = paused;//when paused the cursor will appear
 			//UnityEngine.Debug.Log (player.GetComponentInChildren<Shoot>() == null);
 			player.GetComponentInChildren<Shoot>().enabled = !paused;
 			player.GetComponentInChildren<WeaponManager>().enabled = !paused;
@@ -149,7 +152,7 @@ public class UIManager : MonoBehaviour {
 	}
 	public void ExitGame()
 	{
-		Application.Quit ();
+		System.Diagnostics.Process.GetCurrentProcess().Kill();//used instead of application.Quit() to get rid of teh crashing error
 	}
 	public void EnterOptions()
 	{

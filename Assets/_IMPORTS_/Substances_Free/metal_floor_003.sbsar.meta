@@ -24,23 +24,23 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: $randomseed
       value:
-        scalar[0]: 0
+        scalar[0]: 7029
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Age
       value:
-        scalar[0]: 0
+        scalar[0]: .984000027
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Base_Color
       value:
-        scalar[0]: .435200006
-        scalar[1]: .41170001
-        scalar[2]: .392100006
+        scalar[0]: .41911763
+        scalar[1]: .269570678
+        scalar[2]: .144842103
         scalar[3]: 0
         texture: {instanceID: 0}
     - name: Drips_Angle
@@ -137,7 +137,7 @@ SubstanceImporter:
     materialInformation:
       serializedVersion: 5
       offset: {x: 0, y: 0}
-      scale: {x: 20, y: 20}
+      scale: {x: 30, y: 30}
       generateMipmaps: 1
       generateAllOutputs: 1
       animationUpdateRate: 42
@@ -189,7 +189,7 @@ SubstanceImporter:
       aniso: 1
       wrapMode: 0
     - name: metal_floor_003_Bump
-      alphaSource: 0
+      alphaSource: 3
       filterMode: 1
       aniso: 1
       wrapMode: 0

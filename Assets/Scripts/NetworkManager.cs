@@ -34,7 +34,8 @@ public class NetworkManager : MonoBehaviour {
 	{
 		ui = gameObject.GetComponent<UIManager> ();
 		ui.UIEnableOnly ("StartUI");
-		Screen.lockCursor = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 	
 	void OnDestroy()//this is called when the game ends
