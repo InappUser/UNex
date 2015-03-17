@@ -1,28 +1,33 @@
 fileFormatVersion: 2
 guid: a409574e6c45fe7409392ac949c78807
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
     100002: Background
     100004: Walls
     100006: Floor
+    100008: Level1
     400000: //RootNode
     400002: Background
     400004: Walls
     400006: Floor
+    400008: Level1
     2300000: //RootNode
     2300002: Background
     2300004: Walls
     2300006: Floor
+    2300008: Level1
     3300000: //RootNode
     3300002: Background
     3300004: Walls
     3300006: Floor
+    3300008: Level1
     4300000: Plane
     4300002: Walls
     4300004: Background
     4300006: Floor
+    4300008: Level1
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -52,11 +57,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -79,3 +86,5 @@ ModelImporter:
   animationType: 2
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

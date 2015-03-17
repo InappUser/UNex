@@ -9,6 +9,7 @@ public class Health : MonoBehaviour {
 	private GameObject spectator;
 	private GameObject player;
 	private Spawning spawn;
+	private PlayerScore ps;
 	private bool alreadyDead = false;
 	
 	private float eHeadHealthDamage = 1.5f;
@@ -26,12 +27,16 @@ public class Health : MonoBehaviour {
 		currentHitPoints = hitPoints;
 		gm = (GameManager)GameObject.FindObjectOfType<GameManager> ();
 		spectator = gm.ReturnSpectator ();
+		ps = GameObject.FindObjectOfType<PlayerScore> ();//can use this simple search method as only one instance of the PlayerScore class exists in a players game
 	}
 	public float GetHealth()
 	{
 		return currentHitPoints;
 	}
-
+	public float GetTotalHealth()
+	{
+		return hitPoints;
+	}
 	
 	// needs to be public bc calling from another script
 	[RPC]// allows for method to be called remotely - is a remote procedure call
@@ -58,11 +63,13 @@ public class Health : MonoBehaviour {
 		//Debug.Log("enemyType: "+gameObject.tag);
 		PhotonView pv = PhotonView.Get (this);
 		if (gameObject.tag == "EnemyStatic") {
-			gm.enemyStaticsDead ++;
+			GameManager.enemyStaticsDead ++;
+			ps.AddStaticsKiled();
 			//Debug.Log("hasRun");
 		}
 		if(gameObject.tag == "EnemyAlive"){
 			EnemyAI.alerted = true;
+			ps.AddAlivesKiled();
 		}
 
 		if(GetComponent<PhotonView>().instantiationId==0)

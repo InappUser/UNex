@@ -4,12 +4,15 @@ using System.Collections;
 public class WeaponManager : MonoBehaviour {
 	public GameObject machineGunModel;
 	public GameObject machineGunEffect;
+	public AudioClip machineGunSound;
 
 	public GameObject shotGunModel;
 	public GameObject shotGunEffect;
+	public AudioClip shotGunSound;
 
 	public GameObject rocketLauncherModel;
 	public GameObject rocketProjectile;
+	public AudioClip rocketLauncherSound;
 
 	public GameObject exitBarrelEffect;
 	public Weapon currentWeapon;
@@ -22,6 +25,7 @@ public class WeaponManager : MonoBehaviour {
 	private Weapon rocketLauncher;
 	private Animator animOUT;
 	private GameObject weaponHolding;
+	private AudioSource[] aSources;
 	private Vector3 one;
 	private short currentWeaponNum = 1;
 	private float wheelNum = 1;
@@ -41,6 +45,7 @@ public class WeaponManager : MonoBehaviour {
 		weapons[1] = InstantiateShotgun ();
 		weapons[2] = InstantiateRocketLauncher ();
 
+		aSources = GetComponents<AudioSource> ();
 	}
 	void Start(){
 		currentWeapon = machineGun; //machine gun by default
@@ -49,6 +54,7 @@ public class WeaponManager : MonoBehaviour {
 		weaponHolding.transform.localScale = one;
 		useEquipment.SetAnim (weaponHolding.transform.GetChild(1).GetComponent<Animator> ());//passing the correct animator to the useEquipment at the beggining
 		animOUT = transform.root.GetComponent<Animator> ();
+		ChangeWeaponSound(currentWeapon.GetShootSound ());//defaulting the shooting sound
 	}
 
 	// Update is called once per frame
@@ -83,10 +89,11 @@ public class WeaponManager : MonoBehaviour {
 		weaponChanged = true;//so that the reload animation etc can stop if weapon has changed
 		currentWeapon = weapons[weap-1];//-1 because array starts at 0 rather than 1, which would be more intuative
 		animOUT.SetInteger ("ActiveWeapon", weap - 1);//changing the outside players weapon accordingly
-		ChangeWeaponModel();
+		ChangeWeaponModel();//changing what the player sees
 		currentWeaponNum = weap;
 		wheelNum =weap;//if none of these buttons are pressed then do nothing
 		useEquipment.SetAnim (weaponHolding.transform.GetChild(1).GetComponent<Animator> ());//passing the correct animator to the useEquipment at the beggining//changing the animator for use equipment appropriately. This ensures that animations can be played when using equipment
+		ChangeWeaponSound(currentWeapon.GetShootSound ());
 	}
 
 	void ChangeWeaponModel()
@@ -98,6 +105,12 @@ public class WeaponManager : MonoBehaviour {
 		if(weaponHolding){//ensuring that the model is scaled correctly
 			weaponHolding.transform.parent = transform;
 			weaponHolding.transform.localScale = one;
+		}
+	}
+
+	void ChangeWeaponSound(AudioClip clip){
+		foreach (AudioSource aS in aSources) {
+			aS.clip = clip; //setting all of the sources clips to the gun sounds mp3	
 		}
 	}
 
@@ -124,6 +137,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.clipcount = machineGun.GetClipSize ();
 		machineGun.SetWeaponName("BAAL Pattern Boltgun");
 		machineGun.SetWeaponType (Weapon.WeaponType.Stream);//reserving 0 for unarmed in the future; also coresponds with key pressed to activate
+		machineGun.SetshootSound (machineGunSound);
 		return machineGun;
 	}
 	Weapon InstantiateShotgun()
@@ -140,6 +154,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");
 		shotGun.SetWeaponType (Weapon.WeaponType.SingleShot);
+		shotGun.SetshootSound (machineGunSound);
 		return shotGun;
 	}
 	Weapon InstantiateRocketLauncher()
@@ -156,6 +171,7 @@ public class WeaponManager : MonoBehaviour {
 		rocketLauncher.clipcount = rocketLauncher.GetClipSize ();
 		rocketLauncher.SetWeaponName("Rocket Launcher");
 		rocketLauncher.SetWeaponType (Weapon.WeaponType.Projectile);
+		rocketLauncher.SetshootSound (machineGunSound);
 		return rocketLauncher;
 	}
 

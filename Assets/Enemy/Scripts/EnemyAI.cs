@@ -52,7 +52,8 @@ public class EnemyAI : Photon.MonoBehaviour {
 				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
 			
 			//calculating if a chase is eligable
-			if ((distance < chaseDist && alerted)||tooCloseTooLong) {//chasing the player if they get too close and are alerted, or got too close for too long
+			if ((distance < chaseDist && alerted)||tooCloseTooLong || GetComponent<Health>().GetHealth() <GetComponent<Health>().GetTotalHealth() && alerted) {//chasing the player if they get too close and are alerted, or got too close for too long
+				//players will also be chased if an enemy takes damage while enemies are alerted
 				SetChasing(true);//chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/
 				tooLongTimer = 0f;//resetting timer, so that player once again needs to be too close for too long
 			}else if (distance > returnDist) {//when the enemy will return to their spawn
@@ -185,8 +186,8 @@ public class EnemyAI : Photon.MonoBehaviour {
 		chaseDist = Random.Range (3f,7f); //making chase distance random
 		chaseDist = Random.Range (3f,chaseDist); //favouring the lower side
 		
-		returnDist = Random.Range (15f,20f); //also making return distance random
-		returnDist = Random.Range (returnDist,22f); //favouring the higher side
+		returnDist = Random.Range (30f,50f); //also making return distance random
+		returnDist = Random.Range (returnDist,70f); //favouring the higher side
 		
 		//Debug.Log ("chase distance for "+spawnPoint.transform.position+" is: "+chaseDist+", return distance is: "+returnDist);
 		

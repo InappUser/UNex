@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject pauseUI;
 	public GameObject spectator;
 	public NetworkManager networkManager;
-	public int enemyStaticsDead =0;//initialising so that game doesn't end immediately - setting this in start may be an easier way to stop games ending when loading new level
 
+	public static int enemyStaticsDead =0;//initialising so that game doesn't end immediately - setting this in start may be an easier way to stop games ending when loading new level
 	public static int enemStaticTotal=1;
 	static short level;
 
@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour {
 		restartTime += Time.deltaTime;
 		Spawning.spawnedEnemies = false;//resetting spawnedEnemies for next level
 		EnemyAI.alerted = false;// resetting whether the alive enemies are alterted upon level change
+		enemyStaticsDead = 0;
 		PlayerScore.enemiesTotal = 0;
 		if(!ended){
 			spawnEndGame.Death (player, true);

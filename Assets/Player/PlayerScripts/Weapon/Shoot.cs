@@ -15,6 +15,8 @@ public class Shoot : MonoBehaviour {
 	private GameObject muzzleFlash;
 	private GameObject[] shotgunExits;
 	private bool firing = false;
+	private int numShot = 0;//this increments every shoot to move which audiosource is used to play gun sound
+	private AudioSource[] gunASources;
 
 
 	//private float fRate;
@@ -22,7 +24,7 @@ public class Shoot : MonoBehaviour {
 	void Start()
 	{
 		shotgunExits = GameObject.FindGameObjectsWithTag ("ShotgunExit");
-
+		gunASources = GetComponents<AudioSource> (); //assiging all audio sources for the gun for concurrent sound while firing
 		weapon = gameObject.GetComponent<WeaponManager> ();
 		//weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
 	}
@@ -37,7 +39,7 @@ public class Shoot : MonoBehaviour {
 		}else if( weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && !Input.GetButton("Fire1") && animIN.GetBool("Shooting")){
 			//if is the machine gun, the fire button is not being held and the animINator's shooting bool is true then set it to false
 			animIN.SetBool ("Shooting", false);
-			Debug.Log("not firing machine gun");}
+		}
 			
 		if(!reloading && (Input.GetKey (KeyCode.R) || weapon.currentWeapon.clipcount <=0) && weapon.currentWeapon.clipcount < weapon.currentWeapon.GetClipSize()){
 			StartCoroutine(ActivateAnim("Reloading", true, weapon.currentWeapon.GetReloadTime()));}
@@ -84,6 +86,13 @@ public class Shoot : MonoBehaviour {
 
 		weapon.currentWeapon.clipcount --;//decrementing amount of ammo gun has in clip
 		weapon.currentWeapon.fireRateCoolDown = weapon.currentWeapon.GetFireRate();// reseting the fire rate cooldown
+		if(weapon.currentWeapon.GetShootSound()){
+			if(numShot > gunASources.Length-2){
+				numShot = 0;
+			}else{numShot++;}
+			gunASources[numShot].Play();//if the weapon has been assigned a shoot sound, then play when shot
+			
+			//numShot = numShot > gunASources.Length ? 0 : numShot+1; //if numShot is higher than the amount of sources then reset to 0, otherwise increment
 
 		if(weapon.currentWeapon.GetShootEffect()){//setting the effect
 			//shooting the rocket further forward if the weapon is a rocket
@@ -95,6 +104,8 @@ public class Shoot : MonoBehaviour {
 			//Debug.Log("found gun end "+transform.FindChild("GunEnd"));
 			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.GetChild(0).GetChild(0).position,shootExit.transform.rotation);
 			muzzleFlash.transform.parent = transform.parent;
+		}
+
 		}
 
 		if (weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.SingleShot) {//shooting the ray

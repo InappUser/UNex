@@ -6,6 +6,7 @@ public class ManageAnimEvents : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		commUseEquipment = gameObject.transform.root.GetComponentInChildren<UseEquipment> ();
+		//Debug.Log ("this class is actually used");
 	}
 	
 	// Update is called once per frame

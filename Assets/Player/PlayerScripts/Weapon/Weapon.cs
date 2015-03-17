@@ -16,6 +16,7 @@ public class Weapon{//:monobehaviour is only for scripts that are to be attached
 	private short clipSize;
 	private string weaponName;
 	private WeaponType weaponType;
+	private AudioClip shootSound;
 
 
 	public GameObject GetModel(){
@@ -63,10 +64,14 @@ public class Weapon{//:monobehaviour is only for scripts that are to be attached
 	public void SetWeaponName(string setWeaponName){
 		weaponName = setWeaponName;}
 
-
 	public void SetWeaponType(WeaponType setWeaponType){
 		weaponType = setWeaponType;}
 	public WeaponType GetWeaponType(){
 		return weaponType;}
+
+	public void SetshootSound(AudioClip setShootSound){
+		shootSound = setShootSound;}
+	public AudioClip GetShootSound(){
+		return shootSound;}
 
 }

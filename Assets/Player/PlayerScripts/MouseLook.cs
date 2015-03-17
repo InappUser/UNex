@@ -178,7 +178,7 @@ public class MouseLook : MonoBehaviour {
 	public void ResetRotation(Quaternion rotation)
 	{
 		zero = rotation;
-		Debug.Log ("resetting");
+		//Debug.Log ("resetting");
 		resetRot = true;
 	}
 

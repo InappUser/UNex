@@ -51,19 +51,20 @@ public class Detonation : MonoBehaviour {
 				float distance = Vector3.Distance(transform.position, c.transform.position);
 
 				float damageRatio = (explosionRadius/distance);
-					Debug.Log("d ratio "+damageRatio+ " damage is "+damage);
+					//Debug.Log("d ratio "+damageRatio+ " damage is "+damage);
 				if(distance>killDistance)
 				{
 					damage= damage/2;//making the dropoff much more prevelant
 				}
-			Debug.Log(h.name);
+			//Debug.Log(h.name);
 			if(PhotonNetwork.offlineMode)
 				{
 				if(h.name=="FPS_Player(Clone)"){
 					h.TakeDamage(h.gameObject.name, (damage*damageRatio)/2);
 				}else{
 					h.TakeDamage(h.gameObject.name, damage*damageRatio);
-						Debug.Log("distance from = "+h.gameObject.name+" is "+distance+" damage: "+(damage*damageRatio));}
+						//Debug.Log("distance from = "+h.gameObject.name+" is "+distance+" damage: "+(damage*damageRatio));
+					}
 			}else{
 				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.All,h.gameObject.name, damage*damageRatio);}
 			}

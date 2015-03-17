@@ -18,7 +18,7 @@ public class EnemySounds : MonoBehaviour {
 	void Update () {
 		//time += Time.deltaTime;
 		if(/*time>10f*/(!hasAwoken && EnemyAI.alerted) || Input.GetKey(KeyCode.CapsLock)){
-			Debug.Log(clips[rand].name);
+			//Debug.Log(clips[rand].name);
 			AssignPlayRand();
 			hasAwoken = true;
 			//time=0;
