@@ -1,9 +1,7 @@
 fileFormatVersion: 2
-guid: dde2261351272fd45818472a668d7ee9
-timeCreated: 1426814715
-licenseType: Free
+guid: fc4d2a6ce11809e46923229d96f60149
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: ball
     100002: clavicle_L
@@ -127,9 +125,9 @@ ModelImporter:
     7400002: IDLERocketLaucher
     7400004: Reload
     7400006: RLReload
-    7400008: RLReload_001
-    7400010: Shoot
-    7400012: Shooting
+    7400008: Shoot
+    7400010: Shooting
+    7400012: RLReload_001
     9500000: //RootNode
     13700000: HumanModel_Body
     13700002: Plane
@@ -160,13 +158,11 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
-    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -189,5 +185,3 @@ ModelImporter:
   animationType: 2
   additionalBone: 0
   userData: 
-  assetBundleName: 
-  assetBundleVariant: 

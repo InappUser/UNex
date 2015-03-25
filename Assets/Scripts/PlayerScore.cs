@@ -25,6 +25,7 @@ public class PlayerScore : MonoBehaviour {
 	}
 	void SetScorboardVals(){
 		playerScore = thisStaticsKilled - (thisAlivesKilled/2);//using playerscore as a temporary var for part of the equation - when player kills alives this should be reflected negatively in score
+		Debug.Log("player score is "+playerScore+" which is statics killed:"+thisStaticsKilled+" plus alives");
 		playerScore = decimal.Divide (playerScore, gm.returnPlayerTime ())*100;//using decimal divide to that decimal places are included in the result
 		player1Pnl.transform.FindChild ("TxtPlayerScore1").GetComponent<Text> ().text = playerScore.ToString("0.##");//player's kills divided byy amount of time, multiplied by 100
 		player1Pnl.transform.FindChild ("TxtPlayerEkills1").GetComponent<Text> ().text = thisStaticsKilled.ToString();

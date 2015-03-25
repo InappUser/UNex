@@ -1,11 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UIManager.cs">
     <Files>
-      <File FileName="Assets\Enemy\Scripts\EnemyAI.cs" Line="147" Column="1" />
-      <File FileName="Assets\Player\PlayerScripts\MouseLook.cs" Line="54" Column="44" />
-      <File FileName="Assets\Scripts\NetworkManager.cs" Line="38" Column="3" />
-      <File FileName="Assets\Scripts\UIManager.cs" Line="159" Column="29" />
+      <File FileName="Assets\Scripts\PlayerScore.cs" Line="28" Column="106" />
+      <File FileName="Assets\Player\PlayerScripts\MyNetworkCharacter.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Weapon\ManageAnimEvents.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Equipment\UseEquipment.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Equipment\EquipmentManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player\PlayerScripts\Equipment\GrenadeDetonation.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UIManager.cs" Line="191" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -17,7 +17,7 @@ public class ManageAnimEvents : MonoBehaviour {
 	public void InstantiateThrowable()
 	{
 		commUseEquipment.InstantiateThrowable ();
-		//Debug.Log ("Throwable instanted");
+		Debug.Log ("Throwable instanted");
 
 	}
 }

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 83e69840f4acc2c44bd667f0d6df5870
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: clavicle_L
     100002: clavicle_R
@@ -323,7 +323,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .509803891
+      - time: .561797798
+        functionName: InstantiateThrowable
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      - time: .561797798
         functionName: InstantiateThrowable
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -1028,11 +1035,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -1055,3 +1064,5 @@ ModelImporter:
   animationType: 2
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

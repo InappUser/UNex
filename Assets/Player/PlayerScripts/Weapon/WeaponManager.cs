@@ -129,11 +129,11 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetModel(machineGunModel);
 		machineGun.SetShootEffect(machineGunEffect);//assigning machine gun specific variables 
 		machineGun.SetShootExitBarrel (exitBarrelEffect);
-		machineGun.SetSDamage(15f);
-		machineGun.SetFireRate (0.09f);
+		machineGun.SetSDamage(6f);
+		machineGun.SetFireRate (0.05f);
 		machineGun.SetReloadTime(2.55f);
 		machineGun.SetWaitBeforeInitFireTime(0f);
-		machineGun.SetClipSize (30);//ensuring that the player does not need to reload when changing to weapon for first time
+		machineGun.SetClipSize (20);//ensuring that the player does not need to reload when changing to weapon for first time
 		machineGun.clipcount = machineGun.GetClipSize ();
 		machineGun.SetWeaponName("BAAL Pattern Boltgun");
 		machineGun.SetWeaponType (Weapon.WeaponType.Stream);//reserving 0 for unarmed in the future; also coresponds with key pressed to activate
@@ -146,15 +146,15 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.SetModel(shotGunModel);
 		shotGun.SetShootEffect(shotGunEffect);//assigning machine gun specific values. shhot effect refering to the bullet hole left at the hit 
 		shotGun.SetShootExitBarrel (exitBarrelEffect);
-		shotGun.SetSDamage(120f);
-		shotGun.SetFireRate (0.5f);
+		shotGun.SetSDamage(80f);
+		shotGun.SetFireRate (0.7f);
 		shotGun.SetReloadTime(4f);
 		shotGun.SetWaitBeforeInitFireTime(.06f);
 		shotGun.SetClipSize (4);
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");
 		shotGun.SetWeaponType (Weapon.WeaponType.SingleShot);
-		shotGun.SetshootSound (machineGunSound);
+		shotGun.SetshootSound (shotGunSound);
 		return shotGun;
 	}
 	Weapon InstantiateRocketLauncher()
