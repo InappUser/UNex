@@ -32,8 +32,6 @@ public class GameManager : MonoBehaviour {
 	private UIManager uiManager;
 	private float restartDelay = 3f;
 	private float restartTime;
-	private float timerSec=1f;
-	private short timerMin=0;
 	private bool ended = false; 
 
 	public UIManager ReturnPauseUI()
@@ -58,9 +56,9 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Debug.Log ("SPAWNED ENEMIES " + Spawning.spawnedEnemies);
-		if (Spawning.spawnedEnemies) { //poor way to get current amount of alive
-			PlayerScore.enemiesTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
-			Spawning.spawnedEnemies = false;}
+//		if (Spawning.spawnedEnemies) { //poor way to get current amount of alive
+//			PlayerScore.enemiesTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length + GameObject.FindGameObjectsWithTag ("EnemyAlive").Length);
+//			Spawning.spawnedEnemies = false;}
 
 		if (!player) {
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -70,7 +68,6 @@ public class GameManager : MonoBehaviour {
 			WeaponSelection ();
 			EquipmentSelection();
 			AmmoCount();
-			KeepTime();
 			if((Input.GetKeyDown(KeyCode.Escape) || UIManager.resume) && player && player.GetComponent<Health>().GetHealth() >0){
 				//Debug.Log("pausegame: "+uiManager.resume);
 				UIManager.resume = false;//these were made static - there will only ever be one instance per player
@@ -79,7 +76,7 @@ public class GameManager : MonoBehaviour {
 			if(Input.GetKeyDown(KeyCode.Tab) && !uiManager.paused){
 				uiManager.showHideSB();}
 			//Debug.Log ("number of enemy statics " + (PlayerScore.enemiesTotal));
-			if ((PlayerScore.enemiesTotal-enemyStaticsDead) < 1) {
+			if ((PlayerScore.enemieStaticsTotal-enemyStaticsDead) < 1) {
 				LoadLevel ();	
 			}
 		}
@@ -140,22 +137,10 @@ public class GameManager : MonoBehaviour {
 		}
 
 	}
-	void KeepTime()
-	{
-		if(enemStaticTotal >0){//ensuring that the timer stops once enemies have been killed
-			timerSec += Time.deltaTime;
-			if(timerSec>=60f){
-				timerSec = 0f;
-				timerMin++;
-			}
-			playerTimer.text = timerMin.ToString ("00") + ":" + timerSec.ToString ("00");
-		}
-
-	}
 
 	void LoadLevel()
 	{
-		Debug.Log ("Loading level");
+		//Debug.Log ("Loading level");
 		GameObject[] allGOs = GameObject.FindObjectsOfType<GameObject> ();
 		winImage.color = Color.Lerp (winImage.color, imagecolour, 1.5f * Time.deltaTime);
 		winText.color = Color.Lerp (winText.color, textcolour, 1f * Time.deltaTime);
@@ -165,7 +150,7 @@ public class GameManager : MonoBehaviour {
 		Spawning.spawnedEnemies = false;//resetting spawnedEnemies for next level
 		EnemyAI.alerted = false;// resetting whether the alive enemies are alterted upon level change
 		enemyStaticsDead = 0;
-		PlayerScore.enemiesTotal = 0;
+		PlayerScore.enemieStaticsTotal = 0;
 		if(!ended){
 			spawnEndGame.Death (player, true);
 			ended = true;
@@ -212,7 +197,7 @@ public class GameManager : MonoBehaviour {
 		PhotonNetwork.SetSendingEnabled (0, false);
 		PhotonNetwork.isMessageQueueRunning = false;
 	}
-	public int returnPlayerTime(){
-		return (int)((timerMin*60)+timerSec);
-	}
+//	public int returnPlayerTime(){
+//		return (int)((timerMin*60)+timerSec);
+//	}
 }

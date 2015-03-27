@@ -1,12 +1,16 @@
 fileFormatVersion: 2
 guid: 367e5b5841f63fa48a02e2e5c102b385
+timeCreated: 1427489293
+licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
   materialInstances:
-  - serializedVersion: 12
+  - serializedVersion: 15
     name: concrete_049
     prototypeName: concrete_049
     shader: {fileID: 4, guid: 0000000000000000f000000000000000, type: 0}
+    shaderKeywords: _NORMALMAP
+    renderQueue: -1
     inputs:
     - name: $normalformat
       value:
@@ -158,7 +162,7 @@ SubstanceImporter:
     materialInformation:
       serializedVersion: 5
       offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
+      scale: {x: 10, y: 20}
       generateMipmaps: 1
       generateAllOutputs: 1
       animationUpdateRate: 42
@@ -170,14 +174,14 @@ SubstanceImporter:
             name: _MainTex
           second:
             texture: {instanceID: 0}
-            scale: {x: 1, y: 1}
+            scale: {x: 10, y: 20}
             offset: {x: 0, y: 0}
         data:
           first:
             name: _BumpMap
           second:
             texture: {instanceID: 0}
-            scale: {x: 1, y: 1}
+            scale: {x: 10, y: 20}
             offset: {x: 0, y: 0}
       floats:
         data:
@@ -232,7 +236,7 @@ SubstanceImporter:
     - shaderProp:
         name: _MainTex
       material: {instanceID: 0}
-      baseUID: 490333619
+      baseUID: 490822874
     - shaderProp:
         name: _BumpMap
       material: {instanceID: 0}
@@ -246,3 +250,5 @@ SubstanceImporter:
       loadingBehavior: 1
   deletedPrototypes: []
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

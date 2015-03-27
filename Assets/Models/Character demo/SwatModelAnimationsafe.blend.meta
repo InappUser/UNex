@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 158f6223c3fbfd74384d773dace88552
+guid: 7490646b63ca6e94ab10d9f27183ae3d
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: armature
     100002: Chest
@@ -4692,11 +4692,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -5946,3 +5948,5 @@ ModelImporter:
   animationType: 3
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

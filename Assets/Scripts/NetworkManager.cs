@@ -115,6 +115,7 @@ public class NetworkManager : MonoBehaviour {
 		if (PhotonNetwork.isMasterClient) {//ensuring that only one set of enemies are spawned
 			spawn.SpawnEnemies();
 		}
+
 	}
 
 	public void StartSingleplayer()

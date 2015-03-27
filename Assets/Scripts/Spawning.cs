@@ -170,7 +170,7 @@ public class Spawning : MonoBehaviour {
 			}else{
 				//Debug.Log("spawned static");
 				PhotonNetwork.Instantiate("EnemyStatic",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
-				PlayerScore.enemiesTotal ++;//making total static enemies accessable
+				PlayerScore.enemieStaticsTotal ++;//making total static enemies accessable
 			}
 			enemyTypeToSpawn = Random.Range(0,3);//putting at the bottom so that there will allways be at least one static
 
@@ -179,8 +179,7 @@ public class Spawning : MonoBehaviour {
 		//for (int i=0; i < enemyTotalSpawnPoints.Length; i++) {
 		//	/*GameObject enemyGO = (GameObject)*/PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[i].transform.position, enemyTotalSpawnPoints[i].transform.rotation,0);		
 		//}
-		Spawning.spawnedEnemies = true;
-
+		//Spawning.spawnedEnemies = true;
 	}
 
 

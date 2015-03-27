@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		cc = GetComponent<CharacterController>();
 		anim = GetComponent<Animator> ();
+		PlayerScore.enemieStaticsTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
+  		UnityEngine.Debug.Log ("enemies = "+PlayerScore.enemieStaticsTotal);
 	}
 	
 	// Update is called once per frame
