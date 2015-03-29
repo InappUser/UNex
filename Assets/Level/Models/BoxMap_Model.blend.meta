@@ -10,6 +10,11 @@ ModelImporter:
     100008: Level1
     100010: TP_views
     100012: Chandelier_Top_
+    100014: BigRoom_ext
+    100016: Bottom_of_hole
+    100018: Under_hole
+    100020: Tele_selection1
+    100022: Tele_selection2
     400000: //RootNode
     400002: Background
     400004: Walls
@@ -17,6 +22,11 @@ ModelImporter:
     400008: Level1
     400010: TP_views
     400012: Chandelier_Top_
+    400014: BigRoom_ext
+    400016: Bottom_of_hole
+    400018: Under_hole
+    400020: Tele_selection1
+    400022: Tele_selection2
     2300000: //RootNode
     2300002: Background
     2300004: Walls
@@ -24,6 +34,11 @@ ModelImporter:
     2300008: Level1
     2300010: TP_views
     2300012: Chandelier_Top_
+    2300014: BigRoom_ext
+    2300016: Bottom_of_hole
+    2300018: Under_hole
+    2300020: Tele_selection1
+    2300022: Tele_selection2
     3300000: //RootNode
     3300002: Background
     3300004: Walls
@@ -31,6 +46,11 @@ ModelImporter:
     3300008: Level1
     3300010: TP_views
     3300012: Chandelier_Top_
+    3300014: BigRoom_ext
+    3300016: Bottom_of_hole
+    3300018: Under_hole
+    3300020: Tele_selection1
+    3300022: Tele_selection2
     4300000: Plane
     4300002: Walls
     4300004: Background
@@ -38,6 +58,11 @@ ModelImporter:
     4300008: Level1
     4300010: TP_views
     4300012: Chandelier_Top_
+    4300014: BigRoom_ext
+    4300016: Bottom_of_hole
+    4300018: Under_hole
+    4300020: Tele_selection1
+    4300022: Tele_selection2
     7400000: Default Take
     9500000: //RootNode
   materials:

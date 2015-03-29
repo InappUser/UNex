@@ -31,7 +31,7 @@ public class PlayerScore : MonoBehaviour {
 		playerScore = thisStaticsKilled - (thisAlivesKilled/2);//using playerscore as a temporary var for part of the equation - when player kills alives this should be reflected negatively in score
 		//Debug.Log("player score is "+playerScore+" which is statics killed:"+thisStaticsKilled+" plus alives");
 		playerScore = decimal.Divide (playerScore, (int)((timerMin*60)+timerSec))*100;//using decimal divide to that decimal places are included in the result
-		Debug.Log ("time "+(int)((timerMin*60)+timerSec)*100);
+		//Debug.Log ("time "+(int)((timerMin*60)+timerSec)*100);
 		player1Pnl.transform.FindChild ("TxtPlayerScore1").GetComponent<Text> ().text = playerScore.ToString("0.##");//player's kills divided byy amount of time, multiplied by 100
 		player1Pnl.transform.FindChild ("TxtPlayerEkills1").GetComponent<Text> ().text = thisStaticsKilled.ToString();
 		if(!playerNameSet || enemieStaticsTotal<1){//ensuring that the name is only set once and that the player has spawned. enemies total is used in order to ensure the latter: if enemies have spawned, then the player has spawned
