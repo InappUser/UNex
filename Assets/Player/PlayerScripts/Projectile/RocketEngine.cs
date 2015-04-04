@@ -13,7 +13,7 @@ public class RocketEngine : MonoBehaviour {
 	private GameObject thrusterInstance;
 	// Use this for initialization
 	void Start () {
-		Instantiate (thruster, transform.FindChild ("RocketThruster").transform.position, Quaternion.identity);
+		//Instantiate (thruster, transform.FindChild ("RocketThruster").transform.position, Quaternion.identity);
 	}
 	
 	// Update is called once per frame

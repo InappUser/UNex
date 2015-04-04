@@ -67,7 +67,6 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
-
 		headbobbing ();
 		AlterRotation ();
 		if (Input.GetKeyDown (KeyCode.B)) {
@@ -124,26 +123,30 @@ public class MouseLook : MonoBehaviour {
 		}
 
 		if (axes == RotationAxes.MouseXAndY)
-		{
+		{//moving view left to right
 			resetRot = false;
-			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
-			
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 5f/*sensitivityX*/;
+			//Debug.Log ("\""+gameObject.name+"\"'s rotationX is "+ rotationX);
+			//bellow this doesn't really matter too much atm
+			rotationY += Input.GetAxis("Mouse Y") * /*.75f;//*/sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-			
+
 			transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
 		}
 		else if (axes == RotationAxes.MouseX)
 		{
 			resetRot = false;
-			transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
+			//transform.Rotate(0, Input.GetAxis("Mouse X") * 1.5f/*sensitivityX*/, 0);
+			
+			//Debug.LogError ("\""+gameObject.name+"\"'s rotationX is "+ Input.GetAxis("Mouse X"));
 		}
 		else
-		{
+		{//moving view up and down
 			resetRot = false;
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			rotationY += Input.GetAxis("Mouse Y") * 3f;//sensitivityY;
+			//Debug.Log("sensy is "+sensitivityY);
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-			
+			//Debug.LogError ("\""+gameObject.name+"\"'s rotationY is "+ Input.GetAxis("Mouse Y"));
 			transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
 		}
 	}

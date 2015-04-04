@@ -6,64 +6,32 @@ public class PlayerMovement : MonoBehaviour {
 	public float jumpSpeed = 40f;
 	public float speed = 20f;
 	public float playerGravity = 5;
-	public float jumpCamMove = .1f;
-	public float jumpLerpTime = 1f;
 	public CharacterController cc;
 
-	private float verticalVelocity = 0f;
-	private float cameraJumpAdjustment = 0f;
-	private bool jumped = false;
-	private bool jumpCheck = false;
-	private Vector3 jumpNewCamHeight;
-	private Vector3 direction = Vector3.zero; //forward/back & left/right
 	private Animator anim;
+	private Vector3 direction = Vector3.zero; //forward/back & left/right
+	private Vector3 distance;
+	private float verticalVelocity = 0f;
+	private float playerDeathHeight = -60f;
+
 
 	// Use this for initialization
 	void Start () {
 		cc = GetComponent<CharacterController>();
 		anim = GetComponent<Animator> ();
-		PlayerScore.enemieStaticsTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);
-  		UnityEngine.Debug.Log ("enemies = "+PlayerScore.enemieStaticsTotal);
+		PlayerScore.enemyStaticsTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);//very messy, though does not work when run after player has spawned
+		UnityEngine.Debug.Log ("enemies = "+PlayerScore.enemyStaticsTotal);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		XYMovement ();
-
-		if(cameraJumpAdjustment != 0)
-		{
-			cameraJumpAdjustment = 0;
-		}
-
+		CheckIfFalling();
 		if (cc.isGrounded && Input.GetButton("Jump")) {
 			verticalVelocity = jumpSpeed;
-			jumped = true;
 		}
-		if (transform.position.y < -60) {
-			//Debug.Log("falling");
-			Health h = gameObject.GetComponent<Health>();
-			if(PhotonNetwork.offlineMode){
-				h.TakeDamage(gameObject.name, Time.deltaTime * 100f);}
-			else{
-				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,gameObject.name, Time.deltaTime * 60f);
-			}
-			//Debug.Log("damage: "+ Time.deltaTime  * 40f);
-		}
-		if(!cc.isGrounded && jumped){
-			cameraJumpAdjustment = jumpCamMove;
-			jumped = false;
-			jumpCheck =true;
-		}
-		else if(cc.isGrounded && jumpCheck){
-			cameraJumpAdjustment = -jumpCamMove;
-			//jumped = true;
-			jumpCheck =false;
-		}
-		if(cameraJumpAdjustment != 0){
-			jumpNewCamHeight = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y + cameraJumpAdjustment, Camera.main.transform.position.z);
-			Camera.main.transform.position = Vector3.Slerp(Camera.main.transform.position, jumpNewCamHeight, .002f  );
-				
-		}
+
+
 	}
 	void XYMovement()
 	{
@@ -87,12 +55,23 @@ public class PlayerMovement : MonoBehaviour {
 		//handling jump
 		//verticalVelocity += Physics.gravity.y * Time.deltaTime *1.5f;
 	}
+	
+	void CheckIfFalling(){
+		if (transform.position.y < playerDeathHeight) {
+			Health h = gameObject.GetComponent<Health>();
+			if(PhotonNetwork.offlineMode){
+				h.TakeDamage(gameObject.name, Time.deltaTime * 100f);}
+			else{
+				h.GetComponent<PhotonView>().RPC("TakeDamage",PhotonTargets.AllBuffered,gameObject.name, Time.deltaTime * 60f);
+			}
+		}
+	}
 
 
 	void FixedUpdate () {//as this updates once per physics loops (as oposed to every frame) do all physics stuff...
 		//i.e. movement here
 		//transform.position
-		Vector3 distance = direction*speed*Time.deltaTime;
+		distance = direction*speed*Time.deltaTime;
 
 		if(cc.isGrounded && verticalVelocity <0)
 		{//if on ground and are not starting to jump(vertical velocity not positive)
@@ -109,7 +88,7 @@ public class PlayerMovement : MonoBehaviour {
 			//to ensure that the jump animation is not played while walking down a slope
 			//the below equation is the height at which the jump will start 
 			if(Mathf.Abs(verticalVelocity) > jumpSpeed *0.75f)//without this will go into jump anim when walking down slope
-			{//an absolute number ignores whether it is a negative, allways returns positive
+			{//an absolute number ignores whether it is a negative, always returns positive
 				anim.SetBool("Jump",true);
 
 			}

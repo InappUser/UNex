@@ -96,8 +96,7 @@ public class Health : MonoBehaviour {
 		}
 	}
 
-	float CaluclateEnemyHealth(string hitGOName, float inflicted)
-	{
+	float CaluclateEnemyHealth(string hitGOName, float inflicted){
 		if(hitGOName == "HitBoxLegL" || hitGOName == "HitBoxLegR"){
 			return inflicted * eLegsHealthDamage;
 		}
@@ -113,6 +112,11 @@ public class Health : MonoBehaviour {
 		else{
 			return inflicted;
 		}
+	}
+
+	public void RestetHP(){
+		currentHitPoints = hitPoints;
+
 	}
 
 }

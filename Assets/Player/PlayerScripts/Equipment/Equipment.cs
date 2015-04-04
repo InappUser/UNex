@@ -3,14 +3,12 @@ using System.Collections;
 
 public class Equipment{//:monobehaviour is only for scripts that are to be attached to objects
 	public float useRateCoolDown;
-	public enum EquipmentType{Throw,Static};
-
-	private GameObject effect;//naming convention to differentiate between variables and methods
-
+	
 	private float damage;
 	private float useRate;
 	private float throwSpeed;
 	private string equipmentName;
+	private GameObject effect;//naming convention to differentiate between variables and methods
 	private EquipmentType equipmentType;
 
 
@@ -44,4 +42,5 @@ public class Equipment{//:monobehaviour is only for scripts that are to be attac
 	public string GetEquipmentName()
 	{return equipmentName;}
 
+	public enum EquipmentType{Throw,Static};
 }

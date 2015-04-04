@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Spawning : MonoBehaviour {
-	public NetworkManager NM;
+	public NetworkManager nm;
 	public UIManager ui;
 	public GameObject spectator;
 	public static bool spawnedEnemies = false;
@@ -11,11 +11,9 @@ public class Spawning : MonoBehaviour {
 	private PlayerSpawnPoint[] playerSpawnPoints;
 	private float respawnTime = 2.5f;
 	private bool firstSpawn = false;
-	private Quaternion zero;
 
 	// Use this for initialization
 	void Start () {
-		zero = new Quaternion(0,0,0,0);
 		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();
 		enemyTotalSpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
 	}
@@ -63,7 +61,7 @@ public class Spawning : MonoBehaviour {
 	public void SpawnPlayer()
 	{
 		firstSpawn = true;
-		NM.AddChatMessage ("Spawning "+PhotonNetwork.player.name);
+		nm.AddChatMessage ("Spawning "+PhotonNetwork.player.name);
 		
 		if(playerSpawnPoints == null){
 			Debug.LogError("There are no player spawn points available");
@@ -95,29 +93,23 @@ public class Spawning : MonoBehaviour {
 		PlayerSpawnPoint playerSpawn = playerSpawnPoints[Random.Range(0, playerSpawnPoints.Length)];
 		//getting a random spawnpoint
 		player.transform.position = playerSpawn.transform.position;
-		MouseLook bodyPosition = (MouseLook)player.transform.GetComponent("MouseLook");
-		MouseLook mousePosition = (MouseLook)player.transform.GetChild(0).transform.GetComponent("MouseLook");
-		bodyPosition.ResetRotation (playerSpawn.transform.rotation);
-		mousePosition.ResetRotation (playerSpawn.transform.rotation);
+		MouseLook bodyRot = (MouseLook)player.transform.GetComponent("MouseLook");
+		MouseLook cameraRot = (MouseLook)player.transform.GetChild(0).transform.GetComponent("MouseLook");
+		bodyRot.ResetRotation (playerSpawn.transform.rotation);
+		cameraRot.ResetRotation (playerSpawn.transform.rotation);
 		//ressetting player position and rotation prior to spawning so that spawning is less jaring
 
 		yield return new  WaitForSeconds (respawnTime);
 
-
-		NM.AddChatMessage ("Respawning "+PhotonNetwork.player.name);
+		nm.AddChatMessage ("Respawning "+PhotonNetwork.player.name);
 		ui.UIEnable ("InGameUI");
-//		Debug.Log (playerSpawn.transform.rotation);
-		//Debug.Log (player.transform.GetChild(0).transform.rotation);
-
 		EnablePlayer (player, true);
 		Health h = player.GetComponent<Health> ();
-		h.currentHitPoints = h.hitPoints;
-		//yield return new WaitForSeconds (0);
+		h.RestetHP ();
 	}
 
 	public void SpawnEnemies()
 	{
-		GameObject[] randomEnemySpawnPoints;
 		int amountToSpawn = Random.Range ((int)(enemyTotalSpawnPoints.Length/1.7f),(int)(enemyTotalSpawnPoints.Length/1.1f));
 		int[] toSpawnList = new int[amountToSpawn];
 		int getRandNum = 0;
@@ -140,17 +132,11 @@ public class Spawning : MonoBehaviour {
 				for(int j=0;j<amountToSpawn;j++){//checking to see if spawn is already assigned
 					if(getRandNum == toSpawnList[j])
 						validNumber = false;
-
-					//Debug.Log("random num:"+getRandNum+" spawnlist "+j+" num"+toSpawnList[j]);
 				}
-			//Debug.Log("valid is:"+validNumber);
 				if(validNumber){//if random num is good, then assign it and reset validNumber. if this is not called then the current index of 
 					toSpawnList[i] = getRandNum;//toSpawnList will remain 0 and while will repeat
-				//Debug.Log("number assigned");
 				}
-				//Debug.Log("while ran");
 			}while(!validNumber);
-			//Debug.Log("spawn "+i+" is: "+toSpawnList[i]);
 		}
 
 		//generate random number between total spawns and total spawns minus 3 or whatever
@@ -162,24 +148,15 @@ public class Spawning : MonoBehaviour {
 		//checking against each index in toSpawnList)
 		//Debug.Log("total amount of spawns: "+enemyTotalSpawnPoints.Length);
 		for (int i=0; i<amountToSpawn; i++) {
-
-			//Debug.Log("spawn val at "+i+" is "+(toSpawnList[i]-1));
-			if(enemyTypeToSpawn>0){
-				//Debug.Log("spawned alive");
+			if(enemyTypeToSpawn>0){//if more than 0, spawn alives
 				PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
 			}else{
-				//Debug.Log("spawned static");
 				PhotonNetwork.Instantiate("EnemyStatic",enemyTotalSpawnPoints[toSpawnList[i]-1].transform.position,enemyTotalSpawnPoints[toSpawnList[i]-1].transform.rotation,0);		
-				PlayerScore.enemieStaticsTotal ++;//making total static enemies accessable
+				PlayerScore.enemyStaticsTotal ++;//making total static enemies accessable
 			}
 			enemyTypeToSpawn = Random.Range(0,3);//putting at the bottom so that there will allways be at least one static
 
 		}
-
-		//for (int i=0; i < enemyTotalSpawnPoints.Length; i++) {
-		//	/*GameObject enemyGO = (GameObject)*/PhotonNetwork.Instantiate("EnemyAlive",enemyTotalSpawnPoints[i].transform.position, enemyTotalSpawnPoints[i].transform.rotation,0);		
-		//}
-		//Spawning.spawnedEnemies = true;
 	}
 
 

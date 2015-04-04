@@ -2,14 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 public class Shoot : MonoBehaviour {
-	public LineRenderer shootLine;
-	public bool reloading = false;
-
+	private bool reloading = false;
 	private Animator animIN;
 	private Animator animOUT;
 	private Health hitGOHealth;//ammo size will never be big enough to justify full int
-	private	Transform shootExit;
-	private	Vector3 shootExitPos;
 	private WeaponManager weapon; 
 	private float fRateCool;
 	private GameObject muzzleFlash;
@@ -60,16 +56,11 @@ public class Shoot : MonoBehaviour {
 
 	void KeepGunCurrent()
 	{
-		shootExitPos = transform.GetChild(0).GetChild(0).position;
-		shootExitPos.y -= .2f;
-		shootExitPos.x +=  1.3f * transform.rotation.x;
-		shootExit = transform;
-
 		animIN = transform.parent.GetComponentInChildren<Animator>();//for activating animations for inside player
 		animOUT = transform.root.GetComponent<Animator> ();//for activating animations for outside player (for other players)
 		//assigning animIN the value of the animINator available in the currentweapon. Ensuring that it is kept current
 		weapon.currentWeapon.fireRateCoolDown -= Time.deltaTime;//decrementing 
-		fRateCool = weapon.currentWeapon.fireRateCoolDown;//these exist purley for legibility 
+		fRateCool = weapon.currentWeapon.fireRateCoolDown;//these exist purely for legibility 
 		//(ensures that the ammo will change as soon as the weapon has)
 		if(muzzleFlash){
 			muzzleFlash.transform.parent = transform.GetChild(0);}
@@ -97,12 +88,12 @@ public class Shoot : MonoBehaviour {
 		if(weapon.currentWeapon.GetShootEffect()){//setting the effect
 			//shooting the rocket further forward if the weapon is a rocket
 			if(weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Projectile){
-				Instantiate (weapon.currentWeapon.GetShootEffect(), shootExitPos + shootExit.forward, Camera.main.transform.rotation);
+				Instantiate (weapon.currentWeapon.GetShootEffect(), transform.position + transform.forward, Camera.main.transform.rotation);
 				yield break;//if is the rocket launcher then the rocket will deal damage etc.
 			}
 			//giving the end of the gun sparks - doing both of these things regardless of whether anything is hit by the raycast
 			//Debug.Log("found gun end "+transform.FindChild("GunEnd"));
-			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.GetChild(0).GetChild(0).position,shootExit.transform.rotation);
+			muzzleFlash = (GameObject) Instantiate(weapon.currentWeapon.GetShootExitBarrel(),transform.GetChild(0).GetChild(0).position,transform.rotation);
 			muzzleFlash.transform.parent = transform.parent;
 		}
 
@@ -194,10 +185,10 @@ public class Shoot : MonoBehaviour {
 	public short GetCurrentAmmo()
 	{
 		return weapon.currentWeapon.clipcount;
-	}
-	public void InstantiateThrowable()
-	{
-		Debug.Log ("Throwable instanted");
+	}	
+	
+	public bool IsReloading(){
+		return reloading;
 	}
 
 }

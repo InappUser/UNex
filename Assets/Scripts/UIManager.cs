@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -8,7 +8,8 @@ using System.Diagnostics;
 public class UIManager : MonoBehaviour {
 	public bool paused = false;
 	public static bool resume = false;
-	public static bool scActive = true;    
+	public static bool scActive = false;    
+
 	private GameObject[] uis;//an array of UI gameobjects
 	private Text playerName;
 
@@ -21,10 +22,9 @@ public class UIManager : MonoBehaviour {
 		for (int i =0; i < suspectedGOs.Length; i++) {//adding gameobject to the list if it has the same layer as passed
 			if(suspectedGOs[i].layer == layer){
 				layerGOsList.Add(suspectedGOs[i]);
-				if(suspectedGOs[i].name == "TxtPlayerName"){
-					playerName = suspectedGOs[i].GetComponent<Text>();
-					playerName.text = "test";
-					//UnityEngine.Debug.Log("player name is "+playerName.text);
+				if(suspectedGOs[i].name == "TxtPlayerName"){	
+					playerName = suspectedGOs[i].GetComponent<Text>();			
+				 	playerName.text = "test";			
 				}
 			}
 		}
@@ -68,9 +68,9 @@ public class UIManager : MonoBehaviour {
 			player.GetComponentInChildren<WeaponManager>().enabled = !paused;
 			player.GetComponentInChildren<UseEquipment>().enabled = !paused;
 			player.GetComponentInChildren<EquipmentManager>().enabled = !paused;
+			player.GetComponentInChildren<Camera> ().GetComponent<MouseLook>().enabled = !paused;
 			player.GetComponent<MouseLook>().enabled = !paused;
 			player.GetComponent<PlayerMovement>().enabled = !paused;
-			player.GetComponentInChildren<Camera> ().GetComponent<MouseLook>().enabled = !paused;
 			//UnityEngine.Debug.Log (player.GetComponent<MouseLook> ().enabled);
 			if(!paused){
 				UIEnableOnly ("InGameUI");
@@ -83,11 +83,11 @@ public class UIManager : MonoBehaviour {
 			UnityEngine.Debug.LogError("Don't know about player!\nYou probably left an instance in the hierarchy\n"+ex);}
 	}
 	public void showHideSB(){
-		if(scActive){
-			scActive = false;
+		if(!scActive){
+			scActive = true;
 			UIEnable("SBUI");
 		}else{
-			scActive = true;
+			scActive = false;
 			UIDisable("SBUI");
 		}
 	}
@@ -124,16 +124,16 @@ public class UIManager : MonoBehaviour {
 	}
 	public void UIDisable(string disable)
 	{
-		//despite there being only ine object with tag, need to utilise an array
-		GameObject[] disabledGOs = GameObject.FindGameObjectsWithTag (disable);
-		for (int i =0; i<disabledGOs.Length; i++){
-			disabledGOs [i].SetActive (false);
+		for (int i =0; i<uis.Length; i++){
+			if(uis[i].tag == disable){
+				uis [i].SetActive (false);
+			}
 		}
 	}
 	void ChangeUIColor(GameObject uiGO, float colourTrue)
 	{
 		if (uiGO.GetComponent<Text>() != null) {
-			Color textColour = new Color();
+			Color textColour = new Color();//setting textColour like this because, if gameObject has neither an image or text component, it needs to do nothing
 			textColour = uiGO.GetComponent<Text>().color;
 			textColour.a = colourTrue;
 			uiGO.GetComponent<Text>().color =  textColour;
@@ -152,7 +152,8 @@ public class UIManager : MonoBehaviour {
 	}
 	public void ExitGame()
 	{
-		System.Diagnostics.Process.GetCurrentProcess().Kill();//used instead of application.Quit() to get rid of teh crashing error
+		Application.Quit ();
+		//System.Diagnostics.Process.GetCurrentProcess().Kill();//used instead of application.Quit() to get rid of teh crashing error
 	}
 	public void EnterOptions()
 	{

@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour {
 			if(Input.GetKeyDown(KeyCode.Tab) && !uiManager.paused){
 				uiManager.showHideSB();}
 			//Debug.Log ("number of enemy statics " + (PlayerScore.enemiesTotal));
-			if ((PlayerScore.enemieStaticsTotal-enemyStaticsDead) < 1) {
+			if ((PlayerScore.enemyStaticsTotal-enemyStaticsDead) < 1) {
 				LoadLevel ();	
 			}
 		}
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour {
 		if (!weaponAmmo) {
 			weaponAmmo = player.GetComponentInChildren<Shoot>();		
 		}
-		else if(weaponAmmo.reloading){
+		else if(weaponAmmo.IsReloading()){
 			playerAmmoCountText.text = "Reloading";
 		}
 		else{
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour {
 		Spawning.spawnedEnemies = false;//resetting spawnedEnemies for next level
 		EnemyAI.alerted = false;// resetting whether the alive enemies are alterted upon level change
 		enemyStaticsDead = 0;
-		PlayerScore.enemieStaticsTotal = 0;
+		PlayerScore.enemyStaticsTotal = 0;
 		if(!ended){
 			spawnEndGame.Death (player, true);
 			ended = true;

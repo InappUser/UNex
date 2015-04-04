@@ -129,7 +129,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.SetModel(machineGunModel);
 		machineGun.SetShootEffect(machineGunEffect);//assigning machine gun specific variables 
 		machineGun.SetShootExitBarrel (exitBarrelEffect);
-		machineGun.SetSDamage(6f);
+		machineGun.SetDamage(6f);
 		machineGun.SetFireRate (0.05f);
 		machineGun.SetReloadTime(2.55f);
 		machineGun.SetWaitBeforeInitFireTime(0f);
@@ -137,7 +137,7 @@ public class WeaponManager : MonoBehaviour {
 		machineGun.clipcount = machineGun.GetClipSize ();
 		machineGun.SetWeaponName("BAAL Pattern Boltgun");
 		machineGun.SetWeaponType (Weapon.WeaponType.Stream);//reserving 0 for unarmed in the future; also coresponds with key pressed to activate
-		machineGun.SetshootSound (machineGunSound);
+		machineGun.SetShootSound (machineGunSound);
 		return machineGun;
 	}
 	Weapon InstantiateShotgun()
@@ -146,7 +146,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.SetModel(shotGunModel);
 		shotGun.SetShootEffect(shotGunEffect);//assigning machine gun specific values. shhot effect refering to the bullet hole left at the hit 
 		shotGun.SetShootExitBarrel (exitBarrelEffect);
-		shotGun.SetSDamage(80f);
+		shotGun.SetDamage(80f);
 		shotGun.SetFireRate (0.7f);
 		shotGun.SetReloadTime(4f);
 		shotGun.SetWaitBeforeInitFireTime(.06f);
@@ -154,7 +154,7 @@ public class WeaponManager : MonoBehaviour {
 		shotGun.clipcount = shotGun.GetClipSize ();
 		shotGun.SetWeaponName("Shotgun");
 		shotGun.SetWeaponType (Weapon.WeaponType.SingleShot);
-		shotGun.SetshootSound (shotGunSound);
+		shotGun.SetShootSound (shotGunSound);
 		return shotGun;
 	}
 	Weapon InstantiateRocketLauncher()
@@ -163,7 +163,7 @@ public class WeaponManager : MonoBehaviour {
 		rocketLauncher.SetModel(rocketLauncherModel);
 		rocketLauncher.SetShootEffect(rocketProjectile);//assigning machine gun specific variables 
 		rocketLauncher.SetShootExitBarrel (exitBarrelEffect);
-		rocketLauncher.SetSDamage(0f);
+		rocketLauncher.SetDamage(0f);
 		rocketLauncher.SetFireRate (0.7f);
 		rocketLauncher.SetReloadTime(6f);
 		rocketLauncher.SetWaitBeforeInitFireTime(.21f);
@@ -171,7 +171,7 @@ public class WeaponManager : MonoBehaviour {
 		rocketLauncher.clipcount = rocketLauncher.GetClipSize ();
 		rocketLauncher.SetWeaponName("Rocket Launcher");
 		rocketLauncher.SetWeaponType (Weapon.WeaponType.Projectile);
-		rocketLauncher.SetshootSound (machineGunSound);
+		rocketLauncher.SetShootSound (machineGunSound);
 		return rocketLauncher;
 	}
 

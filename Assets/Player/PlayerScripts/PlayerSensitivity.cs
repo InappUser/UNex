@@ -4,8 +4,10 @@ using System.Collections;
 
 public class PlayerSensitivity : MonoBehaviour {
 	private GameObject player;
-	private bool foundplayer = false;
+	private bool foundPlayer = false;
 	private bool setInitPlayerSens=false;
+	private const int XMULTIPLIER = 15;
+	private const int YMULTIPLIER = 10;
 
 	// Use this for initialization
 	void Start()
@@ -18,7 +20,7 @@ public class PlayerSensitivity : MonoBehaviour {
 		}
 	}
 	void Update () {
-		if (!foundplayer) {
+		if (!foundPlayer) {
 			player = GetPlayer();		
 		} else if(!setInitPlayerSens)
 		{
@@ -38,7 +40,7 @@ public class PlayerSensitivity : MonoBehaviour {
 		for (int i=0; i<players.Length; i++) {
 			if(players[i].GetComponent<PhotonView>().isMine)
 			{
-				foundplayer = true;
+				foundPlayer = true;
 				return players[i];
 			}
 		}
@@ -48,9 +50,9 @@ public class PlayerSensitivity : MonoBehaviour {
 
 	public void ChangeX(float newX)
 	{
-		if(foundplayer){//public function executed by the scrollbars in teh pause menu options used to change the player sensitivity;
-			player.GetComponent<MouseLook>().sensitivityX = (newX*15f);
-			PlayerPrefs.SetFloat("SensitivityX",(newX*15f));//saving the sensitivity whenever is changed
+		if(foundPlayer){//public function executed by the scrollbars in teh pause menu options used to change the player sensitivity;
+			player.GetComponent<MouseLook>().sensitivityX = (newX*XMULTIPLIER);
+			PlayerPrefs.SetFloat("SensitivityX",(newX*XMULTIPLIER));//saving the sensitivity whenever is changed
 			//Debug.Log ("assigned new x:"+(newX*15f));
 		}
 
@@ -58,9 +60,9 @@ public class PlayerSensitivity : MonoBehaviour {
 
 	public void ChangeY(float newY)
 	{
-		if(foundplayer){
-			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = (newY*10f);
-			PlayerPrefs.SetFloat("SensitivityY",(newY*10f));//saving the sensitivity whenever is changed
+		if(foundPlayer){
+			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = (newY*YMULTIPLIER);
+			PlayerPrefs.SetFloat("SensitivityY",(newY*YMULTIPLIER));//saving the sensitivity whenever is changed
 			//Debug.Log ("assigned new y:"+(newY*10f));
 		}
 

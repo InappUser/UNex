@@ -4,7 +4,6 @@ using System.Collections;
 public class Weapon{//:monobehaviour is only for scripts that are to be attached to objects
 	public short clipcount;
 	public float fireRateCoolDown;
-	public enum WeaponType{Stream,SingleShot,Projectile};
 
 	private GameObject model;
 	private GameObject shootEffect;//naming convention to differentiate between variables and methods
@@ -36,7 +35,7 @@ public class Weapon{//:monobehaviour is only for scripts that are to be attached
 
 	public float GetDamage(){
 		return damage;}
-	public void SetSDamage(float setDamage){
+	public void SetDamage(float setDamage){
 		damage = setDamage;}
 
 	public float GetFireRate(){
@@ -64,14 +63,15 @@ public class Weapon{//:monobehaviour is only for scripts that are to be attached
 	public void SetWeaponName(string setWeaponName){
 		weaponName = setWeaponName;}
 
-	public void SetWeaponType(WeaponType setWeaponType){
-		weaponType = setWeaponType;}
 	public WeaponType GetWeaponType(){
 		return weaponType;}
-
-	public void SetshootSound(AudioClip setShootSound){
-		shootSound = setShootSound;}
+	public void SetWeaponType(WeaponType setWeaponType){
+		weaponType = setWeaponType;}
+		
 	public AudioClip GetShootSound(){
 		return shootSound;}
-
+	public void SetShootSound(AudioClip setShootSound){
+		shootSound = setShootSound;}
+		
+	public enum WeaponType{Stream,SingleShot,Projectile};
 }

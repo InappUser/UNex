@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerScore : MonoBehaviour {
-	public static int enemieStaticsTotal = 1;//this gets its real value from the spawnign class, wherein it is incremented whenever a static is spawned
+	public static int enemyStaticsTotal = 1;//this gets its real value from the spawnign class, wherein it is incremented whenever a static is spawned
 	public Text enemiesText;
 
 	private GameManager gm;
@@ -23,7 +23,7 @@ public class PlayerScore : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		enemiesText.text = "Enemies Left: " + (PlayerScore.enemieStaticsTotal-GameManager.enemyStaticsDead);//GameManagers enemycount has the current amount of enemies in the game
+		enemiesText.text = "Enemies Left: " + (PlayerScore.enemyStaticsTotal-GameManager.enemyStaticsDead);//GameManagers enemycount has the current amount of enemies in the game
 		SetScorboardVals ();
 		KeepTime ();
 	}
@@ -34,7 +34,7 @@ public class PlayerScore : MonoBehaviour {
 		//Debug.Log ("time "+(int)((timerMin*60)+timerSec)*100);
 		player1Pnl.transform.FindChild ("TxtPlayerScore1").GetComponent<Text> ().text = playerScore.ToString("0.##");//player's kills divided byy amount of time, multiplied by 100
 		player1Pnl.transform.FindChild ("TxtPlayerEkills1").GetComponent<Text> ().text = thisStaticsKilled.ToString();
-		if(!playerNameSet || enemieStaticsTotal<1){//ensuring that the name is only set once and that the player has spawned. enemies total is used in order to ensure the latter: if enemies have spawned, then the player has spawned
+		if(!playerNameSet || enemyStaticsTotal<1){//ensuring that the name is only set once and that the player has spawned. enemies total is used in order to ensure the latter: if enemies have spawned, then the player has spawned
 			player1Pnl.transform.FindChild ("TxtPlayerName1").GetComponent<Text> ().text = PhotonNetwork.player.name;
 			playerNameSet = true;
 		}
@@ -42,7 +42,7 @@ public class PlayerScore : MonoBehaviour {
 
 	void KeepTime()
 	{
-		if(enemieStaticsTotal >0){//ensuring that the timer stops once enemies have been killed
+		if(enemyStaticsTotal >0){//ensuring that the timer stops once enemies have been killed
 			timerSec += Time.deltaTime;
 			if(timerSec>=60f){
 				timerSec = 0f;

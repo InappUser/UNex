@@ -32,7 +32,7 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			transform.position = Vector3.Lerp(transform.position, realPosition, 0.1f); //lerp is used for transitions
 			transform.rotation = Quaternion.Lerp(transform.rotation, realRotation, 0.1f);
 			//Debug.Log("Found gun: "+transform.FindChild("OtherPlayer"));
-			gunTo.transform.rotation = Quaternion.Lerp(transform.rotation,realGunRotation,.5f);
+			//gunTo.transform.rotation = Quaternion.Lerp(transform.rotation,realGunRotation,.5f);
 			//little bit of a lag, but is much smoother
 		}//float represents smoothing speed
 	}
@@ -49,7 +49,7 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			stream.SendNext(transform.position);//sending players position
 			//Debug.Log("this players position "+transform.position);
 			stream.SendNext(transform.rotation);//sending players rotation
-			stream.SendNext(gunFrom.transform.rotation); //sending gun rotation
+			//stream.SendNext(gunFrom.transform.rotation); //sending gun rotation
   			stream.SendNext(anim.GetFloat("FSpeed"));//sending the players forward/backward animation info
 			stream.SendNext(anim.GetFloat("SSpeed"));//sending the players left/right animation info
 			stream.SendNext(anim.GetBool("Jump"));//sending the players jump animation info
@@ -72,7 +72,7 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			realPosition =(Vector3)stream.ReceiveNext()/*as Vector3*/;//recieving position
 			//Debug.Log("other players position "+transform.position);
 			realRotation =(Quaternion)stream.ReceiveNext()/*as Quaternion*/;//recieving rotation
-			realGunRotation = (Quaternion)stream.ReceiveNext();
+			//realGunRotation = (Quaternion)stream.ReceiveNext();
 			//this is two ways of "casting" - ensuring that stream is correct format
 			anim.SetFloat("FSpeed",(float)stream.ReceiveNext());
 			anim.SetFloat("SSpeed",(float)stream.ReceiveNext());//the order in which these are sent needs to be mirrored when recieved
