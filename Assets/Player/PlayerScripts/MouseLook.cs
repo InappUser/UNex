@@ -73,39 +73,39 @@ public class MouseLook : MonoBehaviour {
 			Debug.Log("pressed b");
 			resetRot = true;
 		}
-//		if (!foundSens) {
-//			try {
-//				foundSens = true;
-//				if (gameObject.name == "FPS_Player") {
-//					Debug.Log ("found");
-//					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
-//				} 
-//				else {
-//
-//					sensScroll = GameObject.Find ("ScrlSensY");
-//					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
-//						scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
-//					};
-//				}
-//			} 
-//			catch {
-//				Debug.Log ("Nope");
-//				foundSens = false;
-//			}
-//				}
+		if (!foundSens) {
+			try {
+				foundSens = true;
+				if (gameObject.name == "FPS_Player") {
+					Debug.Log ("found");
+					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
+				} 
+				else {
+
+					sensScroll = GameObject.Find ("ScrlSensY");
+					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
+						scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
+					};
+				}
+			} 
+			catch {
+				Debug.Log ("Nope");
+				foundSens = false;
+			}
+				}
 
 		if (foundSens) {
 			ChangeSensitivity(scroll.value);		
 		}
-//		if(sensScroll.enabled){
-//			ChangeSensitivity (sensScroll.value);
-//			Debug.Log(sensScroll.value);
-//		}
+		if(scroll.enabled){
+			ChangeSensitivity (scroll.value);
+			Debug.Log(scroll.value);
+		}
 
-//			if(sensScroll.enabled){
-//				Debug.Log ("scroll val changed"+sensScroll.onValueChanged);
-//			}
-//			Debug.Log ("new x is "+sensitivityX);
+			if(scroll.enabled){
+				Debug.Log ("scroll val changed"+scroll.onValueChanged);
+			}
+			Debug.Log ("new x is "+sensitivityX);
 	}
 
 	void AlterRotation()
@@ -125,7 +125,7 @@ public class MouseLook : MonoBehaviour {
 		if (axes == RotationAxes.MouseXAndY)
 		{//moving view left to right
 			resetRot = false;
-			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * 5f/*sensitivityX*/;
+			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * /*5f*/sensitivityX;
 			//Debug.Log ("\""+gameObject.name+"\"'s rotationX is "+ rotationX);
 			//bellow this doesn't really matter too much atm
 			rotationY += Input.GetAxis("Mouse Y") * /*.75f;//*/sensitivityY;
@@ -143,7 +143,7 @@ public class MouseLook : MonoBehaviour {
 		else
 		{//moving view up and down
 			resetRot = false;
-			rotationY += Input.GetAxis("Mouse Y") * 3f;//sensitivityY;
+			rotationY += Input.GetAxis("Mouse Y") * /*3f;*/sensitivityY;
 			//Debug.Log("sensy is "+sensitivityY);
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			//Debug.LogError ("\""+gameObject.name+"\"'s rotationY is "+ Input.GetAxis("Mouse Y"));

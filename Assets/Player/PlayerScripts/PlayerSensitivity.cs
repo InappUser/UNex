@@ -29,8 +29,8 @@ public class PlayerSensitivity : MonoBehaviour {
 			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
 			setInitPlayerSens =true;
 		}
-		Debug.Log("Saved X: "+PlayerPrefs.GetFloat ("SensitivityX"));
-		Debug.Log("Saved Y: "+PlayerPrefs.GetFloat ("SensitivityY"));	
+		//Debug.Log("Saved X: "+PlayerPrefs.GetFloat ("SensitivityX"));
+		//Debug.Log("Saved Y: "+PlayerPrefs.GetFloat ("SensitivityY"));	
 	}
 	
 	// Update is called once per frame
