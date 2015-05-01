@@ -171,7 +171,7 @@ public class MouseLook : MonoBehaviour {
 	
 	void ChangeSensitivity(float newSensitivity)
 	{
-		if(gameObject.name == "FPS_Player"){
+		if(gameObject.name == "FPS_Player(Clone)"){//if name is "FPS_Player(Clone)" then it is the body making the request, so the x sens is the one that needs changing
 			sensitivityX = (newSensitivity *15f);
 		}else{
 			sensitivityY = (newSensitivity *15f);

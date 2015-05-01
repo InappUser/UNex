@@ -11,10 +11,7 @@ public class UseEquipment : MonoBehaviour {
 	private bool thrown = false;
 	// Use this for initialization
 
-	void Start()
-	{
 
-	}
 
 	void FixedUpdate()
 	{

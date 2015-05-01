@@ -181,10 +181,7 @@ public class UIManager : MonoBehaviour {
 		if(!Screen.fullScreen){
 			UnityEngine.Debug.Log ("full");
 			Screen.fullScreen = true;}
-		else{
-			UnityEngine.Debug.Log ("not full");
-			Screen.fullScreen = false;
-		}
+
 	}
 	public void UpdateGame()
 	{

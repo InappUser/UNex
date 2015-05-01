@@ -6,7 +6,6 @@ public class PlayerScore : MonoBehaviour {
 	public static int enemyStaticsTotal = 1;//this gets its real value from the spawnign class, wherein it is incremented whenever a static is spawned
 	public Text enemiesText;
 
-	private GameManager gm;
 	private GameObject player1Pnl;
 	private int thisStaticsKilled = 0;
 	private int thisAlivesKilled = 0;
@@ -17,7 +16,6 @@ public class PlayerScore : MonoBehaviour {
 	private short timerMin=0;
 	
 	void Awake () {
-		gm = GetComponent<GameManager> ();
 		player1Pnl = GameObject.Find("PnlSBPlayer1");
 
 	}

@@ -52,7 +52,7 @@ public class EnemyAI : Photon.MonoBehaviour {
 				tooCloseTooLong = tooLongTimer >=tooLong;}//if the timer is more than or equal to too long then tooCloseTooLong = true, else false
 			
 			//calculating if a chase is eligable
-			if ((distance < chaseDist && alerted)||tooCloseTooLong || GetComponent<Health>().GetHealth() <GetComponent<Health>().GetTotalHealth() && alerted) {//chasing the player if they get too close and are alerted, or got too close for too long
+			if ((distance < chaseDist && alerted)||tooCloseTooLong || GetComponent<Health>().GetHealth() <GetComponent<Health>().GetTotalHealth() && alerted) {//chasing the player if they get too close and are alerted, or got too close for too long, or are damaged and alerted
 				//players will also be chased if an enemy takes damage while enemies are alerted
 				SetChasing(true);//chasing = true;/*can't "chasing = distance < foundDistance && Find ()" bc it will == false when unwanted*/
 				tooLongTimer = 0f;//resetting timer, so that player once again needs to be too close for too long

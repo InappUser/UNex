@@ -8,18 +8,18 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 
 	private Vector3 realPosition = Vector3.zero;//setting variables to their respective zeros
 	private Quaternion realRotation = Quaternion.identity;
-	private Quaternion realGunRotation = Quaternion.identity;
+	//private Quaternion realGunRotation = Quaternion.identity;//not used in current version
 	private Animator anim;
-	private bool recivedFirstUpdate = false;
-	private GameObject[] enemies;
+	private bool receivedFirstUpdate = false;
+	//private GameObject[] enemies;
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
 		if(!anim)
 		{
-			Debug.LogError("An animator is not attached to character");
+			Debug.LogError("An animator is not attached to this character");
 		}
-		enemies = GameObject.FindGameObjectsWithTag ("EnemyAlive");
+		//enemies = GameObject.FindGameObjectsWithTag ("EnemyAlive");
 	}
 	
 	// Fixed because funciton is dealing with movement
@@ -83,11 +83,11 @@ public class MyNetworkCharacter : Photon.MonoBehaviour {//photon's verison of mo
 			//for(int i=0;i <enemies.Length;i++)
 				//enemies[i].transform.position =(Vector3)stream.ReceiveNext();//fundamentally flawed- doesn't need to go through every enemy. this repeatedly sets the
 			//position of unmoving enemies unnecisarily, causing a lot of lag. This also means that the way in which 
-			if(!recivedFirstUpdate)//if the first update has not been recieved
+			if(!receivedFirstUpdate)//if the first update has not been recieved
 			{
 				transform.position = realPosition;
 				transform.rotation = realRotation;
-				recivedFirstUpdate = true;
+				receivedFirstUpdate = true;
 				//stopping the character from appearing in the center and movin to real position
 			}//teleporting them
 		}
