@@ -24,7 +24,6 @@ public class PlayerSensitivity : MonoBehaviour {
 			player = GetPlayer();		
 		} else if(!setInitPlayerSens)
 		{
-			Debug.Log("hitting");
 			player.GetComponent<MouseLook>().sensitivityX = PlayerPrefs.GetFloat ("SensitivityX");
 			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
 			setInitPlayerSens =true;

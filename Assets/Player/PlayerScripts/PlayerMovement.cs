@@ -7,12 +7,17 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed = 20f;
 	public float playerGravity = 5;
 	public CharacterController cc;
+	public bool useMyVertical =true;
+	public bool useMyHorizontal =true;
 
+	private InputManager inputMan;
 	private Animator anim;
 	private Vector3 direction = Vector3.zero; //forward/back & left/right
 	private Vector3 distance;
 	private float verticalVelocity = 0f;
 	private float playerDeathHeight = -60f;
+	private float vertical;
+	private float horizontal;
 
 
 	// Use this for initialization
@@ -20,7 +25,8 @@ public class PlayerMovement : MonoBehaviour {
 		cc = GetComponent<CharacterController>();
 		anim = GetComponent<Animator> ();
 		PlayerScore.enemyStaticsTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);//very messy, though does not work when run after player has spawned
-		UnityEngine.Debug.Log ("enemies = "+PlayerScore.enemyStaticsTotal);
+		//UnityEngine.Debug.Log ("enemies = "+PlayerScore.enemyStaticsTotal);
+		inputMan = GameObject.FindObjectOfType<InputManager> ();
 	}
 	
 	// Update is called once per frame
@@ -38,7 +44,11 @@ public class PlayerMovement : MonoBehaviour {
 		//in order to allow for the forward, left right bcakwards directions to be relative to the mouse look di
 		//direction, just need to times by players rotation
 		//wasd f,b,l,f is stored in direction
-		direction = transform.rotation * new Vector3 (Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));//ensuring that
+		//Debug.Log ("native vertical" + Input.GetAxis ("Vertical"));
+		//Debug.Log ("my vertical" + inputMan.Vertical());
+		vertical = useMyVertical ? inputMan.Vertical () : Input.GetAxis ("Vertical");
+		horizontal = useMyHorizontal ? inputMan.Horizontal () : Input.GetAxis ("Horizontal");
+		direction = transform.rotation * new Vector3 (horizontal,0,vertical);//ensuring that
 		//diagonals are not faster
 		//the input is captured in the normal update because want it to feel as responsive as possible
 		//tis good practice

@@ -2,11 +2,12 @@
 using System.Collections;
 
 public class Spawning : MonoBehaviour {
-	public NetworkManager nm;
+
 	public UIManager ui;
 	public GameObject spectator;
 	public static bool spawnedEnemies = false;
 
+	private NetworkManager nm;
 	private GameObject[] enemyTotalSpawnPoints;
 	private PlayerSpawnPoint[] playerSpawnPoints;
 	private float respawnTime = 2.5f;
@@ -16,6 +17,7 @@ public class Spawning : MonoBehaviour {
 	void Start () {
 		playerSpawnPoints = GameObject.FindObjectsOfType<PlayerSpawnPoint>();
 		enemyTotalSpawnPoints = GameObject.FindGameObjectsWithTag ("EnemySpawn");
+		nm = GetComponent<NetworkManager>();
 	}
 	void EnablePlayer(GameObject player, bool enable)
 	{

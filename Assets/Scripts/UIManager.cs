@@ -165,6 +165,16 @@ public class UIManager : MonoBehaviour {
 		UIDisable ("PauseUIOptions");
 		UIEnable("PauseUIMain");
 	}
+	public void EnterSetControls()
+	{
+		UIDisable ("PauseUIOptions");
+		UIEnable("PauseUISetControls");
+	}
+	public void ExitSetControls()
+	{
+		UIDisable ("PauseUISetControls");
+		UIEnable("PauseUIOptions");
+	}
 	public string GetPlayerName()
 	{
 		return playerName.text;
@@ -186,6 +196,7 @@ public class UIManager : MonoBehaviour {
 		}
 
 	}
+
 	public void UpdateGame()
 	{
 		UnityEngine.Debug.Log ("updating game");

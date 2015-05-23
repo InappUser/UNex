@@ -156,9 +156,11 @@
      <Compile Include="Assets\Player\PlayerScripts\Weapon\Shoot.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\Weapon.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" />
+     <Compile Include="Assets\Scripts\Axis.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GunPivot.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
+     <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\Map_Teleporting.cs" />
      <Compile Include="Assets\Scripts\MoveMapPlayer.cs" />
      <Compile Include="Assets\Scripts\NetworkManager.cs" />
@@ -179,12 +181,6 @@
  </Reference>
  <Reference Include="Photon3Unity3D">
  <HintPath>D:/Projects/Repos/UNex/Assets/Plugins/Photon3Unity3D.dll</HintPath>
- </Reference>
- <Reference Include="Photon3Unity3D">
- <HintPath>D:/Projects/Repos/UNex/Assets/Plugins/Metro/Photon3Unity3D.dll</HintPath>
- </Reference>
- <Reference Include="Photon3Unity3D">
- <HintPath>D:/Projects/Repos/UNex/Assets/Plugins/WP8/Photon3Unity3D.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

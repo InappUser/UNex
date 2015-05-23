@@ -3,22 +3,23 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
-	public Image winImage;
-	public Text winText;
-	public Text playerScore;
-	public Text playerHealthText;
-	public Text playerWeaponText;
-	public Text playerAmmoCountText;
-	public Text playerEquipmentText;
-	public Text playerEquipmentLeftText;
-	public Text playerTimer;
-	public GameObject pauseUI;
 	public GameObject spectator;
+	public GameObject pauseUI;
+	public GameObject inGameUI;
+	public GameObject winUI;
 	public NetworkManager networkManager;
-
 	public static int enemyStaticsDead =0;//initialising so that game doesn't end immediately - setting this in start may be an easier way to stop games ending when loading new level
 	public static int enemStaticTotal=1;
 	static short level;
+
+	//ui
+	private Image winImage;
+	private Text winText;
+	private Text playerHealthText;
+	private Text playerWeaponText;
+	private Text playerAmmoCountText;
+	private Text playerEquipmentText;
+
 
 	private Spawning spawnEndGame;
 	private Color imagecolour = new Color(1f,0f,0f,.2f);
@@ -42,9 +43,20 @@ public class GameManager : MonoBehaviour {
 	{
 		return spectator;
 	}
-	
+	void GetUI(){
+		playerHealthText = inGameUI.transform.FindChild ("TxtHealth").GetComponent<Text>();
+		playerWeaponText = inGameUI.transform.FindChild ("TxtWeapName").GetComponent<Text>();
+		playerAmmoCountText = inGameUI.transform.FindChild ("TxtWeapAmmo").GetComponent<Text>();
+		playerEquipmentText = inGameUI.transform.FindChild ("TxtEquipName").GetComponent<Text> ();
+		winImage = winUI.transform.FindChild ("ImgWin").GetComponent<Image>();
+		winText = winUI.transform.FindChild ("TxtWin").GetComponent<Text>();
+	}
+	void Awake(){
+		GetUI ();
+	}
 	void Start()
 	{
+
 		zero = new Color (0f,0f,0f,0f);
 		level = (short)Application.loadedLevel;
 		uiManager = gameObject.GetComponent<UIManager> ();

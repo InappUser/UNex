@@ -29,6 +29,12 @@ public class MouseLook : MonoBehaviour {
 	public float minimumY = -80F;
 	public float maximumY = 80F;
 
+	public bool usemyUDmouse = false;
+	public bool usemyLRmouse = false;
+
+	private float mouseUD;
+	private float mouseLR;
+	private InputManager inputMan;
 	private float rotationY = 0F;
 	private float rotationX = 0.0f;
 	
@@ -59,7 +65,7 @@ public class MouseLook : MonoBehaviour {
 	}
 	void Start ()
 	{
-
+		inputMan = GameObject.FindObjectOfType<InputManager> ();
 		// Make the rigid body not change rotation
 		if (GetComponent<Rigidbody>())
 			GetComponent<Rigidbody>().freezeRotation = true;
@@ -67,86 +73,47 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
+		mouseUD = usemyUDmouse ? inputMan.LookUD () : Input.GetAxis ("Mouse Y");
+		mouseLR = usemyLRmouse ? inputMan.LookLR () : Input.GetAxis ("Mouse X");
+
 		headbobbing ();
 		AlterRotation ();
+		FindSensitivity ();
 		if (Input.GetKeyDown (KeyCode.B)) {
 			Debug.Log("pressed b");
 			resetRot = true;
 		}
-		if (!foundSens) {
-			try {
-				foundSens = true;
-				if (gameObject.name == "FPS_Player") {
-					Debug.Log ("found");
-					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
-				} 
-				else {
 
-					sensScroll = GameObject.Find ("ScrlSensY");
-					if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
-						scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
-					};
-				}
-			} 
-			catch {
-				Debug.Log ("Nope");
-				foundSens = false;
-			}
-				}
-
-		if (foundSens) {
-			ChangeSensitivity(scroll.value);		
-		}
-		if(scroll.enabled){
-			ChangeSensitivity (scroll.value);
-			Debug.Log(scroll.value);
-		}
-
-			if(scroll.enabled){
-				Debug.Log ("scroll val changed"+scroll.onValueChanged);
-			}
-			Debug.Log ("new x is "+sensitivityX);
 	}
 
 	void AlterRotation()
 	{
 		if (resetRot) {
-			//zero.x = transform.rotation.x;
-			//zero.z = transform.rotation.z;
 			transform.rotation = zero;
-			Debug.Log(zero);
 			rotationY = 0;
 			rotationX = 0;
 			resetRot = false;
-			//Debug.Break();
 			return;
 		}
 
 		if (axes == RotationAxes.MouseXAndY)
 		{//moving view left to right
 			resetRot = false;
-			rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * /*5f*/sensitivityX;
-			//Debug.Log ("\""+gameObject.name+"\"'s rotationX is "+ rotationX);
-			//bellow this doesn't really matter too much atm
-			rotationY += Input.GetAxis("Mouse Y") * /*.75f;//*/sensitivityY;
+			rotationX = transform.localEulerAngles.y + mouseLR * /*5f*/sensitivityX;
+			rotationY += mouseUD * /*.75f;//*/sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-
 			transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
 		}
 		else if (axes == RotationAxes.MouseX)
 		{
 			resetRot = false;
 			//transform.Rotate(0, Input.GetAxis("Mouse X") * 1.5f/*sensitivityX*/, 0);
-			
-			//Debug.LogError ("\""+gameObject.name+"\"'s rotationX is "+ Input.GetAxis("Mouse X"));
 		}
 		else
 		{//moving view up and down
 			resetRot = false;
-			rotationY += Input.GetAxis("Mouse Y") * /*3f;*/sensitivityY;
-			//Debug.Log("sensy is "+sensitivityY);
+			rotationY += mouseUD * /*3f;*/sensitivityY;
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-			//Debug.LogError ("\""+gameObject.name+"\"'s rotationY is "+ Input.GetAxis("Mouse Y"));
 			transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
 		}
 	}
@@ -166,6 +133,33 @@ public class MouseLook : MonoBehaviour {
 //			Debug.Log("localscale after: "+transform.localScale.x+" + "+transform.localScale.y);
 //			Debug.Log("meant to be: "+transform.localScale.x+" + "+transform.localScale.y);
 			parentLastPos = transform.parent.position;
+		}
+	}
+	void FindSensitivity()
+	{
+		if (!foundSens) {
+			try {
+				foundSens = true;
+				//				if (gameObject.name == "FPS_Player") {
+				//					Debug.Log ("found");
+				//					//sensScroll = GameObject.Find("ScrlSensX").GetComponent<Scrollbar>();
+				//				} 
+				//else {
+				
+				sensScroll = GameObject.Find ("ScrlSensY");
+				if (sensScroll.GetComponentInChildren<Scrollbar> ()) {
+					scroll = sensScroll.GetComponentInChildren<Scrollbar> ();
+				};
+				//}
+			} 
+			catch {
+				//Debug.Log ("Nope");
+				foundSens = false;
+			}
+		}
+		
+		if (foundSens) {
+			ChangeSensitivity(scroll.value);		
 		}
 	}
 	
