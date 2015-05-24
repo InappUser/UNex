@@ -156,11 +156,11 @@
      <Compile Include="Assets\Player\PlayerScripts\Weapon\Shoot.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\Weapon.cs" />
      <Compile Include="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" />
-     <Compile Include="Assets\Scripts\Axis.cs" />
+     <Compile Include="Assets\Scripts\Control\Axis.cs" />
+     <Compile Include="Assets\Scripts\Control\InputManager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GunPivot.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
-     <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\Map_Teleporting.cs" />
      <Compile Include="Assets\Scripts\MoveMapPlayer.cs" />
      <Compile Include="Assets\Scripts\NetworkManager.cs" />

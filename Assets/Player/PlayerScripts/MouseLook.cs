@@ -29,8 +29,8 @@ public class MouseLook : MonoBehaviour {
 	public float minimumY = -80F;
 	public float maximumY = 80F;
 
-	public bool usemyUDmouse = false;
-	public bool usemyLRmouse = false;
+	public bool usemyUDmouse = true;
+	public bool usemyLRmouse = true;
 
 	private float mouseUD;
 	private float mouseLR;
@@ -73,8 +73,8 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
-		mouseUD = usemyUDmouse ? inputMan.LookUD () : Input.GetAxis ("Mouse Y");
-		mouseLR = usemyLRmouse ? inputMan.LookLR () : Input.GetAxis ("Mouse X");
+		mouseUD = /*usemyUDmouse ? */inputMan.LookUD ()/* : Input.GetAxis ("Mouse Y")*/;
+		mouseLR = /*usemyLRmouse ? */inputMan.LookLR () /*: Input.GetAxis ("Mouse X")*/;
 
 		headbobbing ();
 		AlterRotation ();

@@ -5,6 +5,9 @@ using System.Reflection;
 using System;
 
 public class InputManager : MonoBehaviour {
+	public enum ControlScheme{KeyboardOnly,MouseOnly,Both}
+
+	private ControlScheme controlScheme;
 	private KeyCode jump = KeyCode.Space;
 	private KeyCode tmp;
 	private Axis lookUD,lookLR,vert,hori;
@@ -16,23 +19,37 @@ public class InputManager : MonoBehaviour {
 	private Type type;
 	private MethodInfo method;
 
-	// Use this for initialization
-	void Start () {
-		Debug.Log ("started");
+	public void SetControlsToMouseOnly(){
+		vert.SetToAxis("Mouse Y");
+		hori.SetToAxis("Mouse X");
+		lookUD.SetBoth(KeyCode.W, KeyCode.S);
+		lookLR.SetBoth(KeyCode.D, KeyCode.A);
+	}
+	public void SetControlsToBoth(){
+		vert.SetBoth(KeyCode.W, KeyCode.S);
+		hori.SetBoth(KeyCode.D, KeyCode.A);
+		lookUD.SetToAxis("Mouse Y");
+		lookLR.SetToAxis ("Mouse X");
 
+	}
+	public void SetControlsToKeyboardOnly(){
+		vert.SetBoth(KeyCode.UpArrow, KeyCode.DownArrow);
+		hori.SetBoth(KeyCode.RightArrow, KeyCode.LeftArrow);
+		lookUD.SetBoth(KeyCode.W, KeyCode.S);
+		lookLR.SetBoth(KeyCode.D, KeyCode.A);
+		
+	}
+	void Start () {
 		vert = new Axis (KeyCode.W, KeyCode.S);//should really be using player prefs
 		hori = new Axis (KeyCode.D, KeyCode.A);
 		lookUD = new Axis (KeyCode.UpArrow, KeyCode.DownArrow);
 		lookLR = new Axis (KeyCode.RightArrow, KeyCode.LeftArrow);
 
 		type = Type.GetType("InputManager");//setting type to this class, so that methods can be called via string
-	}
-	public void testMethod(){
-		Debug.Log ("workedwwwdw");
+		SetControlsToMouseOnly ();
 	}
 
 	void OnGUI () {
-
 		if(Event.current.keyCode != KeyCode.None)
 		{tmp = Event.current.keyCode;} //allways gettig the most recent button press
 	}
@@ -51,6 +68,22 @@ public class InputManager : MonoBehaviour {
 		}
 	}
 
+	public void GetNewMUp(){
+		listenNextKey = true;
+		method = type.GetMethod ("UpdateForward");
+	}
+	public void GetNewMDown(){
+		listenNextKey = true;
+		method = type.GetMethod ("UpdateForward");
+	}
+	public void GetNewMRight(){
+		listenNextKey = true;
+		method = type.GetMethod ("UpdateForward");
+	}
+	public void GetNewMLeft(){
+		listenNextKey = true;
+		method = type.GetMethod ("UpdateForward");
+	}
 	public void GetNewForward(){
 		listenNextKey = true;
 		method = type.GetMethod ("UpdateForward");
@@ -67,17 +100,18 @@ public class InputManager : MonoBehaviour {
 		listenNextKey = true;
 		method = type.GetMethod ("UpdateLeft");
 	}
+	public void UpdateMup(){lookUD.SetPos (tmp);}
+	public void UpdateMDown(){lookUD.SetNeg (tmp);}
+	public void UpdateMRight(){lookLR.SetPos (tmp);}
+	public void UpdateMLeft(){lookLR.SetNeg (tmp);}
 	public void UpdateForward(){vert.SetPos (tmp);}
 	public void UpdateBackward(){vert.SetNeg (tmp);}
 	public void UpdateRight(){hori.SetPos (tmp);}
 	public void UpdateLeft(){hori.SetNeg (tmp);}
-
-
-
+	
 	public float Vertical(){
 		return vert.Move();
 	}
-
 	public float Horizontal(){
 		return hori.Move ();
 	}
