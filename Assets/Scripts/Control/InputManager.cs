@@ -70,19 +70,19 @@ public class InputManager : MonoBehaviour {
 
 	public void GetNewMUp(){
 		listenNextKey = true;
-		method = type.GetMethod ("UpdateForward");
+		method = type.GetMethod ("UpdateMup");
 	}
 	public void GetNewMDown(){
 		listenNextKey = true;
-		method = type.GetMethod ("UpdateForward");
+		method = type.GetMethod ("UpdateMDown");
 	}
 	public void GetNewMRight(){
 		listenNextKey = true;
-		method = type.GetMethod ("UpdateForward");
+		method = type.GetMethod ("UpdateMRight");
 	}
 	public void GetNewMLeft(){
 		listenNextKey = true;
-		method = type.GetMethod ("UpdateForward");
+		method = type.GetMethod ("UpdateMLeft");
 	}
 	public void GetNewForward(){
 		listenNextKey = true;
