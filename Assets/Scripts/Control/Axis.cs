@@ -34,8 +34,7 @@ public class Axis{
 	public void SetToAxis (string axis){
 		setAxis = axis;
 		isSetToAxis = true;
-	}
-	
+	}	
 	public float Move(){
 		if(!isSetToAxis){
 			if (Input.GetKey(pos) && !Input.GetKey (neg)){
@@ -70,7 +69,7 @@ public class Axis{
 
 			return axisDown;}
 		else{
-			Debug.Log("axis reads: "+Input.GetAxis(setAxis));
+			//Debug.Log("axis reads: "+Input.GetAxis(setAxis));
 			return Input.GetAxis(setAxis);
 		}
 		

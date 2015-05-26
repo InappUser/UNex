@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour {
 		//wasd f,b,l,f is stored in direction
 		//Debug.Log ("native vertical" + Input.GetAxis ("Vertical"));
 		//Debug.Log ("my vertical" + inputMan.Vertical());
-		vertical = useMyVertical ? inputMan.Vertical () : Input.GetAxis ("Vertical");
-		horizontal = useMyHorizontal ? inputMan.Horizontal () : Input.GetAxis ("Horizontal");
+		vertical =  inputMan.Vertical ();//useMyVertical ? inputMan.Vertical () : Input.GetAxis ("Vertical");
+		horizontal = inputMan.Horizontal ();//useMyHorizontal ? inputMan.Horizontal () : Input.GetAxis ("Horizontal");
 		direction = transform.rotation * new Vector3 (horizontal,0,vertical);//ensuring that
 		//diagonals are not faster
 		//the input is captured in the normal update because want it to feel as responsive as possible
