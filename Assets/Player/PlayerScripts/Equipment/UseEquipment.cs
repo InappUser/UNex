@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class UseEquipment : MonoBehaviour {
+	private InputManager im;
 	private EquipmentManager eqManage;
 	private GameObject equipment;
 	private Animator curWeapAnim;//getting the animator for the current weapon so that the correct animation can be played when animation is used
@@ -9,13 +10,12 @@ public class UseEquipment : MonoBehaviour {
 	private bool startThrowing = false;
 	private bool notVisiable =false;
 	private bool thrown = false;
-	// Use this for initialization
 
-
-
+	void Start(){
+		im = GameObject.FindObjectOfType<InputManager> ();
+	}
 	void FixedUpdate()
 	{
-
 		if (transform != null && equipment && eqManage.currentEquipment.GetEquipmentType() == Equipment.EquipmentType.Throw) {
 			equipment.transform.Translate(equipment.transform.forward * eqManage.currentEquipment.GetThrowSpeed() * Time.deltaTime, Space.World);
 		}
@@ -28,7 +28,7 @@ public class UseEquipment : MonoBehaviour {
 		}
 
 		else{//making sure is right clicking, enough time has passed and not the map before throwing 
-			if(Input.GetButtonDown ("Fire2") && useCounter <=0 && eqManage.currentEquipment.GetEquipmentType() == Equipment.EquipmentType.Throw){
+			if(im.UseEquipment() && useCounter <=0 && eqManage.currentEquipment.GetEquipmentType() == Equipment.EquipmentType.Throw){
 				startThrowing = true;
 				curWeapAnim.SetTrigger("Throw");
 			}

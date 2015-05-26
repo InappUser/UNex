@@ -158,6 +158,7 @@
      <Compile Include="Assets\Player\PlayerScripts\Weapon\WeaponManager.cs" />
      <Compile Include="Assets\Scripts\Control\Axis.cs" />
      <Compile Include="Assets\Scripts\Control\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Control\Key.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GunPivot.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />

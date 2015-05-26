@@ -2,17 +2,19 @@ using UnityEngine;
 using System.Collections;
 
 public class Shoot : MonoBehaviour {
-	private bool reloading = false;
-	private Animator animIN;
-	private Animator animOUT;
 	private Health hitGOHealth;//ammo size will never be big enough to justify full int
 	private WeaponManager weapon; 
+	private InputManager im;
+	private Animator animIN, animOUT;
+	private AudioSource[] gunASources;
 	private float fRateCool;
+	private int numShot = 0;//this increments every shoot to move which audiosource is used to play gun sound
 	private GameObject muzzleFlash;
 	private GameObject[] shotgunExits;
-	private bool firing = false;
-	private int numShot = 0;//this increments every shoot to move which audiosource is used to play gun sound
-	private AudioSource[] gunASources;
+	private bool firing = false, reloading = false;
+
+
+
 
 
 	//private float fRate;
@@ -22,6 +24,7 @@ public class Shoot : MonoBehaviour {
 		shotgunExits = GameObject.FindGameObjectsWithTag ("ShotgunExit");
 		gunASources = GetComponents<AudioSource> (); //assiging all audio sources for the gun for concurrent sound while firing
 		weapon = gameObject.GetComponent<WeaponManager> ();
+		im = GameObject.FindObjectOfType<InputManager>();
 		//weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
 	}
 
@@ -30,14 +33,14 @@ public class Shoot : MonoBehaviour {
 
 		KeepGunCurrent ();
 
-		if(Input.GetButton("Fire1") && (fRateCool<0) && weapon.currentWeapon.clipcount >0 && !reloading && !firing){
+		if(/*Input.GetButton("Fire1")*/im.Shoot() && (fRateCool<0) && weapon.currentWeapon.clipcount >0 && !reloading && !firing){
 			StartCoroutine( Fire());//is an ienumerator so that a delay can occur with the shotgun
-		}else if( weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && !Input.GetButton("Fire1") && animIN.GetBool("Shooting")){
+		}else if( weapon.currentWeapon.GetWeaponType() == Weapon.WeaponType.Stream && /*!Input.GetButton("Fire1")*/!im.Shoot() && animIN.GetBool("Shooting")){
 			//if is the machine gun, the fire button is not being held and the animINator's shooting bool is true then set it to false
 			animIN.SetBool ("Shooting", false);
 		}
 			
-		if(!reloading && (Input.GetKey (KeyCode.R) || weapon.currentWeapon.clipcount <=0) && weapon.currentWeapon.clipcount < weapon.currentWeapon.GetClipSize()){
+		if(!reloading && (im.Reload() || weapon.currentWeapon.clipcount <=0) && weapon.currentWeapon.clipcount < weapon.currentWeapon.GetClipSize()){
 			StartCoroutine(ActivateAnim("Reloading", true, weapon.currentWeapon.GetReloadTime()));}
 
 		if (reloading && weapon.GetWeaponChanged ()) {

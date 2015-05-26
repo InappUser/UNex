@@ -46,17 +46,17 @@ public class EnemyJumping{
 			currentJumpSpot = jumpStarts[0];
 			Debug.Log("player position: "+playerPos);
 			foreach (GameObject spot in jumpStarts) {
-				Debug.Log("option: "+spot+" at "+spot.transform.position);
+				//Debug.Log("option: "+spot+" at "+spot.transform.position);
 				if((Vector3.Distance(playerPos,spot.transform.position) < Vector3.Distance(playerPos,currentJumpSpot.transform.position))/*&& enemyNav.pathStatus == NavMeshPathStatus.PathComplete*/){// if the distance between the new spot and the player is smaller then that of the player and the current closest spot, then make the new spot the closest spot
 					currentJumpSpot = spot; //means that the enemy will go to the closest jumping spot to the player
 				}
-				Debug.Log("selection: "+currentJumpSpot+" at "+currentJumpSpot.transform.position);
+				//Debug.Log("selection: "+currentJumpSpot+" at "+currentJumpSpot.transform.position);
 			}
 
 
 		}else{//if they have jumped , then go to the jumpspot's child, later they will land on the jumpspot
 			currentJumpSpot = jumpStarts[0].transform.GetChild(0).gameObject;
-			foreach (GameObject spot in jumpStarts) {
+			foreach (GameObject spot in jumpStarts) {//thing is: the jumpspot closest to the player is not necisarily what makes sense for the enemy to "land on"- could go to closest to enemy but feel as though the teleporting makes for an interesting mechanic
 				if((Vector3.Distance(playerPos,spot.transform.GetChild(0).position) < Vector3.Distance(playerPos,currentJumpSpot.transform.position))/*&& enemyNav.pathStatus == NavMeshPathStatus.PathComplete*/){// if the distance between the new spot and the player is smaller then that of the player and the current closest spot, then make the new spot the closest spot
 					currentJumpSpot = spot.transform.GetChild(0).gameObject; //means that the enemy will go to the closest jumping spot to the player -- am also checking to see if the path is navigable
 				}

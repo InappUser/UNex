@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 	public bool useMyVertical =true;
 	public bool useMyHorizontal =true;
 
-	private InputManager inputMan;
+	private InputManager im;
 	private Animator anim;
 	private Vector3 direction = Vector3.zero; //forward/back & left/right
 	private Vector3 distance;
@@ -26,14 +26,14 @@ public class PlayerMovement : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		PlayerScore.enemyStaticsTotal = (GameObject.FindGameObjectsWithTag ("EnemyStatic").Length);//very messy, though does not work when run after player has spawned
 		//UnityEngine.Debug.Log ("enemies = "+PlayerScore.enemyStaticsTotal);
-		inputMan = GameObject.FindObjectOfType<InputManager> ();
+		im = GameObject.FindObjectOfType<InputManager> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		XYMovement ();
 		CheckIfFalling();
-		if (cc.isGrounded && Input.GetButton("Jump")) {
+		if (cc.isGrounded && im.Jump()) {
 			verticalVelocity = jumpSpeed;
 		}
 
@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour {
 		//wasd f,b,l,f is stored in direction
 		//Debug.Log ("native vertical" + Input.GetAxis ("Vertical"));
 		//Debug.Log ("my vertical" + inputMan.Vertical());
-		vertical =  inputMan.Vertical ();//useMyVertical ? inputMan.Vertical () : Input.GetAxis ("Vertical");
-		horizontal = inputMan.Horizontal ();//useMyHorizontal ? inputMan.Horizontal () : Input.GetAxis ("Horizontal");
+		vertical =  im.Vertical ();//useMyVertical ? inputMan.Vertical () : Input.GetAxis ("Vertical");
+		horizontal = im.Horizontal ();//useMyHorizontal ? inputMan.Horizontal () : Input.GetAxis ("Horizontal");
 		direction = transform.rotation * new Vector3 (horizontal,0,vertical);//ensuring that
 		//diagonals are not faster
 		//the input is captured in the normal update because want it to feel as responsive as possible
