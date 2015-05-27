@@ -91,7 +91,6 @@ public class UIManager : MonoBehaviour {
 			UIDisable("SBUI");
 		}
 	}
-
 	public void UIEnableOnly(string enable)
 	{
 		for(int i=0;i<uis.Length;i++){//setting all UI to inacive at start
@@ -196,7 +195,6 @@ public class UIManager : MonoBehaviour {
 		}
 
 	}
-
 	public void UpdateGame()
 	{
 		UnityEngine.Debug.Log ("updating game");
@@ -211,13 +209,33 @@ public class UIManager : MonoBehaviour {
 			//ui.ShowUpdateFailed();
 			UIEnable("StartUIUpdateFailed");
 		}
-		//UIEnable("StartUIUpdateFailed");
-
 	}
 	public void HideUpdateFailed()
 	{
 		UIDisable ("StartUIUpdateFailed");
 	}
-
-	
+	public void ActivateInput(string tag,bool active){
+		bool found = false;
+		if (active) {
+			foreach (GameObject ui in uis) {
+				if(ui.tag == tag && ui.GetComponent<InputField>()!=null){
+					ui.GetComponent<InputField>().ActivateInputField();		
+					ui.GetComponent<InputField>().interactable = false;
+					found = true;
+				}
+			}	
+		}else{
+			foreach (GameObject ui in uis) {
+				if(ui.tag == tag && ui.GetComponent<InputField>()!=null){
+					ui.GetComponent<InputField>().DeactivateInputField();
+					ui.GetComponent<InputField>().interactable = active;
+					found = true;
+				}
+			}
+		}
+		if(found){
+			Cursor.visible =active;
+				// = active ? CursorLockMode.None :  CursorLockMode.Confined;
+		}
+	}	
 }

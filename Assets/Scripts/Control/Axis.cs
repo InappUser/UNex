@@ -13,38 +13,64 @@ public class Axis{
 	private bool goingNeg = false;
 	private bool axisBothSides = false;
 	private string bothAxis;
+	private string posName;
+	private string negName;
+
 
 	public Axis(KeyCode p, KeyCode n){
 		posKey = new Key(p);
+		posName = p.ToString();
 		negKey = new Key(n);
+		negName = n.ToString ();
 		axisBothSides = false;
 	}
 	public Axis(string axis, InputManager.AxisSide posNeg){
 		if (posNeg>0) {
-			posKey.SetToAxis(axis,posNeg);}
+			posKey.SetToAxis(axis,posNeg);
+			posName = posNeg.ToString () + " " + axis;}
 		else{
-			negKey.SetToAxis(axis,posNeg);}
+			negKey.SetToAxis(axis,posNeg);
+			negName = posNeg.ToString () + " " + axis;}
+	}
+	public string GetPosName(){
+		return posName;
+	}
+	public string GetNegName(){
+		return negName;
 	}
 	public void SetPos(KeyCode p){
 		posKey.SetToKey(p);
+		posName = p.ToString();
 		axisBothSides = false;
 	}
 	public void SetNeg(KeyCode n){
 		negKey.SetToKey(n);
+		negName = n.ToString ();
 		axisBothSides = false;
 	}
 	public void SetBoth(KeyCode p, KeyCode n){
 		posKey.SetToKey(p);
+		posName = p.ToString();
 		negKey.SetToKey(n);
+		negName = n.ToString ();
 		axisBothSides = false;
 	}
 	public void SetToAxis (string axis, InputManager.AxisSide posNeg){
 		if (posNeg>0) {
-			posKey.SetToAxis(axis,posNeg);}
+			posKey.SetToAxis(axis,posNeg);
+			posName = posNeg.ToString () + " " + axis;}
 		else{
-			negKey.SetToAxis(axis,posNeg);}
+			negKey.SetToAxis(axis,posNeg);
+			negName = posNeg.ToString () + " " + axis;}
+		axisBothSides = false;
+		if(negKey.GetActive() == axis && posKey.GetActive() == axis){
+			Debug.Log("changing to both axis");
+			SetToAxis(axis);//making it a "both" axis if both axis are used - Unity's Axis is far superior to mine, need to use where applicable
+		}
 	}
-	public void SetToAxis (string axis){
+	public void SetToAxis (string axis){//should also have an inverted parameter 
+		posName = "> " + axis;
+		negName = "< " + axis;
 		bothAxis = axis;
 		axisBothSides = true;
 	}	
