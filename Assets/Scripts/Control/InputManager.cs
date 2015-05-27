@@ -5,10 +5,8 @@ using System.Reflection;
 using System;
 
 public class InputManager : MonoBehaviour {
-	public enum ControlScheme{KeyboardOnly,MouseOnly,Both}
 	public enum AxisSide{positive = 1, negative=-1};
-	
-	private ControlScheme controlScheme;
+	public GameObject controlUI;
 	private Key jump;
 	private Key shoot; 
 	private Key reload; 
@@ -34,12 +32,26 @@ public class InputManager : MonoBehaviour {
 		hori.SetToAxis("Mouse X");
 		lookUD.SetBoth(KeyCode.W, KeyCode.S);
 		lookLR.SetBoth(KeyCode.D, KeyCode.A);
+		jump.SetToKey(KeyCode.Space);
+		shoot.SetToKey(KeyCode.Mouse0);
+		reload.SetToKey(KeyCode.R); 
+		equipment.SetToKey(KeyCode.Mouse1); 
+		weapEqSlot1.SetToKey(KeyCode.Alpha1); 
+		weapEqSlot2.SetToKey(KeyCode.Alpha2); 
+		weapEqSlot3.SetToKey(KeyCode.Alpha3); 
 	}
 	public void SetControlsToBoth(){
 		vert.SetBoth(KeyCode.W, KeyCode.S);
 		hori.SetBoth(KeyCode.D, KeyCode.A);
 		lookUD.SetToAxis("Mouse Y");
 		lookLR.SetToAxis ("Mouse X");
+		jump.SetToKey(KeyCode.Space);
+		shoot.SetToKey(KeyCode.Mouse0);
+		reload.SetToKey(KeyCode.R); 
+		equipment.SetToKey(KeyCode.Mouse1); 
+		weapEqSlot1.SetToKey(KeyCode.Alpha1); 
+		weapEqSlot2.SetToKey(KeyCode.Alpha2); 
+		weapEqSlot3.SetToKey(KeyCode.Alpha3); 
 
 	}
 	public void SetControlsToKeyboardOnly(){
@@ -47,6 +59,13 @@ public class InputManager : MonoBehaviour {
 		hori.SetBoth(KeyCode.RightArrow, KeyCode.LeftArrow);
 		lookUD.SetBoth(KeyCode.W, KeyCode.S);
 		lookLR.SetBoth(KeyCode.D, KeyCode.A);
+		jump.SetToKey(KeyCode.Space);
+		shoot.SetToKey(KeyCode.Mouse0);
+		reload.SetToKey(KeyCode.R); 
+		equipment.SetToKey(KeyCode.Mouse1); 
+		weapEqSlot1.SetToKey(KeyCode.Alpha1); 
+		weapEqSlot2.SetToKey(KeyCode.Alpha2); 
+		weapEqSlot3.SetToKey(KeyCode.Alpha3); 
 		
 	}
 	void Start () {
@@ -61,6 +80,8 @@ public class InputManager : MonoBehaviour {
 		weapEqSlot1 = new Key (KeyCode.Alpha1); 
 		weapEqSlot2 = new Key (KeyCode.Alpha2); 
 		weapEqSlot3  = new Key (KeyCode.Alpha3); 
+
+		controlUI = GameObject.Find ("UI").transform.FindChild ("PauseMenu").FindChild ("PnlSetControls").gameObject;
 
 		type = Type.GetType("InputManager");//setting type to this class, so that methods can be called via string
 		SetControlsToBoth ();
@@ -92,20 +113,20 @@ public class InputManager : MonoBehaviour {
 		listenNextKey = true;
 		mName=st;}//getting name of the method to be called from the UI calling this function
 
-	public void UpdateMup()      {lookUD.SetPos (tmp);}//setting the correct part of the correct axis as stated by the user 
-	public void UpdateMDown()    {lookUD.SetNeg (tmp);}
-	public void UpdateMRight()   {lookLR.SetPos (tmp);}
-	public void UpdateMLeft()    {lookLR.SetNeg (tmp);}
-	public void UpdateForward()  {vert.SetPos (tmp);} //seems as though there would be a much more efficient way of doing this. Seems to be a lot of repetition
-	public void UpdateBackward() {vert.SetNeg (tmp);}
-	public void UpdateRight()    {hori.SetPos (tmp);}
-	public void UpdateLeft()     {hori.SetNeg (tmp);}
-	public void UpdateJump()     {jump.SetToKey(tmp); Debug.Log ("key is " + tmp);jump.shouldListen = true;}
-	public void UpdateShoot()    {shoot.SetToKey(tmp);}
-	public void UpdateReload()   {reload.SetToKey(tmp);}
-	public void UpdateEquipment(){equipment.SetToKey(tmp);}
-
-	public void UpdateMup       (string st, AxisSide posNeg){lookUD.   SetToAxis(st, posNeg);}
+	public void UpdateMup()      {lookUD.SetPos     (tmp);controlUI.transform.FindChild ("inptMUP")      .GetComponent<InputField>().text = tmp.ToString();}//setting the correct part of the correct axis as stated by the user 
+	public void UpdateMDown()    {lookUD.SetNeg     (tmp);controlUI.transform.FindChild ("inptMDOWN")    .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateMRight()   {lookLR.SetPos     (tmp);controlUI.transform.FindChild ("inptMRIGHT")   .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateMLeft()    {lookLR.SetNeg     (tmp);controlUI.transform.FindChild ("inptMLEFT")    .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateForward()  {vert.SetPos       (tmp);controlUI.transform.FindChild ("inptForward")  .GetComponent<InputField>().text = tmp.ToString();} //seems as though there would be a much more efficient way of doing this. Seems to be a lot of repetition
+	public void UpdateBackward() {vert.SetNeg       (tmp);controlUI.transform.FindChild ("inptBackward") .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateRight()    {hori.SetPos       (tmp);controlUI.transform.FindChild ("inptRight")    .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateLeft()     {hori.SetNeg       (tmp);controlUI.transform.FindChild ("inptLeft")     .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateJump()     {jump.SetToKey     (tmp);controlUI.transform.FindChild ("inptJump")     .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateShoot()    {shoot.SetToKey    (tmp);controlUI.transform.FindChild ("inptShoot")    .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateReload()   {reload.SetToKey   (tmp);controlUI.transform.FindChild ("inptReload")   .GetComponent<InputField>().text = tmp.ToString();}
+	public void UpdateEquipment(){equipment.SetToKey(tmp);controlUI.transform.FindChild ("inptEquipment").GetComponent<InputField>().text = tmp.ToString();}
+	//string override methods for assigning axis, need to be public to be found via reflection
+	public void UpdateMup       (string st, AxisSide posNeg){lookUD.   SetToAxis(st, posNeg);}//lack of "proper" indentation is a small price for such legibility between such similar functions
 	public void UpdateMDown     (string st, AxisSide posNeg){lookUD.   SetToAxis(st, posNeg);}//setting the correct axis to the correct 
 	public void UpdateMRight    (string st, AxisSide posNeg){lookLR.   SetToAxis(st, posNeg);}
 	public void UpdateMLeft     (string st, AxisSide posNeg){lookLR.   SetToAxis(st, posNeg);}
