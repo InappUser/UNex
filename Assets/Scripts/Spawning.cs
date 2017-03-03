@@ -28,8 +28,8 @@ public class Spawning : MonoBehaviour {
 			
 			((MonoBehaviour)player.GetComponent ("MouseLook")).enabled = enable;//how to reference disabled components, etc.
 			if(firstSpawn){
-				player.GetComponent<MouseLook>().sensitivityX = PlayerPrefs.GetFloat("SensitivityX"); //setting the saved sensitivity
-				player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
+				player.GetComponent<MouseLook>().SensitivityX = PlayerPrefs.GetFloat("SensitivityX"); //setting the saved sensitivity
+				player.transform.GetChild(0).GetComponentInChildren<MouseLook>().SensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
 				firstSpawn = false;
 			}
 			((MonoBehaviour)player.GetComponent ("PlayerMovement")).enabled = enable;

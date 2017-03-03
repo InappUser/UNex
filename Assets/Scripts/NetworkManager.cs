@@ -129,6 +129,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 	public void StartMultiplayer()
 	{
+        UnityEngine.Debug.Log("start multiplayer!");
 		multiplayer = true;
 		singleplayer = false;
 		Connection ();

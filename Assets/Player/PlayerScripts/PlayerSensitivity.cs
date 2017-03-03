@@ -24,8 +24,8 @@ public class PlayerSensitivity : MonoBehaviour {
 			player = GetPlayer();		
 		} else if(!setInitPlayerSens)
 		{
-			player.GetComponent<MouseLook>().sensitivityX = PlayerPrefs.GetFloat ("SensitivityX");
-			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
+			player.GetComponent<MouseLook>().SensitivityX = PlayerPrefs.GetFloat ("SensitivityX");
+			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().SensitivityY = PlayerPrefs.GetFloat ("SensitivityY");
 			setInitPlayerSens =true;
 		}
 		//Debug.Log("Saved X: "+PlayerPrefs.GetFloat ("SensitivityX"));
@@ -50,7 +50,7 @@ public class PlayerSensitivity : MonoBehaviour {
 	public void ChangeX(float newX)
 	{
 		if(foundPlayer){//public function executed by the scrollbars in teh pause menu options used to change the player sensitivity;
-			player.GetComponent<MouseLook>().sensitivityX = (newX*XMULTIPLIER);
+			player.GetComponent<MouseLook>().SensitivityX = (newX*XMULTIPLIER);
 			PlayerPrefs.SetFloat("SensitivityX",(newX*XMULTIPLIER));//saving the sensitivity whenever is changed
 			//Debug.Log ("assigned new x:"+(newX*15f));
 		}
@@ -60,7 +60,7 @@ public class PlayerSensitivity : MonoBehaviour {
 	public void ChangeY(float newY)
 	{
 		if(foundPlayer){
-			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().sensitivityY = (newY*YMULTIPLIER);
+			player.transform.GetChild(0).GetComponentInChildren<MouseLook>().SensitivityY = (newY*YMULTIPLIER);
 			PlayerPrefs.SetFloat("SensitivityY",(newY*YMULTIPLIER));//saving the sensitivity whenever is changed
 			//Debug.Log ("assigned new y:"+(newY*10f));
 		}

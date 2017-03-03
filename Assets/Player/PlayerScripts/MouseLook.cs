@@ -18,16 +18,19 @@ using UnityEngine.EventSystems;
 ///   -> Set the mouse look to use LookY. (You want the camera to tilt up and down like a head. The character already turns.)
 //[AddComponentMenu("Camera-Control/Mouse Look")]
 public class MouseLook : MonoBehaviour {
-	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
-	public RotationAxes axes = RotationAxes.MouseXAndY;
-	public float sensitivityX = 15F;
-	public float sensitivityY = 10F;
+    public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+    public RotationAxes axes = RotationAxes.MouseXAndY;
+   float m_SensitivityX = 15F;
+   float m_SensitivityY = 10F;
 
-	public float minimumX = -360F;
-	public float maximumX = 360F;
+    public float SensitivityX { set { m_SensitivityX = value;} }
+    public float SensitivityY { set { m_SensitivityX = value; } }
 
-	public float minimumY = -80F;
-	public float maximumY = 80F;
+    float minimumX = -360F;
+	float maximumX = 360F;
+
+	float minimumY = -80F;
+	float maximumY = 80F;
 
 	public bool usemyUDmouse = true;
 	public bool usemyLRmouse = true;
@@ -73,6 +76,7 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
+        Debug.Log("m-ud: "+ inputMan.LookUD());
 		mouseUD = /*usemyUDmouse ? */inputMan.LookUD ()/* : Input.GetAxis ("Mouse Y")*/;
 		mouseLR = /*usemyLRmouse ? */inputMan.LookLR () /*: Input.GetAxis ("Mouse X")*/;
 
@@ -99,22 +103,32 @@ public class MouseLook : MonoBehaviour {
 		if (axes == RotationAxes.MouseXAndY)
 		{//moving view left to right
 			resetRot = false;
-			rotationX = transform.localEulerAngles.y + mouseLR * /*5f*/sensitivityX;
-			rotationY += mouseUD * /*.75f;//*/sensitivityY;
-			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-			transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+			rotationX = transform.localEulerAngles.y + mouseLR * /*5f*/m_SensitivityX;
+            //Debug.Log("rot y 1 " + rotationY);
+            rotationY += mouseUD * /*.75f;//*/m_SensitivityY;
+           // Debug.Log("rot y 2" + rotationY);
+            rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+            //Debug.Log("rot y 3" + rotationY);
+            //Debug.Log("min: " + minimumY + "max "+ maximumY);
+            transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+
 		}
 		else if (axes == RotationAxes.MouseX)
 		{
 			resetRot = false;
-			//transform.Rotate(0, Input.GetAxis("Mouse X") * 1.5f/*sensitivityX*/, 0);
-		}
+            rotationY += mouseLR * /*.75f;//*/m_SensitivityY;
+            //rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+            transform.localEulerAngles = new Vector3(0,rotationY, 0);
+        }
 		else
 		{//moving view up and down
-			resetRot = false;
-			rotationY += mouseUD * /*3f;*/sensitivityY;
-			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-			transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
+            Debug.Log("rot y 1 " + mouseUD);
+            resetRot = false;
+			rotationX += mouseUD * /*3f;*/m_SensitivityY;
+            Debug.Log("rot y 2 " + rotationX+" sensy "+ m_SensitivityY);
+            rotationX = Mathf.Clamp (rotationX, minimumY, maximumY);
+            Debug.Log("rot y 2 " + rotationX);
+            transform.localEulerAngles = new Vector3(-rotationX, 0, 0);
 		}
 	}
 	void headbobbing()
@@ -166,9 +180,9 @@ public class MouseLook : MonoBehaviour {
 	void ChangeSensitivity(float newSensitivity)
 	{
 		if(gameObject.name == "FPS_Player(Clone)"){//if name is "FPS_Player(Clone)" then it is the body making the request, so the x sens is the one that needs changing
-			sensitivityX = (newSensitivity *15f);
+			m_SensitivityX = (newSensitivity *15f);
 		}else{
-			sensitivityY = (newSensitivity *15f);
+			m_SensitivityY = (newSensitivity *15f);
 		}
 	}
 
