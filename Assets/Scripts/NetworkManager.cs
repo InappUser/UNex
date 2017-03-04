@@ -45,8 +45,9 @@ public class NetworkManager : MonoBehaviour {
 
 	public void AddChatMessage(string message)//abstracting further, so no need for very lengthy rpc calls in main code
 	{
-		//GetComponent<PhotonView> ().viewID ++;
-		GetComponent<PhotonView> ().RPC ("AddChatMessage_RPC",PhotonTargets.AllBuffered,message);
+        PhotonView pv = GetComponent<PhotonView>();
+        pv.viewID ++;
+		pv.RPC ("AddChatMessage_RPC",PhotonTargets.AllBuffered,message);
 	}
 	[RPC]
 	void AddChatMessage_RPC(string message)

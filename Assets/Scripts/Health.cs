@@ -60,7 +60,7 @@ public class Health : MonoBehaviour {
 	}
 	void Die()
 	{
-		//Debug.Log("enemyType: "+gameObject.tag);
+		Debug.Log("DIE enemyType: "+gameObject.tag);
 		PhotonView pv = PhotonView.Get (this);
 		if (gameObject.tag == "EnemyStatic") {
 			GameManager.enemyStaticsDead ++;

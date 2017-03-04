@@ -22,8 +22,13 @@ public class Shoot : MonoBehaviour {
 	void Start()
 	{
 		shotgunExits = GameObject.FindGameObjectsWithTag ("ShotgunExit");
+      
 		gunASources = GetComponents<AudioSource> (); //assiging all audio sources for the gun for concurrent sound while firing
-		weapon = gameObject.GetComponent<WeaponManager> ();
+        foreach (var item in gunASources)
+        {
+            item.volume = .25f;
+        }
+        weapon = gameObject.GetComponent<WeaponManager> ();
 		im = GameObject.FindObjectOfType<InputManager>();
 		//weapon.currentWeapon.clipcount = weapon.currentWeapon.GetClipSize ();
 	}

@@ -76,7 +76,7 @@ public class MouseLook : MonoBehaviour {
 
 	void Update ()
 	{
-        Debug.Log("m-ud: "+ inputMan.LookUD());
+       // Debug.Log("m-ud: "+ inputMan.LookUD());
 		mouseUD = /*usemyUDmouse ? */inputMan.LookUD ()/* : Input.GetAxis ("Mouse Y")*/;
 		mouseLR = /*usemyLRmouse ? */inputMan.LookLR () /*: Input.GetAxis ("Mouse X")*/;
 
@@ -122,12 +122,12 @@ public class MouseLook : MonoBehaviour {
         }
 		else
 		{//moving view up and down
-            Debug.Log("rot y 1 " + mouseUD);
+           // Debug.Log("rot y 1 " + mouseUD);
             resetRot = false;
 			rotationX += mouseUD * /*3f;*/m_SensitivityY;
-            Debug.Log("rot y 2 " + rotationX+" sensy "+ m_SensitivityY);
+           // Debug.Log("rot y 2 " + rotationX+" sensy "+ m_SensitivityY);
             rotationX = Mathf.Clamp (rotationX, minimumY, maximumY);
-            Debug.Log("rot y 2 " + rotationX);
+            //Debug.Log("rot y 2 " + rotationX);
             transform.localEulerAngles = new Vector3(-rotationX, 0, 0);
 		}
 	}
